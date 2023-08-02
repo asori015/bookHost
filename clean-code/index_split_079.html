@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_156">Chapter 11: Systems</h2>
+<p class="calibre1"><b class="calibre3">Listing 11-4 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Spring 2.X configuration file</b></p>
+<p class="calibre1">class="com.example.banking.model.Bank"</p>
+<p class="calibre1">p:dataAccessObject-ref="bankDataAccessObject"/&gt;</p>
+<p class="calibre1">...</p>
+<p class="calibre1">&lt;/beans&gt;</p>
+<p class="calibre1">Each “bean” is like one part of a nested “Russian doll,” with a domain object for a Bank proxied (wrapped) by a data accessor object (DAO), which is itself proxied by a JDBC driver data source. (See Figure 11-3.) <b class="calibre3">Figure 11-3</b></p>
+<p class="calibre1">The “Russian doll” of decorators</p>
+<p class="calibre1">The client believes it is invoking getAccounts() on a Bank object, but it is actually talking to the outermost of a set of nested DECORATOR14 objects that extend the basic behavior of the Bank POJO. We could add other decorators for transactions, caching, and so forth <i class="calibre4">. </i></p>
+<p class="calibre1">In the application, a few lines are needed to ask the DI container for the top-level objects in the system, as specified in the XML file.</p>
+<p class="calibre1">XmlBeanFactory bf =</p>
+<p class="calibre1">new XmlBeanFactory(new ClassPathResource("app.xml", getClass())); Bank bank = (Bank) bf.getBean("bank");</p>
+<p class="calibre1">Because so few lines of Spring-specific Java code are required,  <i class="calibre4">the application is almost</i> <i class="calibre4">completely decoupled from Spring</i>, eliminating all the tight-coupling problems of systems like EJB2.</p>
+<p class="calibre1">Although XML can be verbose and hard to read,15 the “policy” specified in these configuration files is simpler than the complicated proxy and aspect logic that is hidden from view and created automatically. This type of architecture is so compelling that frameworks like Spring led to a complete overhaul of the EJB standard for version 3. EJB3</p>
+<p class="calibre1">14. [GOF].</p>
+<p class="calibre1">15. The example can be simplified using mechanisms that exploit  <i class="calibre4">convention over configuration </i> and Java 5 annotations to reduce the amount of explicit “wiring” logic required.</p>
+<p class="calibre1"><a id="p196"></a><b class="calibre3">Pure Java AOP Frameworks</b></p>
+<p class="calibre1">165</p>
+<p class="calibre1">largely follows the Spring model of declaratively supporting cross-cutting concerns using XML configuration files and/or Java 5 annotations.</p>
+<p class="calibre1">Listing 11-5 shows our Bank object rewritten in EJB316.</p>
+<p class="calibre1"><b class="calibre3">Listing 11-5 </b></p>
+<p class="calibre1"><b class="calibre3">An EBJ3 Bank EJB</b></p>
+<p class="calibre1">package com.example.banking.model;</p>
+<p class="calibre1">import javax.persistence.*;</p>
+<p class="calibre1">import java.util.ArrayList;</p>
+<p class="calibre1">import java.util.Collection;</p>
+<p class="calibre1">@Entity</p>
+<p class="calibre1">@Table(name = "BANKS")</p>
+<p class="calibre1">public class Bank implements java.io.Serializable {</p>
+<p class="calibre1">@Id @GeneratedValue(strategy=GenerationType.AUTO)</p>
+<p class="calibre1">private int id;</p>
+<p class="calibre1">@Embeddable // An object “inlined” in Bank’s DB row</p>
+<p class="calibre1">public class Address {</p>
+<p class="calibre1">protected String streetAddr1;</p>
+<p class="calibre1">protected String streetAddr2;</p>
+<p class="calibre1">protected String city;</p>
+<p class="calibre1">protected String state;</p>
+<p class="calibre1">protected String zipCode;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Embedded</p>
+<p class="calibre1">private Address address;</p>
+<p class="calibre1">@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="bank")</p>
+<p class="calibre1">private Collection&lt;Account&gt; accounts = new ArrayList&lt;Account&gt;(); public int getId() {</p>
+<p class="calibre1">return id;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setId(int id) {</p>
+<p class="calibre1">this.id = id;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void addAccount(Account account) {</p>
+<p class="calibre1">account.setBank(this);</p>
+<p class="calibre1">accounts.add(account);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Collection&lt;Account&gt; getAccounts() {</p>
+<p class="calibre1">return accounts;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">16. <a href="http://www.onjava.com/pub/a/onjava/2006/05/17/standardizing-with-ejb3-java-persistence-api.html">Adapted from http://www.onjava.com/pub/a/onjava/2006/05/17/standardizing-with-ejb3-java-persistence-api.html</a></p>
+<p class="calibre1"><a id="p197"></a>166</p>
+<div class="calibre6" id="calibre_pb_157"></div>
+</body>
+</html>

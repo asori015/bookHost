@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_86">Chapter 5: Formatting</h2>
+<p class="calibre1">private Response response;</p>
+<p class="calibre1">private FitNesseContext context;</p>
+<p class="calibre1">protected long requestParsingTimeLimit;</p>
+<p class="calibre1">private long requestProgress;</p>
+<p class="calibre1">private long requestParsingDeadline;</p>
+<p class="calibre1">private boolean hasError;</p>
+<p class="calibre1">public FitNesseExpediter(Socket s, FitNesseContext context) throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">this.context = context;</p>
+<p class="calibre1">socket = s;</p>
+<p class="calibre1">input = s.getInputStream();</p>
+<p class="calibre1">output = s.getOutputStream();</p>
+<p class="calibre1">requestParsingTimeLimit = 10000;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Indentation</b></a></p>
+<p class="calibre1">A source file is a hierarchy rather like an outline. There is information that pertains to the file as a whole, to the individual classes within the file, to the methods within the classes, to the blocks within the methods, and recursively to the blocks within the blocks. Each level of this hierarchy is a scope into which names can be declared and in which declarations and executable statements are interpreted.</p>
+<p class="calibre1">To make this hierarchy of scopes visible, we indent the lines of source code in pro-portion to their position in the hiearchy. Statements at the level of the file, such as most class declarations, are not indented at all. Methods within a class are indented one level to the right of the class. Implementations of those methods are implemented one level to the right of the method declaration. Block implementations are implemented one level to the right of their containing block, and so on.</p>
+<p class="calibre1">Programmers rely heavily on this indentation scheme. They visually line up lines on the left to see what scope they appear in. This allows them to quickly hop over scopes, such as implementations of if or while statements, that are not relevant to their current situation. They scan the left for new method declarations, new variables, and even new classes. Without indentation, programs would be virtually unreadable by humans.</p>
+<p class="calibre1">Consider the following programs that are syntactically and semantically identical: public class FitNesseServer implements SocketServer { private FitNesseContext context; public FitNesseServer(FitNesseContext context) { this.context =</p>
+<p class="calibre1">context; } public void serve(Socket s) { serve(s, 10000); } public void serve(Socket s, long requestTimeout) { try { FitNesseExpediter sender = new FitNesseExpediter(s, context);</p>
+<p class="calibre1">sender.setRequestParsingTimeLimit(requestTimeout); sender.start(); }</p>
+<p class="calibre1">catch(Exception e) { e.printStackTrace(); } } }</p>
+<p class="calibre1">-----</p>
+<p class="calibre1">public class FitNesseServer implements SocketServer {</p>
+<p class="calibre1">private FitNesseContext context;</p>
+<p class="calibre1"><a id="p120"></a><b class="calibre3">Horizontal Formatting</b></p>
+<p class="calibre1">89</p>
+<p class="calibre1">public FitNesseServer(FitNesseContext context) {</p>
+<p class="calibre1">this.context = context;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void serve(Socket s) {</p>
+<p class="calibre1">serve(s, 10000);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void serve(Socket s, long requestTimeout) {</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">FitNesseExpediter sender = new FitNesseExpediter(s, context);</p>
+<p class="calibre1">sender.setRequestParsingTimeLimit(requestTimeout);</p>
+<p class="calibre1">sender.start();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">catch (Exception e) {</p>
+<p class="calibre1">e.printStackTrace();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Your eye can rapidly discern the structure of the indented file. You can almost instantly spot the variables, constructors, accessors, and methods. It takes just a few seconds to realize that this is some kind of simple front end to a socket, with a time-out. The unindented version, however, is virtually impenetrable without intense study.</p>
+<p class="calibre1"><b class="calibre3">Breaking Indentation. </b>It is sometimes tempting to break the indentation rule for short if statements, short while loops, or short functions. Whenever I have succumbed to this temptation, I have almost always gone back and put the indentation back in. So I avoid collapsing scopes down to one line like this: public class CommentWidget extends TextWidget</p>
+<p class="calibre1">{</p>
+<p class="calibre1">public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?"; public CommentWidget(ParentWidget parent, String text){super(parent, text);}</p>
+<p class="calibre1">public String render() throws Exception {return ""; }</p>
+<p class="calibre1">}</p>
+<p class="calibre1">I prefer to expand and indent the scopes instead, like this:</p>
+<p class="calibre1">public class CommentWidget extends TextWidget {</p>
+<p class="calibre1">public static final String REGEXP = "^#[^\r\n]*(?:(?:\r\n)|\n|\r)?"; public CommentWidget(ParentWidget parent, String text) {</p>
+<p class="calibre1">super(parent, text);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String render() throws Exception {</p>
+<p class="calibre1">return "";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p121"></a><img src="index-121_1.png" alt="Image 29" class="calibre2"/></p>
+<p class="calibre1">90</p>
+<div class="calibre6" id="calibre_pb_87"></div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_26">Chapter 2: Meaningful Names</h2>
+<p class="calibre1">Imagine that you have variables named firstName, lastName, street, houseNumber, city, state, and zipcode. Taken together it’s pretty clear that they form an address. But what if you just saw the state variable being used alone in a method? Would you automatically infer that it was part of an address?</p>
+<p class="calibre1">You can add context by using prefixes: addrFirstName, addrLastName, addrState, and so on. At least readers will understand that these variables are part of a larger structure. Of course, a better solution is to create a class named Address. Then, even the compiler knows that the variables belong to a bigger concept.</p>
+<p class="calibre1">Consider the method in Listing 2-1. Do the variables need a more meaningful context? The function name provides only part of the context; the algorithm provides the rest.</p>
+<p class="calibre1">Once you read through the function, you see that the three variables, number, verb, and pluralModifier, are part of the “guess statistics” message. Unfortunately, the context must be inferred. When you first look at the method, the meanings of the variables are opaque.</p>
+<p class="calibre1"><b class="calibre3">Listing 2-1 </b></p>
+<p class="calibre1"><b class="calibre3">Variables with unclear context. </b></p>
+<p class="calibre1">private void printGuessStatistics(char candidate, int count) {</p>
+<p class="calibre1">String number;</p>
+<p class="calibre1">String verb;</p>
+<p class="calibre1">String pluralModifier;</p>
+<p class="calibre1">if (count == 0) {</p>
+<p class="calibre1">number = "no";</p>
+<p class="calibre1">verb = "are";</p>
+<p class="calibre1">pluralModifier = "s";</p>
+<p class="calibre1">} else if (count == 1) {</p>
+<p class="calibre1">number = "1";</p>
+<p class="calibre1">verb = "is";</p>
+<p class="calibre1">pluralModifier = "";</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">number = Integer.toString(count);</p>
+<p class="calibre1">verb = "are";</p>
+<p class="calibre1">pluralModifier = "s";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">String guessMessage = String.format(</p>
+<p class="calibre1">"There %s %s %s%s", verb, number, candidate, pluralModifier</p>
+<p class="calibre1">);</p>
+<p class="calibre1">print(guessMessage);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The function is a bit too long and the variables are used throughout. To split the function into smaller pieces we need to create a GuessStatisticsMessage class and make the three variables fields of this class. This provides a clear context for the three variables. They are  <i class="calibre4">definitively </i> part of the GuessStatisticsMessage. The improvement of context also allows the algorithm to be made much cleaner by breaking it into many smaller functions. (See Listing 2-2.) <a id="p60"></a><b class="calibre3">Don’t Add Gratuitous Context</b></p>
+<p class="calibre1">29</p>
+<p class="calibre1"><b class="calibre3">Listing 2-2 </b></p>
+<p class="calibre1"><b class="calibre3">Variables have a context. </b></p>
+<p class="calibre1">public class GuessStatisticsMessage {</p>
+<p class="calibre1">private String number;</p>
+<p class="calibre1">private String verb;</p>
+<p class="calibre1">private String pluralModifier;</p>
+<p class="calibre1">public String make(char candidate, int count) {</p>
+<p class="calibre1">createPluralDependentMessageParts(count);</p>
+<p class="calibre1">return String.format(</p>
+<p class="calibre1">"There %s %s %s%s",</p>
+<p class="calibre1">verb, number, candidate, pluralModifier );</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void createPluralDependentMessageParts(int count) {</p>
+<p class="calibre1">if (count == 0) {</p>
+<p class="calibre1">thereAreNoLetters();</p>
+<p class="calibre1">} else if (count == 1) {</p>
+<p class="calibre1">thereIsOneLetter();</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">thereAreManyLetters(count);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void thereAreManyLetters(int count) {</p>
+<p class="calibre1">number = Integer.toString(count);</p>
+<p class="calibre1">verb = "are";</p>
+<p class="calibre1">pluralModifier = "s";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void thereIsOneLetter() {</p>
+<p class="calibre1">number = "1";</p>
+<p class="calibre1">verb = "is";</p>
+<p class="calibre1">pluralModifier = "";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void thereAreNoLetters() {</p>
+<p class="calibre1">number = "no";</p>
+<p class="calibre1">verb = "are";</p>
+<p class="calibre1">pluralModifier = "s";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Don’t Add Gratuitous Context</b></a></p>
+<p class="calibre1">In an imaginary application called “Gas Station Deluxe,” it is a bad idea to prefix every class with GSD. Frankly, you are working against your tools. You type G and press the completion key and are rewarded with a mile-long list of every class in the system. Is that wise? Why make it hard for the IDE to help you?</p>
+<p class="calibre1">Likewise, say you invented a MailingAddress class in GSD’s accounting module, and you named it GSDAccountAddress. Later, you need a mailing address for your customer contact application. Do you use GSDAccountAddress? Does it sound like the right name? Ten of 17 characters are redundant or irrelevant.</p>
+<p class="calibre1"><a id="p61"></a>30</p>
+<div class="calibre6" id="calibre_pb_27"></div>
+</body>
+</html>

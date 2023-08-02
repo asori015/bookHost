@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_124">Chapter 9: Unit Tests</h2>
+<p class="calibre1">Consider the test in Listing 9-3. I wrote this test as part of an environment control system I was prototyping. Without going into the details you can tell that this test checks that the low temperature alarm, the heater, and the blower are all turned on when the temperature is “way too cold.”</p>
+<p class="calibre1"><b class="calibre3">Listing 9-3 </b></p>
+<p class="calibre1"><b class="calibre3">EnvironmentControllerTest.java</b></p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnLoTempAlarmAtThreashold() throws Exception {</p>
+<p class="calibre1">hw.setTemp(WAY_TOO_COLD);</p>
+<p class="calibre1">controller.tic();</p>
+<p class="calibre1">assertTrue(hw.heaterState());</p>
+<p class="calibre1">assertTrue(hw.blowerState());</p>
+<p class="calibre1">assertFalse(hw.coolerState());</p>
+<p class="calibre1">assertFalse(hw.hiTempAlarm());</p>
+<p class="calibre1">assertTrue(hw.loTempAlarm());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">There are, of course, lots of details here. For example, what is that tic function all about? In fact, I’d rather you not worry about that while reading this test. I’d rather you just worry about whether you agree that the end state of the system is consistent with the temperature being “way too cold.”</p>
+<p class="calibre1">Notice, as you read the test, that your eye needs to bounce back and forth between the name of the state being checked, and the  <i class="calibre4">sense </i> of the state being checked. You see heaterState, and then your eyes glissade left to assertTrue. You  see  coolerState and your eyes must track left to assertFalse. This is tedious and unreliable. It makes the test hard to read.</p>
+<p class="calibre1">I improved the reading of this test greatly by transforming it into Listing 9-4.</p>
+<p class="calibre1"><b class="calibre3">Listing 9-4 </b></p>
+<p class="calibre1"><b class="calibre3">EnvironmentControllerTest.java (refactored)</b></p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnLoTempAlarmAtThreshold() throws Exception {</p>
+<p class="calibre1">wayTooCold();</p>
+<p class="calibre1">assertEquals("HBchL", hw.getState());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Of course I hid the detail of the tic function by creating a wayTooCold function. But the thing to note is the strange string in the assertEquals. Upper case means “on,” lower case means “off,” and the letters are always in the following order: {heater, blower, cooler, hi-temp-alarm, lo-temp-alarm}.</p>
+<p class="calibre1">Even though this is close to a violation of the rule about mental mapping,3 it seems appropriate in this case. Notice, once you know the meaning, your eyes glide across 3.</p>
+<p class="calibre1">“Avoid Mental Mapping” on page 25.</p>
+<p class="calibre1"><a id="p160"></a><b class="calibre3">Clean Tests</b></p>
+<p class="calibre1">129</p>
+<p class="calibre1">that string and you can quickly interpret the results. Reading the test becomes almost a pleasure. Just take a look at Listing 9-5 and see how easy it is to understand these tests.</p>
+<p class="calibre1"><b class="calibre3">Listing 9-5 </b></p>
+<p class="calibre1"><b class="calibre3">EnvironmentControllerTest.java (bigger selection)</b></p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnCoolerAndBlowerIfTooHot() throws Exception {</p>
+<p class="calibre1">tooHot();</p>
+<p class="calibre1">assertEquals("hBChl", hw.getState());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnHeaterAndBlowerIfTooCold() throws Exception {</p>
+<p class="calibre1">tooCold();</p>
+<p class="calibre1">assertEquals("HBchl", hw.getState());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnHiTempAlarmAtThreshold() throws Exception {</p>
+<p class="calibre1">wayTooHot();</p>
+<p class="calibre1">assertEquals("hBCHl", hw.getState());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void turnOnLoTempAlarmAtThreshold() throws Exception {</p>
+<p class="calibre1">wayTooCold();</p>
+<p class="calibre1">assertEquals("HBchL", hw.getState());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The getState function is shown in Listing 9-6. Notice that this is not very efficient code. To make it efficient, I probably should have used a StringBuffer.</p>
+<p class="calibre1"><b class="calibre3">Listing 9-6 </b></p>
+<p class="calibre1"><b class="calibre3">MockControlHardware.java</b></p>
+<p class="calibre1">public String getState() {</p>
+<p class="calibre1">String state = "";</p>
+<p class="calibre1">state += heater ? "H" : "h";</p>
+<p class="calibre1">state += blower ? "B" : "b";</p>
+<p class="calibre1">state += cooler ? "C" : "c";</p>
+<p class="calibre1">state += hiTempAlarm ? "H" : "h";</p>
+<p class="calibre1">state += loTempAlarm ? "L" : "l";</p>
+<p class="calibre1">return state;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">StringBuffers are a bit ugly. Even in production code I will avoid them if the cost is small; and you could argue that the cost of the code in Listing 9-6 is very small. However, this application is clearly an embedded real-time system, and it is likely that computer and memory resources are very constrained. The  <i class="calibre4">test </i> environment, however, is not likely to be constrained at all.</p>
+<p class="calibre1"><a id="p161"></a>130</p>
+<div class="calibre6" id="calibre_pb_125"></div>
+</body>
+</html>

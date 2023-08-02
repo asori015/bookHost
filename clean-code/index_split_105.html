@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_208">Chapter 14: Successive Refinement</h2>
+<p class="calibre1">Next, I wanted to deploy the get method into BooleanArgumentMarshaler. Deploying get functions is always ugly because the return type has to be Object, and in this case needs to be cast to a Boolean.</p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">Args.ArgumentMarshaler am = booleanArgs.get(arg);</p>
+<p class="calibre1">return am != null &amp;&amp; <b class="calibre3">(Boolean)</b>am. <b class="calibre3">get</b>();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Just to get this to compile, I added the get function to the ArgumentMarshaler.</p>
+<p class="calibre1">private abstract class ArgumentMarshaler {</p>
+<p class="calibre1">...</p>
+<p class="calibre1"><b class="calibre3">public Object get() {</b></p>
+<p class="calibre1"><b class="calibre3">      return null; </b></p>
+<p class="calibre1"><b class="calibre3">    }</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">This compiled and obviously failed the tests. Getting the tests working again was simply a matter of making get abstract and implementing it in BooleanAgumentMarshaler.</p>
+<p class="calibre1">private abstract class ArgumentMarshaler {</p>
+<p class="calibre1">protected boolean booleanValue = false;</p>
+<p class="calibre1">...</p>
+<p class="calibre1">public <b class="calibre3">abstract</b> Object get();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class BooleanArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">public void set(String s) {</p>
+<p class="calibre1">booleanValue = true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">public Object get() {</b></p>
+<p class="calibre1"><b class="calibre3">      return booleanValue; </b></p>
+<p class="calibre1"><b class="calibre3">    }</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">Once again the tests passed. So both get and set deploy to the BooleanArgumentMarshaler!</p>
+<p class="calibre1">This allowed me to remove the old getBoolean function from ArgumentMarshaler, move the protected booleanValue variable down to BooleanArgumentMarshaler, and make it private.</p>
+<p class="calibre1">I did the same pattern of changes for Strings. I deployed both set and get, deleted the unused functions, and moved the variables.</p>
+<p class="calibre1">private void setStringArg(char argChar) throws ArgsException {</p>
+<p class="calibre1">currentArgument++;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">stringArgs.get(argChar). <b class="calibre3">set</b>(args[currentArgument]);</p>
+<p class="calibre1">} catch (ArrayIndexOutOfBoundsException e) {</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">errorArgumentId = argChar;</p>
+<p class="calibre1">errorCode = ErrorCode.MISSING_STRING;</p>
+<p class="calibre1">throw new ArgsException();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p250"></a><b class="calibre3">String Arguments</b></p>
+<p class="calibre1">219</p>
+<p class="calibre1">...</p>
+<p class="calibre1">public String getString(char arg) {</p>
+<p class="calibre1">Args.ArgumentMarshaler am = stringArgs.get(arg);</p>
+<p class="calibre1">return am == null ? "" : <b class="calibre3">(String)</b> am. <b class="calibre3">get</b>();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">private abstract class ArgumentMarshaler {</p>
+<p class="calibre1">private int integerValue;</p>
+<p class="calibre1">public void setInteger(int i) {</p>
+<p class="calibre1">integerValue = i;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public int getInteger() {</p>
+<p class="calibre1">return integerValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public abstract void set(String s);</p>
+<p class="calibre1">public abstract Object get();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class BooleanArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1"><b class="calibre3">private boolean booleanValue = false; </b></p>
+<p class="calibre1">public void set(String s) {</p>
+<p class="calibre1">booleanValue = true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1">return booleanValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class StringArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1"><b class="calibre3">private String stringValue = ""; </b></p>
+<p class="calibre1">public void set(String s) {</p>
+<p class="calibre1"><b class="calibre3">stringValue = s; </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1"><b class="calibre3">return stringValue; </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class IntegerArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">public void set(String s) {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1">return null;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p251"></a>220</p>
+<div class="calibre6" id="calibre_pb_209"></div>
+</body>
+</html>

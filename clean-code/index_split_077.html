@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_152">Chapter 11: Systems</h2>
+<p class="calibre1">I haven’t shown the corresponding  <i class="calibre4">LocalHome </i> interface, essentially a factory used to create objects, nor any of the possible Bank finder (query) methods you might add.</p>
+<p class="calibre1">Finally, you had to write one or more XML deployment descriptors that specify the object-relational mapping details to a persistence store, the desired transactional behavior, security constraints, and so on <i class="calibre4">. </i></p>
+<p class="calibre1">The business logic is tightly coupled to the EJB2 application “container.” You must subclass container types and you must provide many lifecycle methods that are required by the container.</p>
+<p class="calibre1">Because of this coupling to the heavyweight container, isolated unit testing is difficult.</p>
+<p class="calibre1">It is necessary to mock out the container, which is hard, or waste a lot of time deploying EJBs and tests to a real server. Reuse outside of the EJB2 architecture is effectively impossible, due to the tight coupling.</p>
+<p class="calibre1">Finally, even object-oriented programming is undermined. One bean cannot inherit from another bean. Notice the logic for adding a new account. It is common in EJB2 beans to define “data transfer objects” (DTOs) that are essentially “structs” with no behavior.</p>
+<p class="calibre1">This usually leads to redundant types holding essentially the same data, and it requires boilerplate code to copy data from one object to another.</p>
+<p class="calibre1"><a href="index_split_000.html#p13"><b class="calibre3">Cross-Cutting Concerns</b></a></p>
+<p class="calibre1">The EJB2 architecture comes close to true separation of concerns in some areas. For example, the desired transactional, security, and some of the persistence behaviors are declared in the deployment descriptors, independently of the source code.</p>
+<p class="calibre1">Note that  <i class="calibre4">concerns </i> like persistence tend to cut across the natural object boundaries of a domain. You want to persist all your objects using generally the same strategy, for example <i class="calibre4">, </i> using a particular DBMS6 versus flat files, following certain naming conventions for tables and columns, using consistent transactional semantics, and so on <i class="calibre4">. </i></p>
+<p class="calibre1">In principle, you can reason about your persistence strategy in a modular, encapsulated way. Yet, in practice, you have to spread essentially the same code that implements the persistence strategy across many objects. We use the term  <i class="calibre4">cross-cutting concerns </i> for concerns like these. Again, the persistence framework might be modular and our domain logic, in isolation, might be modular. The problem is the fine-grained  <i class="calibre4">intersection </i> of these domains.</p>
+<p class="calibre1">In fact, the way the EJB architecture handled persistence, security, and transactions <i class="calibre4">, </i></p>
+<p class="calibre1">“anticipated”  <i class="calibre4">aspect-oriented programming </i>(AOP),7 which is a general-purpose approach to restoring modularity for cross-cutting concerns.</p>
+<p class="calibre1">In AOP, modular constructs called  <i class="calibre4">aspects </i> specify which points in the system should have their behavior modified in some consistent way to support a particular concern. This specification is done using a succinct declarative or programmatic mechanism.</p>
+<p class="calibre1">6.</p>
+<p class="calibre1">Database management system.</p>
+<p class="calibre1">7.</p>
+<p class="calibre1">See [AOSD] for general information on aspects and [AspectJ]] and [Colyer] for AspectJ-specific information.</p>
+<p class="calibre1"><a id="p192"></a><b class="calibre3">Java Proxies</b></p>
+<p class="calibre1">161</p>
+<p class="calibre1">Using persistence as an example, you would declare which objects and attributes (or <i class="calibre4">patterns </i> thereof) should be persisted and then delegate the persistence tasks to your persistence framework. The behavior modifications are made  <i class="calibre4">noninvasively</i> 8 to the target code by the AOP framework. Let us look at three aspects or aspect-like mechanisms in Java.</p>
+<p class="calibre1"><a href="index_split_000.html#p13"><b class="calibre3">Java Proxies</b></a></p>
+<p class="calibre1">Java proxies are suitable for simple situations, such as wrapping method calls in individual objects or classes. However, the dynamic proxies provided in the JDK only work with interfaces. To proxy classes, you have to use a byte-code manipulation library, such as CGLIB, ASM, or Javassist.9</p>
+<p class="calibre1">Listing 11-3 shows the skeleton for a JDK proxy to provide persistence support for our Bank application, covering only the methods for getting and setting the list of accounts.</p>
+<p class="calibre1"><b class="calibre3">Listing 11-3 </b></p>
+<p class="calibre1"><b class="calibre3">JDK Proxy Example</b></p>
+<p class="calibre1">// Bank.java (suppressing package names...)</p>
+<p class="calibre1">import java.utils.*;</p>
+<p class="calibre1">// The abstraction of a bank.</p>
+<p class="calibre1">public interface Bank {</p>
+<p class="calibre1">Collection&lt;Account&gt; getAccounts();</p>
+<p class="calibre1">void setAccounts(Collection&lt;Account&gt; accounts);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">// BankImpl.java</p>
+<p class="calibre1">import java.utils.*;</p>
+<p class="calibre1">// The “Plain Old Java Object” (POJO) implementing the abstraction.</p>
+<p class="calibre1">public class BankImpl implements Bank {</p>
+<p class="calibre1">private List&lt;Account&gt; accounts;</p>
+<p class="calibre1">public Collection&lt;Account&gt; getAccounts() {</p>
+<p class="calibre1">return accounts;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setAccounts(Collection&lt;Account&gt; accounts) {</p>
+<p class="calibre1">this.accounts = new ArrayList&lt;Account&gt;();</p>
+<p class="calibre1">for (Account account: accounts) {</p>
+<p class="calibre1">this.accounts.add(account);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">// BankProxyHandler.java</p>
+<p class="calibre1">import java.lang.reflect.*;</p>
+<p class="calibre1">import java.util.*;</p>
+<p class="calibre1">8.</p>
+<p class="calibre1">Meaning no manual editing of the target source code is required.</p>
+<p class="calibre1">9.</p>
+<p class="calibre1">See [CGLIB], [ASM], and [Javassist].</p>
+<p class="calibre1"><a id="p193"></a>162</p>
+<div class="calibre6" id="calibre_pb_153"></div>
+</body>
+</html>

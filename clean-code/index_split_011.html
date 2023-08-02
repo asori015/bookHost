@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_20">Chapter 2: Meaningful Names</h2>
+<p class="calibre1">advantage of that huge portion of our brains that has evolved to deal with spoken language. So make your names pronounceable.</p>
+<p class="calibre1">If you can’t pronounce it, you can’t discuss it without sounding like an idiot. “Well, over here on the bee cee arr three cee enn tee we have a pee ess zee kyew int, see?” This matters because programming is a social activity.</p>
+<p class="calibre1">A company I know has genymdhms (generation date, year, month, day, hour, minute, and second) so they walked around saying “gen why emm dee aich emm ess”. I have an annoying habit of pronouncing everything as written, so I started saying “gen-yah-mudda-hims.” It later was being called this by a host of designers and analysts, and we still sounded silly. But we were in on the joke, so it was fun. Fun or not, we were tolerating poor naming. New developers had to have the variables explained to them, and then they spoke about it in silly made-up words instead of using proper English terms. Compare class DtaRcrd102 {</p>
+<p class="calibre1">private Date genymdhms;</p>
+<p class="calibre1">private Date modymdhms;</p>
+<p class="calibre1">private final String pszqint = "102";</p>
+<p class="calibre1">/* ... */</p>
+<p class="calibre1">};</p>
+<p class="calibre1">to</p>
+<p class="calibre1">class Customer {</p>
+<p class="calibre1">private Date generationTimestamp;</p>
+<p class="calibre1">private Date modificationTimestamp;;</p>
+<p class="calibre1">private final String recordId = "102";</p>
+<p class="calibre1">/* ... */</p>
+<p class="calibre1">};</p>
+<p class="calibre1">Intelligent conversation is now possible: “Hey, Mikey, take a look at this record! The generation timestamp is set to tomorrow’s date! How can that be?”</p>
+<p class="calibre1"><a href="index_split_000.html#p8"><b class="calibre3">Use Searchable Names</b></a></p>
+<p class="calibre1">Single-letter names and numeric constants have a particular problem in that they are not easy to locate across a body of text.</p>
+<p class="calibre1">One might easily grep for MAX_CLASSES_PER_STUDENT, but the number 7 could be more troublesome. Searches may turn up the digit as part of file names, other constant definitions, and in various expressions where the value is used with different intent. It is even worse when a constant is a long number and someone might have transposed digits, thereby creating a bug while simultaneously evading the programmer’s search.</p>
+<p class="calibre1">Likewise, the name e is a poor choice for any variable for which a programmer might need to search. It is the most common letter in the English language and likely to show up in every passage of text in every program. In this regard, longer names trump shorter names, and any searchable name trumps a constant in code.</p>
+<p class="calibre1">My personal preference is that single-letter names can ONLY be used as local variables inside short methods.  <i class="calibre4">The length of a name should correspond to the size of its scope</i></p>
+<p class="calibre1"><a id="p54"></a><b class="calibre3">Avoid Encodings</b></p>
+<p class="calibre1">23</p>
+<p class="calibre1">[N5]. If a variable or constant might be seen or used in multiple places in a body of code, it is imperative to give it a search-friendly name. Once again compare for (int j=0; j&lt;34; j++) {</p>
+<p class="calibre1">s += (t[j]*4)/5;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">to</p>
+<p class="calibre1">int realDaysPerIdealDay = 4;</p>
+<p class="calibre1">const int WORK_DAYS_PER_WEEK = 5;</p>
+<p class="calibre1">int sum = 0;</p>
+<p class="calibre1">for (int j=0; j &lt; NUMBER_OF_TASKS; j++) {</p>
+<p class="calibre1">int realTaskDays = taskEstimate[j] * realDaysPerIdealDay;</p>
+<p class="calibre1">int realTaskWeeks = (realdays / WORK_DAYS_PER_WEEK);</p>
+<p class="calibre1">sum += realTaskWeeks;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Note that sum, above, is not a particularly useful name but at least is searchable. The intentionally named code makes for a longer function, but consider how much easier it will be to find WORK_DAYS_PER_WEEK than to find all the places where 5 was used and filter the list down to just the instances with the intended meaning.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Avoid Encodings</b></a></p>
+<p class="calibre1">We have enough encodings to deal with without adding more to our burden. Encoding type or scope information into names simply adds an extra burden of deciphering. It hardly seems reasonable to require each new employee to learn yet another encoding “language” in addition to learning the (usually considerable) body of code that they’ll be working in. It is an unnecessary mental burden when trying to solve a problem. Encoded names are seldom pronounceable and are easy to mis-type.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Hungarian Notation</b></a></p>
+<p class="calibre1">In days of old, when we worked in name-length-challenged languages, we violated this rule out of necessity, and with regret. Fortran forced encodings by making the first letter a code for the type. Early versions of BASIC allowed only a letter plus one digit. Hungarian Notation (HN) took this to a whole new level.</p>
+<p class="calibre1">HN was considered to be pretty important back in the Windows C API, when everything was an integer handle or a long pointer or a void pointer, or one of several implementations of “string” (with different uses and attributes). The compiler did not check types in those days, so the programmers needed a crutch to help them remember the types.</p>
+<p class="calibre1">In modern languages we have much richer type systems, and the compilers remember and enforce the types. What’s more, there is a trend toward smaller classes and shorter functions so that people can usually see the point of declaration of each variable they’re using.</p>
+<p class="calibre1"><a id="p55"></a>24</p>
+<div class="calibre6" id="calibre_pb_21"></div>
+</body>
+</html>

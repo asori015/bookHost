@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_292">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">The problem with this was that VariableExpandingWidgetRoot had no need to be inside the scope of AliasLinkWidget. Moreover, other unrelated classes made use of AliasLinkWidget.VariableExpandingWidgetRoot. These classes had no need to know about AliasLinkWidget.</p>
+<p class="calibre1">Perhaps the programmer had plopped the VariableExpandingWidgetRoot into AliasWidget as a matter of convenience, or perhaps he thought it really needed to be scoped inside AliasWidget. Whatever the reason, the result wound up being arbitrary. Public classes that are not utilities of some other class should not be scoped inside another class. The convention is to make them public at the top level of their package.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G33:  <i class="calibre4">Encapsulate Boundary Conditions</i></b></a></p>
+<p class="calibre1">Boundary conditions are hard to keep track of. Put the processing for them in one place.</p>
+<p class="calibre1">Don’t let them leak all over the code. We don’t want swarms of +1s and -1s scattered hither and yon. Consider this simple example from FIT:</p>
+<p class="calibre1">if(level + 1 &lt; tags.length)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">parts = new Parse(body, tags, level + 1, offset + endTag);</p>
+<p class="calibre1">body = null;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Notice that level+1 appears twice. This is a boundary condition that should be encapsulated within a variable named something like nextLevel.</p>
+<p class="calibre1">int nextLevel = level + 1;</p>
+<p class="calibre1">if(nextLevel &lt; tags.length)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">parts = new Parse(body, tags, nextLevel, offset + endTag);</p>
+<p class="calibre1">body = null;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G34:  <i class="calibre4">Functions Should Descend Only One Level of Abstraction</i></b></a></p>
+<p class="calibre1">The statements within a function should all be written at the same level of abstraction, which should be one level below the operation described by the name of the function. This may be the hardest of these heuristics to interpret and follow. Though the idea is plain enough, humans are just far too good at seamlessly mixing levels of abstraction. Consider, for example, the following code taken from FitNesse: public String render() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">StringBuffer html = new StringBuffer("&lt;hr");</p>
+<p class="calibre1">if(size &gt; 0)</p>
+<p class="calibre1">html.append(" size=\"").append(size + 1).append("\""); html.append("&gt;");</p>
+<p class="calibre1">return html.toString();</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p336"></a><b class="calibre3">General</b></p>
+<p class="calibre1">305</p>
+<p class="calibre1">A moment’s study and you can see what’s going on. This function constructs the HTML</p>
+<p class="calibre1">tag that draws a horizontal rule across the page. The height of that rule is specified in the size variable.</p>
+<p class="calibre1">Now look again. This method is mixing at least two levels of abstraction. The first is the notion that a horizontal rule has a size. The second is the syntax of the HR tag itself.</p>
+<p class="calibre1">This code comes from the HruleWidget module in FitNesse. This module detects a row of four or more dashes and converts it into the appropriate HR tag. The more dashes, the larger the size.</p>
+<p class="calibre1">I refactored this bit of code as follows. Note that I changed the name of the size field to reflect its true purpose. It held the number of extra dashes.</p>
+<p class="calibre1">public String render() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">HtmlTag hr = new HtmlTag("hr");</p>
+<p class="calibre1">if (extraDashes &gt; 0)</p>
+<p class="calibre1">hr.addAttribute("size", hrSize(extraDashes));</p>
+<p class="calibre1">return hr.html();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String hrSize(int height)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">int hrSize = height + 1;</p>
+<p class="calibre1">return String.format("%d", hrSize);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This change separates the two levels of abstraction nicely. The render function simply constructs an HR tag, without having to know anything about the HTML syntax of that tag.</p>
+<p class="calibre1">The HtmlTag module takes care of all the nasty syntax issues.</p>
+<p class="calibre1">Indeed, by making this change I caught a subtle error. The original code did not put the closing slash on the HR tag, as the XHTML standard would have it. (In other words, it emitted &lt;hr&gt; instead of &lt;hr/&gt;.) The HtmlTag module had been changed to conform to XHTML long ago.</p>
+<p class="calibre1">Separating levels of abstraction is one of the most important functions of refactoring, and it’s one of the hardest to do well. As an example, look at the code below. This was my first attempt at separating the abstraction levels in the HruleWidget.render method.</p>
+<p class="calibre1">public String render() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">HtmlTag hr = new HtmlTag("hr");</p>
+<p class="calibre1">if (size &gt; 0) {</p>
+<p class="calibre1">hr.addAttribute("size", ""+(size+1));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return hr.html();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">My goal, at this point, was to create the necessary separation and get the tests to pass.</p>
+<p class="calibre1">I accomplished that goal easily, but the result was a function that  <i class="calibre4">still </i> had mixed levels of abstraction. In this case the mixed levels were the construction of the HR tag and the</p>
+<p class="calibre1"><a id="p337"></a>306</p>
+<div class="calibre6" id="calibre_pb_293"></div>
+</body>
+</html>

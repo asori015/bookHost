@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_288">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">Everyone on the team should follow these conventions. This means that each team member must be mature enough to realize that it doesn’t matter a whit where you put your braces so long as you all agree on where to put them.</p>
+<p class="calibre1">If you would like to know what conventions I follow, you’ll see them in the refactored code in Listing B-7 on page 394, through Listing B-14.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G25:  <i class="calibre4">Replace Magic Numbers with Named Constants</i></b></a></p>
+<p class="calibre1">This is probably one of the oldest rules in software development. I remember reading it in the late sixties in introductory COBOL, FORTRAN, and PL/1 manuals. In general it is a bad idea to have raw numbers in your code. You should hide them behind well-named constants.</p>
+<p class="calibre1">For example, the number 86,400 should be hidden behind the constant SECONDS_PER_DAY. If you are printing 55 lines per page, then the constant 55 should be hidden behind the constant LINES_PER_PAGE.</p>
+<p class="calibre1">Some constants are so easy to recognize that they don’t always need a named constant to hide behind so long as they are used in conjunction with very self-explanatory code. For example:</p>
+<p class="calibre1">double milesWalked = feetWalked/5280.0;</p>
+<p class="calibre1">int dailyPay = hourlyRate * 8;</p>
+<p class="calibre1">double circumference = radius * Math.PI * 2;</p>
+<p class="calibre1">Do we really need the constants FEET_PER_MILE, WORK_HOURS_PER_DAY, and TWO in the above examples? Clearly, the last case is absurd. There are some formulae in which constants are simply better written as raw numbers. You might quibble about the WORK_HOURS_PER_DAY case because the laws or conventions might change. On the other hand, that formula reads so nicely with the 8 in it that I would be reluctant to add 17 extra characters to the readers’ burden. And in the FEET_PER_MILE case, the number 5280 is so very well known and so unique a constant that readers would recognize it even if it stood alone on a page with no context surrounding it.</p>
+<p class="calibre1">Constants like 3.141592653589793 are also very well known and easily recognizable.</p>
+<p class="calibre1">However, the chance for error is too great to leave them raw. Every time someone sees 3.1415927535890793, they know that it is  <i class="calibre4">p, </i> and so they fail to scrutinize it. (Did you catch the single-digit error?) We also don’t want people using 3.14, 3.14159, 3.142, and so forth. Therefore, it is a good thing that Math.PI has already been defined for us.</p>
+<p class="calibre1">The term “Magic Number” does not apply only to numbers. It applies to any token that has a value that is not self-describing. For example:</p>
+<p class="calibre1">assertEquals(7777, Employee.find(“John Doe”).employeeNumber()); There are two magic numbers in this assertion. The first is obviously 7777, though what it might mean is not obvious. The second magic number is "John Doe," and again the intent is not clear.</p>
+<p class="calibre1">It turns out that "John Doe" is the name of employee #7777 in a well-known test database created by our team. Everyone in the team knows that when you connect to this</p>
+<p class="calibre1"><a id="p332"></a><b class="calibre3">General</b></p>
+<p class="calibre1">301</p>
+<p class="calibre1">database, it will have several employees already cooked into it with well-known values and attributes. It also turns out that "John Doe" represents the sole hourly employee in that test database. So this test should really read: assertEquals(</p>
+<p class="calibre1">HOURLY_EMPLOYEE_ID,</p>
+<p class="calibre1">Employee.find(HOURLY_EMPLOYEE_NAME).employeeNumber());</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G26:  <i class="calibre4">Be Precise</i></b></a></p>
+<p class="calibre1">Expecting the first match to be the  <i class="calibre4">only </i> match to a query is probably naive. Using floating point numbers to represent currency is almost criminal. Avoiding locks and/or transaction management because you don’t think concurrent update is likely is lazy at best. Declaring a variable to be an ArrayList when a List will due is overly constraining. Making all variables protected by default is not constraining enough.</p>
+<p class="calibre1">When you make a decision in your code, make sure you make it  <i class="calibre4">precisely</i>. Know why you have made it and how you will deal with any exceptions. Don’t be lazy about the precision of your decisions. If you decide to call a function that might return null, make sure you check for null. If you query for what you think is the only record in the database, make sure your code checks to be sure there aren’t others. If you need to deal with currency, use integers11 and deal with rounding appropriately. If there is the possibility of concurrent update, make sure you implement some kind of locking mechanism.</p>
+<p class="calibre1">Ambiguities and imprecision in code are either a result of disagreements or laziness.</p>
+<p class="calibre1">In either case they should be eliminated.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G27:  <i class="calibre4">Structure over Convention</i></b></a></p>
+<p class="calibre1">Enforce design decisions with structure over convention. Naming conventions are good, but they are inferior to structures that force compliance. For example, switch/cases with nicely named enumerations are inferior to base classes with abstract methods. No one is forced to implement the switch/case statement the same way each time; but the base classes do enforce that concrete classes have all abstract methods implemented.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G28:  <i class="calibre4">Encapsulate Conditionals</i></b></a></p>
+<p class="calibre1">Boolean logic is hard enough to understand without having to see it in the context of an if or while statement. Extract functions that explain the intent of the conditional.</p>
+<p class="calibre1">For example:</p>
+<p class="calibre1">if (shouldBeDeleted(timer))</p>
+<p class="calibre1">is preferable to</p>
+<p class="calibre1">if (timer.hasExpired() &amp;&amp; !timer.isRecurrent())</p>
+<p class="calibre1">11. Or better yet, a Money class that uses integers.</p>
+<p class="calibre1"><a id="p333"></a>302</p>
+<div class="calibre6" id="calibre_pb_289"></div>
+</body>
+</html>

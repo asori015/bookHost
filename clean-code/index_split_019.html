@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_36">Chapter 3: Functions</h2>
+<p class="calibre1">Consider Listing 3-4. It shows just one of the operations that might depend on the type of employee.</p>
+<p class="calibre1"><b class="calibre3">Listing 3-4 </b></p>
+<p class="calibre1"><b class="calibre3">Payroll.java</b></p>
+<p class="calibre1">public Money calculatePay(Employee e)</p>
+<p class="calibre1">throws InvalidEmployeeType {</p>
+<p class="calibre1">switch (e.type) {</p>
+<p class="calibre1">case COMMISSIONED:</p>
+<p class="calibre1">return calculateCommissionedPay(e);</p>
+<p class="calibre1">case HOURLY:</p>
+<p class="calibre1">return calculateHourlyPay(e);</p>
+<p class="calibre1">case SALARIED:</p>
+<p class="calibre1">return calculateSalariedPay(e);</p>
+<p class="calibre1">default:</p>
+<p class="calibre1">throw new InvalidEmployeeType(e.type);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">There are several problems with this function. First, it’s large, and when new employee types are added, it will grow. Second, it very clearly does more than one thing.</p>
+<p class="calibre1">Third, it violates the Single Responsibility Principle7 (SRP) because there is more than one reason for it to change. Fourth, it violates the Open Closed Principle8 (OCP) because it must change whenever new types are added. But possibly the worst problem with this function is that there are an unlimited number of other functions that will have the same structure. For example we could have isPayday(Employee e, Date date),</p>
+<p class="calibre1">or</p>
+<p class="calibre1">deliverPay(Employee e, Money pay),</p>
+<p class="calibre1">or a host of others. All of which would have the same deleterious structure.</p>
+<p class="calibre1">The solution to this problem (see Listing 3-5) is to bury the switch statement in the basement of an ABSTRACT FACTORY,9 and never let anyone see it. The factory will use the switch statement to create appropriate instances of the derivatives of Employee, and the various functions, such as calculatePay, isPayday, and deliverPay, will be dispatched polymorphically through the Employee interface.</p>
+<p class="calibre1">My general rule for switch statements is that they can be tolerated if they appear only once, are used to create polymorphic objects, and are hidden behind an inheritance 7.</p>
+<p class="calibre1"><a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">a. http://en.wikipedia.org/wiki/Single_responsibility_principle </a></p>
+<p class="calibre1">b. <a href="http://www.objectmentor.com/resources/articles/srp.pdf"> http://www.objectmentor.com/resources/articles/srp.pdf</a></p>
+<p class="calibre1">8.</p>
+<p class="calibre1"><a href="http://en.wikipedia.org/wiki/Open/closed_principle">a. http://en.wikipedia.org/wiki/Open/closed_principle</a></p>
+<p class="calibre1">b. <a href="http://www.objectmentor.com/resources/articles/ocp.pdf"> http://www.objectmentor.com/resources/articles/ocp.pdf</a></p>
+<p class="calibre1">9.</p>
+<p class="calibre1">[GOF].</p>
+<p class="calibre1"><a id="p70"></a><b class="calibre3">Use Descriptive Names</b></p>
+<p class="calibre1">39</p>
+<p class="calibre1"><b class="calibre3">Listing 3-5 </b></p>
+<p class="calibre1"><b class="calibre3">Employee and Factory</b></p>
+<p class="calibre1">public abstract class Employee {</p>
+<p class="calibre1">public abstract boolean isPayday();</p>
+<p class="calibre1">public abstract Money calculatePay();</p>
+<p class="calibre1">public abstract void deliverPay(Money pay);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">-----------------</p>
+<p class="calibre1">public interface EmployeeFactory {</p>
+<p class="calibre1">public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">-----------------</p>
+<p class="calibre1">public class EmployeeFactoryImpl implements EmployeeFactory {</p>
+<p class="calibre1">public Employee makeEmployee(EmployeeRecord r) throws InvalidEmployeeType {</p>
+<p class="calibre1">switch (r.type) {</p>
+<p class="calibre1">case COMMISSIONED:</p>
+<p class="calibre1">return new CommissionedEmployee(r) ;</p>
+<p class="calibre1">case HOURLY:</p>
+<p class="calibre1">return new HourlyEmployee(r);</p>
+<p class="calibre1">case SALARIED:</p>
+<p class="calibre1">return new SalariedEmploye(r);</p>
+<p class="calibre1">default:</p>
+<p class="calibre1">throw new InvalidEmployeeType(r.type);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">relationship so that the rest of the system can’t see them [G23]. Of course every circumstance is unique, and there are times when I violate one or more parts of that rule.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Use Descriptive Names</b></a></p>
+<p class="calibre1">In Listing 3-7 I changed the name of our example function from testableHtml to SetupTeardownIncluder.render. This is a far better name because it better describes what the function does. I also gave each of the private methods an equally descriptive name such as isTestable or includeSetupAndTeardownPages. It is hard to overestimate the value of good names. Remember Ward’s principle: “<i class="calibre4">You know you are working on clean code</i> <i class="calibre4">when each routine turns out to be pretty much what you expected. </i>” Half the battle to achieving that principle is choosing good names for small functions that do one thing.</p>
+<p class="calibre1">The smaller and more focused a function is, the easier it is to choose a descriptive name.</p>
+<p class="calibre1">Don’t be afraid to make a name long. A long descriptive name is better than a short enigmatic name. A long descriptive name is better than a long descriptive comment. Use a naming convention that allows multiple words to be easily read in the function names, and then make use of those multiple words to give the function a name that says what it does.</p>
+<p class="calibre1"><a id="p71"></a><img src="index-71_1.png" alt="Image 21" class="calibre2"/></p>
+<p class="calibre1">40</p>
+<div class="calibre6" id="calibre_pb_37"></div>
+</body>
+</html>

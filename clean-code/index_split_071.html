@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_140">Chapter 10: Classes</h2>
+<p class="calibre1"><b class="calibre3">Listing 10-8 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">PrimeGenerator.java</b></p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static boolean</p>
+<p class="calibre1">isMultipleOfNthPrimeFactor(int candidate, int n) {</p>
+<p class="calibre1">return</p>
+<p class="calibre1">candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static int</p>
+<p class="calibre1">smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {</p>
+<p class="calibre1">int multiple = multiplesOfPrimeFactors.get(n);</p>
+<p class="calibre1">while (multiple &lt; candidate)</p>
+<p class="calibre1">multiple += 2 * primes[n];</p>
+<p class="calibre1">multiplesOfPrimeFactors.set(n, multiple);</p>
+<p class="calibre1">return multiple;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The first thing you might notice is that the program got a lot longer. It went from a little over one page to nearly three pages in length. There are several reasons for this growth. First, the refactored program uses longer, more descriptive variable names.</p>
+<p class="calibre1">Second, the refactored program uses function and class declarations as a way to add commentary to the code. Third, we used whitespace and formatting techniques to keep the program readable.</p>
+<p class="calibre1">Notice how the program has been split into three main responsibilities. The main program is contained in the PrimePrinter class all by itself. Its responsibility is to handle the execution environment. It will change if the method of invocation changes. For example, if this program were converted to a SOAP service, this is the class that would be affected.</p>
+<p class="calibre1">The RowColumnPagePrinter knows all about how to format a list of numbers into pages with a certain number of rows and columns. If the formatting of the output needed changing, then this is the class that would be affected.</p>
+<p class="calibre1">The PrimeGenerator class knows how to generate a list prime numbers. Notice that it is not meant to be instantiated as an object. The class is just a useful scope in which its variables can be declared and kept hidden. This class will change if the algorithm for computing prime numbers changes.</p>
+<p class="calibre1">This was not a rewrite! We did not start over from scratch and write the program over again. Indeed, if you look closely at the two different programs, you’ll see that they use the same algorithm and mechanics to get their work done.</p>
+<p class="calibre1">The change was made by writing a test suite that verified the  <i class="calibre4">precise </i> behavior of the first program. Then a myriad of tiny little changes were made, one at a time. After each change the program was executed to ensure that the behavior had not changed. One tiny step after another, the first program was cleaned up and transformed into the second.</p>
+<p class="calibre1"><a id="p178"></a><b class="calibre3">Organizing for Change</b></p>
+<p class="calibre1">147</p>
+<p class="calibre1"><a href="index_split_000.html#p13"><b class="calibre3">Organizing for Change</b></a></p>
+<p class="calibre1">For most systems, change is continual. Every change subjects us to the risk that the remainder of the system no longer works as intended. In a clean system we organize our classes so as to reduce the risk of change.</p>
+<p class="calibre1">The Sql class in Listing 10-9 is used to generate properly formed SQL strings given appropriate metadata. It’s a work in progress and, as such, doesn’t yet support SQL functionality like update statements. When the time comes for the Sql class to support an update statement, we’ll have to “open up” this class to make modifications. The problem with opening a class is that it introduces risk. Any modifications to the class have the potential of breaking other code in the class. It must be fully retested.</p>
+<p class="calibre1"><b class="calibre3">Listing 10-9 </b></p>
+<p class="calibre1"><b class="calibre3">A class that must be opened for change</b></p>
+<p class="calibre1">public class Sql {</p>
+<p class="calibre1">public Sql(String table, Column[] columns)</p>
+<p class="calibre1">public String create()</p>
+<p class="calibre1">public String insert(Object[] fields)</p>
+<p class="calibre1">public String selectAll()</p>
+<p class="calibre1">public String findByKey(String keyColumn, String keyValue)</p>
+<p class="calibre1">public String select(Column column, String pattern)</p>
+<p class="calibre1">public String select(Criteria criteria)</p>
+<p class="calibre1">public String preparedInsert()</p>
+<p class="calibre1">private String columnList(Column[] columns)</p>
+<p class="calibre1">private String valuesList(Object[] fields, final Column[] columns) private String selectWithCriteria(String criteria)</p>
+<p class="calibre1">private String placeholderList(Column[] columns)</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The Sql class must change when we add a new type of statement. It also must change when we alter the details of a single statement type—for example, if we need to modify the select functionality to support subselects. These two reasons to change mean that the Sql class violates the SRP.</p>
+<p class="calibre1">We can spot this SRP violation from a simple organizational standpoint. The method outline of Sql shows that there are private methods, such as selectWithCriteria, that appear to relate only to select statements.</p>
+<p class="calibre1">Private method behavior that applies only to a small subset of a class can be a useful heuristic for spotting potential areas for improvement. However, the primary spur for taking action should be system change itself. If the Sql class is deemed logically complete, then we need not worry about separating the responsibilities. If we won’t need update functionality for the foreseeable future, then we should leave Sql alone. But as soon as we find ourselves opening up a class, we should consider fixing our design.</p>
+<p class="calibre1">What if we considered a solution like that in Listing 10-10? Each public interface method defined in the previous Sql from Listing 10-9 is refactored out to its own derivative of the Sql class. Note that the private methods, such as valuesList, move directly where <a id="p179"></a>148</p>
+<div class="calibre6" id="calibre_pb_141"></div>
+</body>
+</html>

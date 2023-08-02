@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_8">Chapter 1: Clean Code</h2>
+<p class="calibre1">to describe the consequence of that inelegance. He uses the word “tempt.” There is a deep truth here. Bad code  <i class="calibre4">tempts </i> the mess to grow! When others change bad code, they tend to make it worse.</p>
+<p class="calibre1">Pragmatic Dave Thomas and Andy Hunt said this a different way. They used the metaphor of broken windows.3 A building with broken windows looks like nobody cares about it. So other people stop caring. They allow more windows to become broken. Eventually they actively break them. They despoil the facade with graffiti and allow garbage to collect. One broken window starts the process toward decay.</p>
+<p class="calibre1">Bjarne also mentions that error handing should be complete. This goes to the discipline of paying attention to details. Abbreviated error handling is just one way that programmers gloss over details. Memory leaks are another, race conditions still another.</p>
+<p class="calibre1">Inconsistent naming yet another. The upshot is that clean code exhibits close attention to detail.</p>
+<p class="calibre1">Bjarne closes with the assertion that clean code does one thing well. It is no accident that there are so many principles of software design that can be boiled down to this simple admonition. Writer after writer has tried to communicate this thought. Bad code tries to do too much, it has muddled intent and ambiguity of purpose. Clean code is  <i class="calibre4">focused</i>. Each function, each class, each module exposes a single-minded attitude that remains entirely undistracted, and unpolluted, by the surrounding details.</p>
+<p class="calibre1"><b class="calibre3">Grady Booch, author of  <i class="calibre4">Object</i></b></p>
+<p class="calibre1"><i class="calibre4"><b class="calibre3">Oriented Analysis and Design with </b></i></p>
+<p class="calibre1"><i class="calibre4"><b class="calibre3">Applications</b></i></p>
+<p class="calibre1"><i class="calibre4">Clean code is simple and direct. Clean code</i></p>
+<p class="calibre1"><i class="calibre4">reads like well-written prose. Clean code never</i></p>
+<p class="calibre1"><i class="calibre4">obscures the designer’s intent but rather is full</i></p>
+<p class="calibre1"><i class="calibre4">of crisp abstractions and straightforward lines</i></p>
+<p class="calibre1"><i class="calibre4">of control. </i></p>
+<p class="calibre1">Grady makes some of the same points as</p>
+<p class="calibre1">Bjarne, but he takes a  <i class="calibre4">readability </i> perspective. I</p>
+<p class="calibre1">especially like his view that clean code should</p>
+<p class="calibre1">read like well-written prose. Think back on a</p>
+<p class="calibre1">really good book that you’ve read. Remember how the words disappeared to be replaced by images! It was like watching a movie, wasn’t it? Better! You saw the characters, you heard the sounds, you experienced the pathos and the humor.</p>
+<p class="calibre1">Reading clean code will never be quite like reading  <i class="calibre4">Lord of the Rings</i>. Still, the liter-ary metaphor is not a bad one. Like a good novel, clean code should clearly expose the tensions in the problem to be solved. It should build those tensions to a climax and then give 3.</p>
+<p class="calibre1"><a href="http://www.pragmaticprogrammer.com/booksellers/2004-12.html">http://www.pragmaticprogrammer.com/booksellers/2004-12.html</a></p>
+<p class="calibre1"><a id="p40"></a><img src="index-40_1.png" alt="Image 11" class="calibre2"/></p>
+<p class="calibre1"><b class="calibre3">The Total Cost of Owning a Mess</b></p>
+<p class="calibre1">9</p>
+<p class="calibre1">the reader that “Aha! Of course!” as the issues and tensions are resolved in the revelation of an obvious solution.</p>
+<p class="calibre1">I find Grady’s use of the phrase “crisp abstraction” to be a fascinating oxymoron!</p>
+<p class="calibre1">After all the word “crisp” is nearly a synonym for “concrete.” My MacBook’s dictionary holds the following definition of “crisp”:  <i class="calibre4">briskly decisive and matter-of-fact, without hesi-tation or unnecessary detail. </i> Despite this seeming juxtaposition of meaning, the words carry a powerful message. Our code should be matter-of-fact as opposed to speculative.</p>
+<p class="calibre1">It should contain only what is necessary. Our readers should perceive us to have been decisive.</p>
+<p class="calibre1"><b class="calibre3">“Big” Dave Thomas, founder </b></p>
+<p class="calibre1"><b class="calibre3">of OTI, godfather of the </b></p>
+<p class="calibre1"><b class="calibre3">Eclipse strategy </b></p>
+<p class="calibre1"><i class="calibre4">Clean code can be read, and enhanced by a</i></p>
+<p class="calibre1"><i class="calibre4">developer other than its original author. It has</i></p>
+<p class="calibre1"><i class="calibre4">unit and acceptance tests. It has meaningful</i></p>
+<p class="calibre1"><i class="calibre4">names. It provides one way rather than many</i></p>
+<p class="calibre1"><i class="calibre4">ways for doing one thing. It has minimal depen-</i></p>
+<p class="calibre1"><i class="calibre4">dencies, which are explicitly defined, and pro-</i></p>
+<p class="calibre1"><i class="calibre4">vides a clear and minimal API. Code should be</i></p>
+<p class="calibre1"><i class="calibre4">literate since depending on the language, not all</i></p>
+<p class="calibre1"><i class="calibre4">necessary information can be expressed clearly</i></p>
+<p class="calibre1"><i class="calibre4">in code alone. </i></p>
+<p class="calibre1">Big Dave shares Grady’s desire for readabil-</p>
+<p class="calibre1">ity, but with an important twist. Dave asserts that</p>
+<p class="calibre1">clean code makes it easy for  <i class="calibre4">other </i> people to enhance it. This may seem obvious, but it cannot be overemphasized. There is, after all, a difference between code that is easy to read and code that is easy to change.</p>
+<p class="calibre1">Dave ties cleanliness to tests! Ten years ago this would have raised a lot of eyebrows.</p>
+<p class="calibre1">But the discipline of Test Driven Development has made a profound impact upon our industry and has become one of our most fundamental disciplines. Dave is right. Code, without tests, is not clean. No matter how elegant it is, no matter how readable and acces-sible, if it hath not tests, it be unclean.</p>
+<p class="calibre1">Dave uses the word  <i class="calibre4">minimal </i> twice. Apparently he values code that is small, rather than code that is large. Indeed, this has been a common refrain throughout software literature since its inception. Smaller is better.</p>
+<p class="calibre1">Dave also says that code should be  <i class="calibre4">literate</i>. This is a soft reference to Knuth’s  <i class="calibre4">literate</i> <i class="calibre4">programming. </i> 4 The upshot is that the code should be composed in such a form as to make it readable by humans.</p>
+<p class="calibre1">4.</p>
+<p class="calibre1">[Knuth92].</p>
+<p class="calibre1"><a id="p41"></a><img src="index-41_1.png" alt="Image 12" class="calibre2"/></p>
+<p class="calibre1"><img src="index-41_2.png" alt="Image 13" class="calibre2"/></p>
+<p class="calibre1">10</p>
+<div class="calibre6" id="calibre_pb_9"></div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_82">Chapter 5: Formatting</h2>
+<p class="calibre1"><b class="calibre3">Conceptual Affinity. </b>Certain bits of code  <i class="calibre4">want</i></p>
+<p class="calibre1">to be near other bits. They have a certain</p>
+<p class="calibre1">conceptual affinity. The stronger that affinity, the</p>
+<p class="calibre1">less vertical distance there should be between</p>
+<p class="calibre1">them.</p>
+<p class="calibre1">As we have seen, this affinity might be based</p>
+<p class="calibre1">on a direct dependence, such as one function call-</p>
+<p class="calibre1">ing another, or a function using a variable. But</p>
+<p class="calibre1">there are other possible causes of affinity. Affinity</p>
+<p class="calibre1">might be caused because a group of functions per-</p>
+<p class="calibre1">form a similar operation. Consider this snippet of</p>
+<p class="calibre1">code from Junit 4.3.1:</p>
+<p class="calibre1">public class Assert {</p>
+<p class="calibre1">static public void assertTrue(String message, boolean condition) {</p>
+<p class="calibre1">if (!condition)</p>
+<p class="calibre1">fail(message);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">static public void assertTrue(boolean condition) {</p>
+<p class="calibre1">assertTrue(null, condition);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">static public void assertFalse(String message, boolean condition) {</p>
+<p class="calibre1">assertTrue(message, !condition);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">static public void assertFalse(boolean condition) {</p>
+<p class="calibre1">assertFalse(null, condition);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">These functions have a strong conceptual affinity because they share a common naming scheme and perform variations of the same basic task. The fact that they call each other is secondary. Even if they didn’t, they would still want to be close together.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Vertical Ordering</b></a></p>
+<p class="calibre1">In general we want function call dependencies to point in the downward direction. That is, a function that is called should be below a function that does the calling.2 This creates a nice flow down the source code module from high level to low level.</p>
+<p class="calibre1">As in newspaper articles, we expect the most important concepts to come first, and we expect them to be expressed with the least amount of polluting detail. We expect the low-level details to come last. This allows us to skim source files, getting the gist from the 2.</p>
+<p class="calibre1">This is the exact opposite of languages like Pascal, C, and C++ that enforce functions to be defined, or at least declared, <i class="calibre4">before</i> they are used.</p>
+<p class="calibre1"><a id="p116"></a><img src="index-116_1.jpg" alt="Image 28" class="calibre2"/></p>
+<p class="calibre1"><b class="calibre3">Horizontal Formatting</b></p>
+<p class="calibre1">85</p>
+<p class="calibre1">first few functions, without having to immerse ourselves in the details. Listing 5-5 is organized this way. Perhaps even better examples are Listing 15-5 on page 263, and Listing 3-7 on page 50.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Horizontal Formatting</b></a></p>
+<p class="calibre1">How wide should a line be? To answer that, let’s look at how wide lines are in typical programs. Again, we examine the seven different projects. Figure 5-2 shows the distribution of line lengths of all seven projects. The regularity is impressive, especially right around 45 characters. Indeed, every size from 20 to 60 represents about 1 percent of the total number of lines. That’s 40 percent! Perhaps another 30 percent are less than 10 characters wide. Remember this is a log scale, so the linear appearance of the drop-off above 80 characters is really very significant. Programmers clearly prefer short lines.</p>
+<p class="calibre1"><b class="calibre3">Figure 5-2</b></p>
+<p class="calibre1">Java line width distribution</p>
+<p class="calibre1">This suggests that we should strive to keep our lines short. The old Hollerith limit of 80 is a bit arbitrary, and I’m not opposed to lines edging out to 100 or even 120. But beyond that is probably just careless.</p>
+<p class="calibre1">I used to follow the rule that you should never have to scroll to the right. But monitors are too wide for that nowadays, and younger programmers can shrink the font so small</p>
+<p class="calibre1"><a id="p117"></a>86</p>
+<div class="calibre6" id="calibre_pb_83"></div>
+</body>
+</html>

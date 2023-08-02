@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_192">Chapter 14: Successive Refinement</h2>
+<p class="calibre1"><b class="calibre3">Listing 14-8 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (first draft)</b></p>
+<p class="calibre1">if (element.length() &gt; 0) {</p>
+<p class="calibre1">String trimmedElement = element.trim();</p>
+<p class="calibre1">parseSchemaElement(trimmedElement);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseSchemaElement(String element) throws ParseException {</p>
+<p class="calibre1">char elementId = element.charAt(0);</p>
+<p class="calibre1">String elementTail = element.substring(1);</p>
+<p class="calibre1">validateSchemaElementId(elementId);</p>
+<p class="calibre1">if (isBooleanSchemaElement(elementTail))</p>
+<p class="calibre1">parseBooleanSchemaElement(elementId);</p>
+<p class="calibre1">else if (isStringSchemaElement(elementTail))</p>
+<p class="calibre1">parseStringSchemaElement(elementId);</p>
+<p class="calibre1">else if (isIntegerSchemaElement(elementTail)) {</p>
+<p class="calibre1">parseIntegerSchemaElement(elementId);</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">throw new ParseException(</p>
+<p class="calibre1">String.format("Argument: %c has invalid format: %s.", elementId, elementTail), 0);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void validateSchemaElementId(char elementId) throws ParseException {</p>
+<p class="calibre1">if (!Character.isLetter(elementId)) {</p>
+<p class="calibre1">throw new ParseException(</p>
+<p class="calibre1">"Bad character:" + elementId + "in Args format: " + schema, 0);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseBooleanSchemaElement(char elementId) {</p>
+<p class="calibre1">booleanArgs.put(elementId, false);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseIntegerSchemaElement(char elementId) {</p>
+<p class="calibre1">intArgs.put(elementId, 0);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseStringSchemaElement(char elementId) {</p>
+<p class="calibre1">stringArgs.put(elementId, "");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isStringSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.equals("*");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isBooleanSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.length() == 0;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isIntegerSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.equals("#");</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p234"></a><b class="calibre3">Args: The Rough Draft</b></p>
+<p class="calibre1">203</p>
+<p class="calibre1"><b class="calibre3">Listing 14-8 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (first draft)</b></p>
+<p class="calibre1">private boolean parseArguments() throws ArgsException {</p>
+<p class="calibre1">for (currentArgument = 0; currentArgument &lt; args.length; currentArgument++)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">String arg = args[currentArgument];</p>
+<p class="calibre1">parseArgument(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseArgument(String arg) throws ArgsException {</p>
+<p class="calibre1">if (arg.startsWith("-"))</p>
+<p class="calibre1">parseElements(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElements(String arg) throws ArgsException {</p>
+<p class="calibre1">for (int i = 1; i &lt; arg.length(); i++)</p>
+<p class="calibre1">parseElement(arg.charAt(i));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElement(char argChar) throws ArgsException {</p>
+<p class="calibre1">if (setArgument(argChar))</p>
+<p class="calibre1">argsFound.add(argChar);</p>
+<p class="calibre1">else {</p>
+<p class="calibre1">unexpectedArguments.add(argChar);</p>
+<p class="calibre1">errorCode = ErrorCode.UNEXPECTED_ARGUMENT;</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean setArgument(char argChar) throws ArgsException {</p>
+<p class="calibre1">if (isBooleanArg(argChar))</p>
+<p class="calibre1">setBooleanArg(argChar, true);</p>
+<p class="calibre1">else if (isStringArg(argChar))</p>
+<p class="calibre1">setStringArg(argChar);</p>
+<p class="calibre1">else if (isIntArg(argChar))</p>
+<p class="calibre1">setIntArg(argChar);</p>
+<p class="calibre1">else</p>
+<p class="calibre1">return false;</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isIntArg(char argChar) {return intArgs.containsKey(argChar);}</p>
+<p class="calibre1">private void setIntArg(char argChar) throws ArgsException {</p>
+<p class="calibre1">currentArgument++;</p>
+<p class="calibre1">String parameter = null;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">parameter = args[currentArgument];</p>
+<p class="calibre1">intArgs.put(argChar, new Integer(parameter));</p>
+<p class="calibre1">} catch (ArrayIndexOutOfBoundsException e) {</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">errorArgumentId = argChar;</p>
+<p class="calibre1">errorCode = ErrorCode.MISSING_INTEGER;</p>
+<p class="calibre1"><a id="p235"></a>204</p>
+<div class="calibre6" id="calibre_pb_193"></div>
+</body>
+</html>

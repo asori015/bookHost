@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_184">Chapter 14: Successive Refinement</h2>
+<p class="calibre1">but none of them do exactly what I want. So, of course, I decided to write my own. I call it: Args.</p>
+<p class="calibre1">Args is very simple to use. You simply construct the Args class with the input arguments and a format string, and then query the Args instance for the values of the arguments. Consider the following simple example: <b class="calibre3">Listing 14-1</b></p>
+<p class="calibre1"><b class="calibre3">Simple use of Args</b></p>
+<p class="calibre1">public static void main(String[] args) {</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">Args arg = new Args("l,p#,d*", args);</p>
+<p class="calibre1">boolean logging = arg.getBoolean('l');</p>
+<p class="calibre1">int port = arg.getInt('p');</p>
+<p class="calibre1">String directory = arg.getString('d');</p>
+<p class="calibre1">executeApplication(logging, port, directory);</p>
+<p class="calibre1">} catch (ArgsException e) {</p>
+<p class="calibre1">System.out.printf("Argument error: %s\n", e.errorMessage());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">You can see how simple this is. We just create an instance of the Args class with two parameters. The first parameter is the format, or  <i class="calibre4">schema, </i> string: "l,p#,d*." It defines three command-line arguments. The first, –l, is a boolean argument. The second, -p, is an integer argument. The third, -d, is a string argument. The second parameter to the Args constructor is simply the array of command-line argument passed into main.</p>
+<p class="calibre1">If the constructor returns without throwing an ArgsException, then the incoming command-line was parsed, and the Args instance is ready to be queried. Methods like getBoolean, getInteger, and getString allow us to access the values of the arguments by their names.</p>
+<p class="calibre1">If there is a problem, either in the format string or in the command-line arguments themselves, an ArgsException will be thrown. A convenient description of what went wrong can be retrieved from the errorMessage method of the exception.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Args Implementation</b></a></p>
+<p class="calibre1">Listing 14-2 is the implementation of the Args class. Please read it very carefully. I worked hard on the style and structure and hope it is worth emulating.</p>
+<p class="calibre1"><b class="calibre3">Listing 14-2</b></p>
+<p class="calibre1"><b class="calibre3">Args.java</b></p>
+<p class="calibre1">package com.objectmentor.utilities.args;</p>
+<p class="calibre1">import static com.objectmentor.utilities.args.ArgsException.ErrorCode.*; import java.util.*;</p>
+<p class="calibre1">public class Args {</p>
+<p class="calibre1">private Map&lt;Character, ArgumentMarshaler&gt; marshalers;</p>
+<p class="calibre1"><a id="p226"></a><b class="calibre3">Args Implementation</b></p>
+<p class="calibre1">195</p>
+<p class="calibre1"><b class="calibre3">Listing 14-2  (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java</b></p>
+<p class="calibre1">private Set&lt;Character&gt; argsFound;</p>
+<p class="calibre1">private ListIterator&lt;String&gt; currentArgument;</p>
+<p class="calibre1">public Args(String schema, String[] args) throws ArgsException {</p>
+<p class="calibre1">marshalers = new HashMap&lt;Character, ArgumentMarshaler&gt;(); argsFound = new HashSet&lt;Character&gt;();</p>
+<p class="calibre1">parseSchema(schema);</p>
+<p class="calibre1">parseArgumentStrings(Arrays.asList(args));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseSchema(String schema) throws ArgsException {</p>
+<p class="calibre1">for (String element : schema.split(","))</p>
+<p class="calibre1">if (element.length() &gt; 0)</p>
+<p class="calibre1">parseSchemaElement(element.trim());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseSchemaElement(String element) throws ArgsException {</p>
+<p class="calibre1">char elementId = element.charAt(0);</p>
+<p class="calibre1">String elementTail = element.substring(1);</p>
+<p class="calibre1">validateSchemaElementId(elementId);</p>
+<p class="calibre1">if (elementTail.length() == 0)</p>
+<p class="calibre1">marshalers.put(elementId, new BooleanArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail.equals("*"))</p>
+<p class="calibre1">marshalers.put(elementId, new StringArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail.equals("#"))</p>
+<p class="calibre1">marshalers.put(elementId, new IntegerArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail.equals("##"))</p>
+<p class="calibre1">marshalers.put(elementId, new DoubleArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail.equals("[*]"))</p>
+<p class="calibre1">marshalers.put(elementId, new StringArrayArgumentMarshaler()); else</p>
+<p class="calibre1">throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void validateSchemaElementId(char elementId) throws ArgsException {</p>
+<p class="calibre1">if (!Character.isLetter(elementId))</p>
+<p class="calibre1">throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseArgumentStrings(List&lt;String&gt; argsList) throws ArgsException</p>
+<p class="calibre1">{</p>
+<p class="calibre1">for (currentArgument = argsList.listIterator(); currentArgument.hasNext();)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">String argString = currentArgument.next();</p>
+<p class="calibre1">if (argString.startsWith("-")) {</p>
+<p class="calibre1">parseArgumentCharacters(argString.substring(1));</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">currentArgument.previous();</p>
+<p class="calibre1">break;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p227"></a>196</p>
+<div class="calibre6" id="calibre_pb_185"></div>
+</body>
+</html>

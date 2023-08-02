@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_58">Chapter 4: Comments</h2>
+<p class="calibre1">Here, for example, is a case I found in FitNesse, where a comment might indeed have been useful. But the author was in a hurry or just not paying much attention. His mumbling left behind an enigma:</p>
+<p class="calibre1">public void loadProperties()</p>
+<p class="calibre1">{</p>
+<p class="calibre1">try</p>
+<p class="calibre1">{</p>
+<p class="calibre1">String propertiesPath = propertiesLocation + "/" + PROPERTIES_FILE; FileInputStream propertiesStream = new FileInputStream(propertiesPath); loadedProperties.load(propertiesStream);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">catch(IOException e)</p>
+<p class="calibre1">{</p>
+<p class="calibre1"><b class="calibre3">// No properties files means all defaults are loaded</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">What does that comment in the catch block mean? Clearly it meant something to the author, but the meaning does not come through all that well. Apparently, if we get an IOException, it means that there was no properties file; and in that case all the defaults are loaded. But who loads all the defaults? Were they loaded before the call to loadProperties.load? Or did loadProperties.load catch the exception, load the defaults, and then pass the exception on for us to ignore? Or did loadProperties.load load all the defaults before attempting to load the file? Was the author trying to comfort himself about the fact that he was leaving the catch block empty? Or—and this is the scary possibility— was the author trying to tell himself to come back here later and write the code that would load the defaults?</p>
+<p class="calibre1">Our only recourse is to examine the code in other parts of the system to find out what’s going on. Any comment that forces you to look in another module for the meaning of that comment has failed to communicate to you and is not worth the bits it consumes.</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Redundant Comments</b></a></p>
+<p class="calibre1">Listing 4-1 shows a simple function with a header comment that is completely redundant.</p>
+<p class="calibre1">The comment probably takes longer to read than the code itself.</p>
+<p class="calibre1"><b class="calibre3">Listing 4-1 </b></p>
+<p class="calibre1"><b class="calibre3">waitForClose</b></p>
+<p class="calibre1"><b class="calibre3">// Utility method that returns when this.closed is true. Throws an exception</b></p>
+<p class="calibre1"><b class="calibre3">// if the timeout is reached. </b></p>
+<p class="calibre1">public synchronized void waitForClose(final long timeoutMillis) throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">if(!closed)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">wait(timeoutMillis);</p>
+<p class="calibre1">if(!closed)</p>
+<p class="calibre1">throw new Exception("MockResponseSender could not be closed");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p92"></a><b class="calibre3">Bad Comments</b></p>
+<p class="calibre1">61</p>
+<p class="calibre1">What purpose does this comment serve? It’s certainly not more informative than the code. It does not justify the code, or provide intent or rationale. It is not easier to read than the code. Indeed, it is less precise than the code and entices the reader to accept that lack of precision in lieu of true understanding. It is rather like a gladhanding used-car salesman assuring you that you don’t need to look under the hood.</p>
+<p class="calibre1">Now consider the legion of useless and redundant javadocs in Listing 4-2 taken from Tomcat. These comments serve only to clutter and obscure the code. They serve no documentary purpose at all. To make matters worse, I only showed you the first few. There are many more in this module.</p>
+<p class="calibre1"><b class="calibre3">Listing 4-2 </b></p>
+<p class="calibre1"><b class="calibre3">ContainerBase.java (Tomcat)</b></p>
+<p class="calibre1">public abstract class ContainerBase</p>
+<p class="calibre1">implements Container, Lifecycle, Pipeline,</p>
+<p class="calibre1">MBeanRegistration, Serializable {</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The processor delay for this component.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected int backgroundProcessorDelay = -1;</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The lifecycle event support for this component.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected LifecycleSupport lifecycle =</p>
+<p class="calibre1">new LifecycleSupport(this);</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The container event listeners for this Container.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected ArrayList listeners = new ArrayList();</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The Loader implementation with which this Container is</p>
+<p class="calibre1">* associated.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected Loader loader = null;</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The Logger implementation with which this Container is</p>
+<p class="calibre1">* associated.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected Log logger = null;</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* Associated logger name.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected String logName = null;</p>
+<p class="calibre1"><a id="p93"></a>62</p>
+<div class="calibre6" id="calibre_pb_59"></div>
+</body>
+</html>

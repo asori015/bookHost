@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_68">Chapter 4: Comments</h2>
+<p class="calibre1">/**</p>
+<p class="calibre1">* Port on which fitnesse would run. Defaults to &lt;b&gt;8082&lt;/b&gt;.</p>
+<p class="calibre1">*</p>
+<p class="calibre1">* @param fitnessePort</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">public void setFitnessePort(int fitnessePort)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">this.fitnessePort = fitnessePort;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Too Much Information</b></a></p>
+<p class="calibre1">Don’t put interesting historical discussions or irrelevant descriptions of details into your comments. The comment below was extracted from a module designed to test that a function could encode and decode base64. Other than the RFC number, someone reading this code has no need for the arcane information contained in the comment.</p>
+<p class="calibre1">/*</p>
+<p class="calibre1">RFC 2045 - Multipurpose Internet Mail Extensions (MIME)</p>
+<p class="calibre1">Part One: Format of Internet Message Bodies</p>
+<p class="calibre1">section 6.8.  Base64 Content-Transfer-Encoding</p>
+<p class="calibre1">The encoding process represents 24-bit groups of input bits as output strings of 4 encoded characters. Proceeding from left to right, a 24-bit input group is formed by concatenating 3 8-bit input groups.</p>
+<p class="calibre1">These 24 bits are then treated as 4 concatenated 6-bit groups, each of which is translated into a single digit in the base64 alphabet.</p>
+<p class="calibre1">When encoding a bit stream via the base64 encoding, the bit stream must be presumed to be ordered with the most-significant-bit first.</p>
+<p class="calibre1">That is, the first bit in the stream will be the high-order bit in the first 8-bit byte, and the eighth bit will be the low-order bit in the first 8-bit byte, and so on.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Inobvious Connection</b></a></p>
+<p class="calibre1">The connection between a comment and the code it describes should be obvious. If you are going to the trouble to write a comment, then at least you’d like the reader to be able to look at the comment and the code and understand what the comment is talking about.</p>
+<p class="calibre1">Consider, for example, this comment drawn from apache commons:</p>
+<p class="calibre1">/*</p>
+<p class="calibre1">* start with an array that is big enough to hold all the pixels</p>
+<p class="calibre1">* (plus filter bytes), and an extra 200 bytes for header info</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">this.pngBytes = new byte[((this.width + 1) * this.height * 3) + 200]; What is a filter byte? Does it relate to the +1? Or to the *3? Both? Is a pixel a byte? Why 200? The purpose of a comment is to explain code that does not explain itself. It is a pity when a comment needs its own explanation.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Function Headers</b></a></p>
+<p class="calibre1">Short functions don’t need much description. A well-chosen name for a small function that does one thing is usually better than a comment header.</p>
+<p class="calibre1"><a id="p102"></a><b class="calibre3">Bad Comments</b></p>
+<p class="calibre1">71</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Javadocs in Nonpublic Code</b></a></p>
+<p class="calibre1">As useful as javadocs are for public APIs, they are anathema to code that is not intended for public consumption. Generating javadoc pages for the classes and functions inside a system is not generally useful, and the extra formality of the javadoc comments amounts to little more than cruft and distraction.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Example</b></a></p>
+<p class="calibre1">I wrote the module in Listing 4-7 for the first  <i class="calibre4">XP Immersion</i>. It was intended to be an example of bad coding and commenting style. Kent Beck then refactored this code into a much more pleasant form in front of several dozen enthusiastic students. Later I adapted the example for my book  <i class="calibre4">Agile Software Development, Principles, Patterns, and Practices</i> and the first of my  <i class="calibre4">Craftsman</i> articles published in  <i class="calibre4">Software Development</i> magazine.</p>
+<p class="calibre1">What I find fascinating about this module is that there was a time when many of us would have considered it “well documented.” Now we see it as a small mess. See how many different comment problems you can find.</p>
+<p class="calibre1"><b class="calibre3">Listing 4-7 </b></p>
+<p class="calibre1"><b class="calibre3">GeneratePrimes.java</b></p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* This class Generates prime numbers up to a user specified</p>
+<p class="calibre1">* maximum.  The algorithm used is the Sieve of Eratosthenes.</p>
+<p class="calibre1">* &lt;p&gt;</p>
+<p class="calibre1">* Eratosthenes of Cyrene, b. c. 276 BC, Cyrene, Libya --</p>
+<p class="calibre1">* d. c. 194, Alexandria.  The first man to calculate the</p>
+<p class="calibre1">* circumference of the Earth.  Also known for working on</p>
+<p class="calibre1">* calendars with leap years and ran the library at Alexandria.</p>
+<p class="calibre1">* &lt;p&gt;</p>
+<p class="calibre1">* The algorithm is quite simple.  Given an array of integers</p>
+<p class="calibre1">* starting at 2.  Cross out all multiples of 2.  Find the next</p>
+<p class="calibre1">* uncrossed integer, and cross out all of its multiples.</p>
+<p class="calibre1">* Repeat untilyou have passed the square root of the maximum</p>
+<p class="calibre1">* value.</p>
+<p class="calibre1">*</p>
+<p class="calibre1">* @author Alphonse</p>
+<p class="calibre1">* @version 13 Feb 2002 atp</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">import java.util.*;</p>
+<p class="calibre1">public class GeneratePrimes</p>
+<p class="calibre1">{</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* @param maxValue is the generation limit.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">public static int[] generatePrimes(int maxValue)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">if (maxValue &gt;= 2) // the only valid case</p>
+<p class="calibre1">{</p>
+<p class="calibre1">// declarations</p>
+<p class="calibre1">int s = maxValue + 1; // size of array</p>
+<p class="calibre1">boolean[] f = new boolean[s];</p>
+<p class="calibre1">int i;</p>
+<p class="calibre1"><a id="p103"></a>72</p>
+<div class="calibre6" id="calibre_pb_69"></div>
+</body>
+</html>

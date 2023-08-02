@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_244">Chapter 15: JUnit Internals</h2>
+<p class="calibre1"><b class="calibre3">Listing 15-1 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">ComparisonCompactorTest.java</b></p>
+<p class="calibre1">assertEquals("expected:&lt;a&gt; but was:&lt;null&gt;", failure);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void testComparisonErrorWithExpectedNull() {</p>
+<p class="calibre1">String failure= new ComparisonCompactor(0, null, "a").compact(null); assertEquals("expected:&lt;null&gt; but was:&lt;a&gt;", failure);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void testComparisonErrorWithExpectedNullContext() {</p>
+<p class="calibre1">String failure= new ComparisonCompactor(2, null, "a").compact(null); assertEquals("expected:&lt;null&gt; but was:&lt;a&gt;", failure);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void testBug609972() {</p>
+<p class="calibre1">String failure= new ComparisonCompactor(10, "S&amp;P500", "0").compact(null); assertEquals("expected:&lt;[S&amp;P50]0&gt; but was:&lt;[]0&gt;", failure);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">I ran a code coverage analysis on the ComparisonCompactor using these tests. The code is 100 percent covered. Every line of code, every if statement and for loop, is executed by the tests. This gives me a high degree of confidence that the code works and a high degree of respect for the craftsmanship of the authors.</p>
+<p class="calibre1">The code for ComparisonCompactor is in Listing 15-2. Take a moment to look over this code. I think you’ll find it to be nicely partitioned, reasonably expressive, and simple in structure. Once you are done, then we’ll pick the nits together.</p>
+<p class="calibre1"><b class="calibre3">Listing 15-2 </b></p>
+<p class="calibre1"><b class="calibre3">ComparisonCompactor.java (Original)</b></p>
+<p class="calibre1">package junit.framework;</p>
+<p class="calibre1">public class ComparisonCompactor {</p>
+<p class="calibre1">private static final String ELLIPSIS = "...";</p>
+<p class="calibre1">private static final String DELTA_END = "]";</p>
+<p class="calibre1">private static final String DELTA_START = "[";</p>
+<p class="calibre1">private int fContextLength;</p>
+<p class="calibre1">private String fExpected;</p>
+<p class="calibre1">private String fActual;</p>
+<p class="calibre1">private int fPrefix;</p>
+<p class="calibre1">private int fSuffix;</p>
+<p class="calibre1">public ComparisonCompactor(int contextLength,</p>
+<p class="calibre1">String expected,</p>
+<p class="calibre1">String actual) {</p>
+<p class="calibre1">fContextLength = contextLength;</p>
+<p class="calibre1">fExpected = expected;</p>
+<p class="calibre1">fActual = actual;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p286"></a><b class="calibre3">The JUnit Framework</b></p>
+<p class="calibre1">255</p>
+<p class="calibre1"><b class="calibre3">Listing 15-2 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">ComparisonCompactor.java (Original)</b></p>
+<p class="calibre1">public String compact(String message) {</p>
+<p class="calibre1">if (fExpected == null || fActual == null || areStringsEqual()) return Assert.format(message, fExpected, fActual);</p>
+<p class="calibre1">findCommonPrefix();</p>
+<p class="calibre1">findCommonSuffix();</p>
+<p class="calibre1">String expected = compactString(fExpected);</p>
+<p class="calibre1">String actual = compactString(fActual);</p>
+<p class="calibre1">return Assert.format(message, expected, actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String compactString(String source) {</p>
+<p class="calibre1">String result = DELTA_START +</p>
+<p class="calibre1">source.substring(fPrefix, source.length() -</p>
+<p class="calibre1">fSuffix + 1) + DELTA_END;</p>
+<p class="calibre1">if (fPrefix &gt; 0)</p>
+<p class="calibre1">result = computeCommonPrefix() + result;</p>
+<p class="calibre1">if (fSuffix &gt; 0)</p>
+<p class="calibre1">result = result + computeCommonSuffix();</p>
+<p class="calibre1">return result;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void findCommonPrefix() {</p>
+<p class="calibre1">fPrefix = 0;</p>
+<p class="calibre1">int end = Math.min(fExpected.length(), fActual.length());</p>
+<p class="calibre1">for (; fPrefix &lt; end; fPrefix++) {</p>
+<p class="calibre1">if (fExpected.charAt(fPrefix) != fActual.charAt(fPrefix))</p>
+<p class="calibre1">break;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void findCommonSuffix() {</p>
+<p class="calibre1">int expectedSuffix = fExpected.length() - 1;</p>
+<p class="calibre1">int actualSuffix = fActual.length() - 1;</p>
+<p class="calibre1">for (;</p>
+<p class="calibre1">actualSuffix &gt;= fPrefix &amp;&amp; expectedSuffix &gt;= fPrefix; actualSuffix--, expectedSuffix--) {</p>
+<p class="calibre1">if (fExpected.charAt(expectedSuffix) != fActual.charAt(actualSuffix)) break;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">fSuffix = fExpected.length() - expectedSuffix;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String computeCommonPrefix() {</p>
+<p class="calibre1">return (fPrefix &gt; fContextLength ? ELLIPSIS : "") +</p>
+<p class="calibre1">fExpected.substring(Math.max(0, fPrefix - fContextLength),</p>
+<p class="calibre1">fPrefix);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String computeCommonSuffix() {</p>
+<p class="calibre1">int end = Math.min(fExpected.length() - fSuffix + 1 + fContextLength, fExpected.length());</p>
+<p class="calibre1">return fExpected.substring(fExpected.length() - fSuffix + 1, end) +</p>
+<p class="calibre1">(fExpected.length() - fSuffix + 1 &lt; fExpected.length() -</p>
+<p class="calibre1">fContextLength ? ELLIPSIS : "");</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p287"></a>256</p>
+<div class="calibre6" id="calibre_pb_245"></div>
+</body>
+</html>

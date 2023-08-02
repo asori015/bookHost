@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_16">Chapter 2: Meaningful Names</h2>
+<p class="calibre1">so much of it, we’d better do it well. What follows are some simple rules for creating good names.</p>
+<p class="calibre1"><a href="index_split_000.html#p8"><b class="calibre3">Use Intention-Revealing Names</b></a></p>
+<p class="calibre1">It is easy to say that names should reveal intent. What we want to impress upon you is that we are  <i class="calibre4">serious </i> about this. Choosing good names takes time but saves more than it takes.</p>
+<p class="calibre1">So take care with your names and change them when you find better ones. Everyone who reads your code (including you) will be happier if you do.</p>
+<p class="calibre1">The name of a variable, function, or class, should answer all the big questions. It should tell you why it exists, what it does, and how it is used. If a name requires a comment, then the name does not reveal its intent.</p>
+<p class="calibre1">int d; // elapsed time in days</p>
+<p class="calibre1">The name d reveals nothing. It does not evoke a sense of elapsed time, nor of days. We should choose a name that specifies what is being measured and the unit of that measure-ment:</p>
+<p class="calibre1">int elapsedTimeInDays;</p>
+<p class="calibre1">int daysSinceCreation;</p>
+<p class="calibre1">int daysSinceModification;</p>
+<p class="calibre1">int fileAgeInDays;</p>
+<p class="calibre1">Choosing names that reveal intent can make it much easier to understand and change code. What is the purpose of this code?</p>
+<p class="calibre1">public List&lt;int[]&gt; getThem() {</p>
+<p class="calibre1">List&lt;int[]&gt; list1 = new ArrayList&lt;int[]&gt;();</p>
+<p class="calibre1">for (int[] x : theList)</p>
+<p class="calibre1">if (x[0] == 4)</p>
+<p class="calibre1">list1.add(x);</p>
+<p class="calibre1">return list1;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Why is it hard to tell what this code is doing? There are no complex expressions.</p>
+<p class="calibre1">Spacing and indentation are reasonable. There are only three variables and two constants mentioned. There aren’t even any fancy classes or polymorphic methods, just a list of arrays (or so it seems).</p>
+<p class="calibre1">The problem isn’t the simplicity of the code but the  <i class="calibre4">implicity </i> of the code (to coin a phrase): the degree to which the context is not explicit in the code itself. The code implicitly requires that we know the answers to questions such as: <b class="calibre3">1. </b>What kinds of things are in theList?</p>
+<p class="calibre1"><b class="calibre3">2. </b>What is the significance of the zeroth subscript of an item in theList?</p>
+<p class="calibre1"><b class="calibre3">3. </b>What is the significance of the value 4?</p>
+<p class="calibre1"><b class="calibre3">4. </b>How would I use the list being returned?</p>
+<p class="calibre1"><a id="p50"></a><b class="calibre3">Avoid Disinformation</b></p>
+<p class="calibre1">19</p>
+<p class="calibre1">The answers to these questions are not present in the code sample,  <i class="calibre4">but they could have</i> <i class="calibre4">been</i>. Say that we’re working in a mine sweeper game. We find that the board is a list of cells called theList. Let’s rename that to gameBoard.</p>
+<p class="calibre1">Each cell on the board is represented by a simple array. We further find that the zeroth subscript is the location of a status value and that a status value of 4 means “flagged.” Just by giving these concepts names we can improve the code considerably: public List&lt;int[]&gt; getFlaggedCells() {</p>
+<p class="calibre1">List&lt;int[]&gt; flaggedCells = new ArrayList&lt;int[]&gt;(); for (int[] cell : gameBoard)</p>
+<p class="calibre1">if (cell[STATUS_VALUE] == FLAGGED)</p>
+<p class="calibre1">flaggedCells.add(cell);</p>
+<p class="calibre1">return flaggedCells;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Notice that the simplicity of the code has not changed. It still has exactly the same number of operators and constants, with exactly the same number of nesting levels. But the code has become much more explicit.</p>
+<p class="calibre1">We can go further and write a simple class for cells instead of using an array of ints.</p>
+<p class="calibre1">It can include an intention-revealing function (call it isFlagged) to hide the magic numbers. It results in a new version of the function:</p>
+<p class="calibre1">public List&lt;Cell&gt; getFlaggedCells() {</p>
+<p class="calibre1">List&lt;Cell&gt; flaggedCells = new ArrayList&lt;Cell&gt;();</p>
+<p class="calibre1">for (Cell cell : gameBoard)</p>
+<p class="calibre1">if (cell.isFlagged())</p>
+<p class="calibre1">flaggedCells.add(cell);</p>
+<p class="calibre1">return flaggedCells;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">With these simple name changes, it’s not difficult to understand what’s going on. This is the power of choosing good names.</p>
+<p class="calibre1"><a href="index_split_000.html#p8"><b class="calibre3">Avoid Disinformation</b></a></p>
+<p class="calibre1">Programmers must avoid leaving false clues that obscure the meaning of code. We should avoid words whose entrenched meanings vary from our intended meaning. For example, hp, aix, and sco would be poor variable names because they are the names of Unix platforms or variants. Even if you are coding a hypotenuse and hp looks like a good abbreviation, it could be disinformative.</p>
+<p class="calibre1">Do not refer to a grouping of accounts as an accountList unless it’s actually a List.</p>
+<p class="calibre1">The word list means something specific to programmers. If the container holding the accounts is not actually a List, it may lead to false conclusions.1 So accountGroup or bunchOfAccounts or just plain accounts would be better.</p>
+<p class="calibre1">1.</p>
+<p class="calibre1">As we’ll see later on, even if the container  <i class="calibre4">is</i> a List, it’s probably better not to encode the container type into the name.</p>
+<p class="calibre1"><a id="p51"></a><img src="index-51_1.jpg" alt="Image 17" class="calibre2"/></p>
+<p class="calibre1">20</p>
+<div class="calibre6" id="calibre_pb_17"></div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_62">Chapter 4: Comments</h2>
+<p class="calibre1">* Changes (from 11-Oct-2001)</p>
+<p class="calibre1">* --------------------------</p>
+<p class="calibre1">* 11-Oct-2001 : Re-organised the class and moved it to new package</p>
+<p class="calibre1">*               com.jrefinery.date (DG);</p>
+<p class="calibre1">* 05-Nov-2001 : Added a getDescription() method, and eliminated NotableDate</p>
+<p class="calibre1">*               class (DG);</p>
+<p class="calibre1">* 12-Nov-2001 : IBD requires setDescription() method, now that NotableDate</p>
+<p class="calibre1">*               class is gone (DG);  Changed getPreviousDayOfWeek(),</p>
+<p class="calibre1">*               getFollowingDayOfWeek() and getNearestDayOfWeek() to correct</p>
+<p class="calibre1">*               bugs (DG);</p>
+<p class="calibre1">* 05-Dec-2001 : Fixed bug in SpreadsheetDate class (DG);</p>
+<p class="calibre1">* 29-May-2002 : Moved the month constants into a separate interface</p>
+<p class="calibre1">*               (MonthConstants) (DG);</p>
+<p class="calibre1">* 27-Aug-2002 : Fixed bug in addMonths() method, thanks to N???levka Petr (DG);</p>
+<p class="calibre1">* 03-Oct-2002 : Fixed errors reported by Checkstyle (DG);</p>
+<p class="calibre1">* 13-Mar-2003 : Implemented Serializable (DG);</p>
+<p class="calibre1">* 29-May-2003 : Fixed bug in addMonths method (DG);</p>
+<p class="calibre1">* 04-Sep-2003 : Implemented Comparable.  Updated the isInRange javadocs (DG);</p>
+<p class="calibre1">* 05-Jan-2005 : Fixed bug in addYears() method (1096282) (DG); Long ago there was a good reason to create and maintain these log entries at the start of every module. We didn’t have source code control systems that did it for us. Nowadays, however, these long journals are just more clutter to obfuscate the module. They should be completely removed.</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Noise Comments</b></a></p>
+<p class="calibre1">Sometimes you see comments that are nothing but noise. They restate the obvious and provide no new information.</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* Default constructor.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">protected AnnualDateRule() {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">No,  <i class="calibre4">really? </i> Or how about this:</p>
+<p class="calibre1">/** The day of the month. */</p>
+<p class="calibre1">private int dayOfMonth;</p>
+<p class="calibre1">And then there’s this paragon of redundancy:</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* Returns the day of the month.</p>
+<p class="calibre1">*</p>
+<p class="calibre1">* @return the day of the month.</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">public int getDayOfMonth() {</p>
+<p class="calibre1">return dayOfMonth;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p96"></a><b class="calibre3">Bad Comments</b></p>
+<p class="calibre1">65</p>
+<p class="calibre1">These comments are so noisy that we learn to ignore them. As we read through code, our eyes simply skip over them. Eventually the comments begin to lie as the code around them changes.</p>
+<p class="calibre1">The first comment in Listing 4-4 seems appropriate.2 It explains why the catch block is being ignored. But the second comment is pure noise. Apparently the programmer was just so frustrated with writing try/catch blocks in this function that he needed to vent.</p>
+<p class="calibre1"><b class="calibre3">Listing 4-4 </b></p>
+<p class="calibre1"><b class="calibre3">startSending</b></p>
+<p class="calibre1">private void startSending()</p>
+<p class="calibre1">{</p>
+<p class="calibre1">try</p>
+<p class="calibre1">{</p>
+<p class="calibre1">doSending();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">catch(SocketException e)</p>
+<p class="calibre1">{</p>
+<p class="calibre1"><b class="calibre3">// normal. someone stopped the request. </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">catch(Exception e)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">try</p>
+<p class="calibre1">{</p>
+<p class="calibre1">response.add(ErrorResponder.makeExceptionString(e));</p>
+<p class="calibre1">response.closeAll();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">catch(Exception e1)</p>
+<p class="calibre1">{</p>
+<p class="calibre1"><b class="calibre3">//Give me a break! </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Rather than venting in a worthless and noisy comment, the programmer should have recognized that his frustration could be resolved by improving the structure of his code.</p>
+<p class="calibre1">He should have redirected his energy to extracting that last try/catch block into a separate function, as shown in Listing 4-5.</p>
+<p class="calibre1"><b class="calibre3">Listing 4-5 </b></p>
+<p class="calibre1"><b class="calibre3">startSending (refactored)</b></p>
+<p class="calibre1">private void startSending()</p>
+<p class="calibre1">{</p>
+<p class="calibre1">try</p>
+<p class="calibre1">{</p>
+<p class="calibre1">doSending();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">2.</p>
+<p class="calibre1">The current trend for IDEs to check spelling in comments will be a balm for those of us who read a lot of code.</p>
+<p class="calibre1"><a id="p97"></a>66</p>
+<div class="calibre6" id="calibre_pb_63"></div>
+</body>
+</html>

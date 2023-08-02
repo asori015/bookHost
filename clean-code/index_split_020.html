@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_38">Chapter 3: Functions</h2>
+<p class="calibre1">Don’t be afraid to spend time choosing a name. Indeed, you should try several different names and read the code with each in place. Modern IDEs like Eclipse or IntelliJ make it trivial to change names. Use one of those IDEs and experiment with different names until you find one that is as descriptive as you can make it.</p>
+<p class="calibre1">Choosing descriptive names will clarify the design of the module in your mind and help you to improve it. It is not at all uncommon that hunting for a good name results in a favorable restructuring of the code.</p>
+<p class="calibre1">Be consistent in your names. Use the same phrases, nouns, and verbs in the function names you choose for your modules. Consider, for example, the names includeSetupAndTeardownPages, includeSetupPages, includeSuiteSetupPage, and includeSetupPage. The similar phraseology in those names allows the sequence to tell a story. Indeed, if I showed you just the sequence above, you’d ask yourself: “What happened to includeTeardownPages, includeSuiteTeardownPage, and includeTeardownPage?” How’s that for being “. . .  <i class="calibre4">pretty much what you expected</i>.”</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Function Arguments</b></a></p>
+<p class="calibre1">The ideal number of arguments for a function is</p>
+<p class="calibre1">zero (niladic). Next comes one (monadic), followed</p>
+<p class="calibre1">closely by two (dyadic). Three arguments (triadic)</p>
+<p class="calibre1">should be avoided where possible. More than three</p>
+<p class="calibre1">(polyadic) requires very special justification—and</p>
+<p class="calibre1">then shouldn’t be used anyway.</p>
+<p class="calibre1">Arguments are hard. They take a lot of con-</p>
+<p class="calibre1">ceptual power. That’s why I got rid of almost all of</p>
+<p class="calibre1">them from the example. Consider, for instance, the</p>
+<p class="calibre1">StringBuffer in the example. We could have</p>
+<p class="calibre1">passed it around as an argument rather than mak-</p>
+<p class="calibre1">ing it an instance variable, but then our readers</p>
+<p class="calibre1">would have had to interpret it each time they saw</p>
+<p class="calibre1">it. When you are reading the story told by the</p>
+<p class="calibre1">module, includeSetupPage() is easier to understand than includeSetupPageInto(newPageContent). The argument is at a different level of abstraction than the function name and forces you to know a detail (in other words, StringBuffer) that isn’t particularly important at that point.</p>
+<p class="calibre1">Arguments are even harder from a testing point of view. Imagine the difficulty of writing all the test cases to ensure that all the various combinations of arguments work properly. If there are no arguments, this is trivial. If there’s one argument, it’s not too hard.</p>
+<p class="calibre1">With two arguments the problem gets a bit more challenging. With more than two arguments, testing every combination of appropriate values can be daunting.</p>
+<p class="calibre1"><a id="p72"></a><b class="calibre3">Function Arguments</b></p>
+<p class="calibre1">41</p>
+<p class="calibre1">Output arguments are harder to understand than input arguments. When we read a function, we are used to the idea of information going  <i class="calibre4">in</i> to the function through arguments and  <i class="calibre4">out </i> through the return value. We don’t usually expect information to be going out through the arguments. So output arguments often cause us to do a double-take.</p>
+<p class="calibre1">One input argument is the next best thing to no arguments. SetupTeardownIncluder.render(pageData) is pretty easy to understand. Clearly we are going to  <i class="calibre4">render </i> the data in the pageData object.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Common Monadic Forms</b></a></p>
+<p class="calibre1">There are two very common reasons to pass a single argument into a function. You may be asking a question about that argument, as in boolean fileExists(“MyFile”). Or you may be operating on that argument, transforming it into something else and  <i class="calibre4">returning it</i>. For example, InputStream fileOpen(“MyFile”) transforms a file name String into an InputStream return value. These two uses are what readers expect when they see a function. You should choose names that make the distinction clear, and always use the two forms in a consistent context. (See Command Query Separation below.) A somewhat less common, but still very useful form for a single argument function, is an  <i class="calibre4">event</i>. In this form there is an input argument but no output argument. The overall program is meant to interpret the function call as an event and use the argument to alter the state of the system, for example, void passwordAttemptFailedNtimes(int attempts). Use this form with care. It should be very clear to the reader that this is an event. Choose names and contexts carefully.</p>
+<p class="calibre1">Try to avoid any monadic functions that don’t follow these forms, for example, void includeSetupPageInto(StringBuffer pageText). Using an output argument instead of a return value for a transformation is confusing. If a function is going to transform its input argument, the transformation should appear as the return value. Indeed, StringBuffer transform(StringBuffer in) is better than void transform-(StringBuffer out), even if the implementation in the first case simply returns the input argument. At least it still follows the form of a transformation.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Flag Arguments</b></a></p>
+<p class="calibre1">Flag arguments are ugly. Passing a boolean into a function is a truly terrible practice. It immediately complicates the signature of the method, loudly proclaiming that this function does more than one thing. It does one thing if the flag is true and another if the flag is false!</p>
+<p class="calibre1">In Listing 3-7 we had no choice because the callers were already passing that flag in, and I wanted to limit the scope of refactoring to the function and below. Still, the method call render(true) is just plain confusing to a poor reader. Mousing over the call and seeing render(boolean isSuite) helps a little, but not that much. We should have split the function into two: renderForSuite() and renderForSingleTest().</p>
+<p class="calibre1"><a id="p73"></a>42</p>
+<div class="calibre6" id="calibre_pb_39"></div>
+</body>
+</html>

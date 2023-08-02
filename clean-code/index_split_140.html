@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_278">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">you create. Coding becomes faster and less error prone because you have raised the abstraction level.</p>
+<p class="calibre1">The most obvious form of duplication is when you have clumps of identical code that look like some programmers went wild with the mouse, pasting the same code over and over again. These should be replaced with simple methods.</p>
+<p class="calibre1">A more subtle form is the switch/case or if/else chain that appears again and again in various modules, always testing for the same set of conditions. These should be replaced with polymorphism.</p>
+<p class="calibre1">Still more subtle are the modules that have similar algorithms, but that don’t share similar lines of code. This is still duplication and should be addressed by using the TEMPLATE METHOD,4 or STRATEGY5 pattern.</p>
+<p class="calibre1">Indeed, most of the design patterns that have appeared in the last fifteen years are simply well-known ways to eliminate duplication. So too the Codd Normal Forms are a strategy for eliminating duplication in database schemae. OO itself is a strategy for organizing modules and eliminating duplication. Not surprisingly, so is structured programming.</p>
+<p class="calibre1">I think the point has been made. Find and eliminate duplication wherever you can.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">G6:  <i class="calibre4">Code at Wrong Level of Abstraction</i></b></a></p>
+<p class="calibre1">It is important to create abstractions that separate higher level general concepts from lower level detailed concepts. Sometimes we do this by creating abstract classes to hold the higher level concepts and derivatives to hold the lower level concepts. When we do this, we need to make sure that the separation is complete. We want  <i class="calibre4">all </i> the lower level concepts to be in the derivatives and  <i class="calibre4">all</i> the higher level concepts to be in the base class.</p>
+<p class="calibre1">For example, constants, variables, or utility functions that pertain only to the detailed implementation should not be present in the base class. The base class should know nothing about them.</p>
+<p class="calibre1">This rule also pertains to source files, components, and modules. Good software design requires that we separate concepts at different levels and place them in different containers. Sometimes these containers are base classes or derivatives and sometimes they are source files, modules, or components. Whatever the case may be, the separation needs to be complete. We don’t want lower and higher level concepts mixed together.</p>
+<p class="calibre1">Consider the following code:</p>
+<p class="calibre1">public interface Stack {</p>
+<p class="calibre1">Object pop() throws EmptyException;</p>
+<p class="calibre1">void push(Object o) throws FullException;</p>
+<p class="calibre1">double percentFull();</p>
+<p class="calibre1">4.</p>
+<p class="calibre1">[GOF].</p>
+<p class="calibre1">5.</p>
+<p class="calibre1">[GOF].</p>
+<p class="calibre1"><a id="p322"></a><b class="calibre3">General</b></p>
+<p class="calibre1">291</p>
+<p class="calibre1">class EmptyException extends Exception {}</p>
+<p class="calibre1">class FullException extends Exception {}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The percentFull function is at the wrong level of abstraction. Although there are many implementations of Stack where the concept of  <i class="calibre4">fullness </i> is reasonable, there are other implementations that simply  <i class="calibre4">could not know </i> how full they are. So the function would be better placed in a derivative interface such as BoundedStack.</p>
+<p class="calibre1">Perhaps you are thinking that the implementation could just return zero if the stack were boundless. The problem with that is that no stack is truly boundless. You cannot really prevent an OutOfMemoryException by checking for stack.percentFull() &lt; 50.0.</p>
+<p class="calibre1">Implementing the function to return 0 would be telling a lie.</p>
+<p class="calibre1">The point is that you cannot lie or fake your way out of a misplaced abstraction. Isolating abstractions is one of the hardest things that software developers do, and there is no quick fix when you get it wrong.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">G7:  <i class="calibre4">Base Classes Depending on Their Derivatives</i></b></a></p>
+<p class="calibre1">The most common reason for partitioning concepts into base and derivative classes is so that the higher level base class concepts can be independent of the lower level derivative class concepts. Therefore, when we see base classes mentioning the names of their derivatives, we suspect a problem. In general, base classes should know nothing about their derivatives.</p>
+<p class="calibre1">There are exceptions to this rule, of course. Sometimes the number of derivatives is strictly fixed, and the base class has code that selects between the derivatives. We see this a lot in finite state machine implementations. However, in that case the derivatives and base class are strongly coupled and always deploy together in the same jar file. In the general case we want to be able to deploy derivatives and bases in different jar files.</p>
+<p class="calibre1">Deploying derivatives and bases in different jar files and making sure the base jar files know nothing about the contents of the derivative jar files allow us to deploy our systems in discrete and independent components. When such components are modified, they can be redeployed without having to redeploy the base components. This means that the impact of a change is greatly lessened, and maintaining systems in the field is made much simpler.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">G8:  <i class="calibre4">Too Much Information</i></b></a></p>
+<p class="calibre1">Well-defined modules have very small interfaces that allow you to do a lot with a little.</p>
+<p class="calibre1">Poorly defined modules have wide and deep interfaces that force you to use many different gestures to get simple things done. A well-defined interface does not offer very many functions to depend upon, so coupling is low. A poorly defined interface provides lots of functions that you must call, so coupling is high.</p>
+<p class="calibre1"><a id="p323"></a>292</p>
+<div class="calibre6" id="calibre_pb_279"></div>
+</body>
+</html>

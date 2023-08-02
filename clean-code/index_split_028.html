@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_54">Chapter 4: Comments</h2>
+<p class="calibre1">Comments like this should not be contracts or legal tomes. Where possible, refer to a standard license or other external document rather than putting all the terms and conditions into the comment.</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Informative Comments</b></a></p>
+<p class="calibre1">It is sometimes useful to provide basic information with a comment. For example, consider this comment that explains the return value of an abstract method:</p>
+<p class="calibre1"><b class="calibre3">// Returns an instance of the Responder being tested. </b></p>
+<p class="calibre1">protected abstract Responder responderInstance();</p>
+<p class="calibre1">A comment like this can sometimes be useful, but it is better to use the name of the function to convey the information where possible. For example, in this case the comment could be made redundant by renaming the function: responderBeingTested.</p>
+<p class="calibre1">Here’s a case that’s a bit better:</p>
+<p class="calibre1">// format matched kk:mm:ss EEE, MMM dd, yyyy</p>
+<p class="calibre1">Pattern timeMatcher = Pattern.compile(</p>
+<p class="calibre1">"\\d*:\\d*:\\d* \\w*, \\w* \\d*, \\d*");</p>
+<p class="calibre1">In this case the comment lets us know that the regular expression is intended to match a time and date that were formatted with the SimpleDateFormat.format function using the specified format string. Still, it might have been better, and clearer, if this code had been moved to a special class that converted the formats of dates and times. Then the comment would likely have been superfluous.</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Explanation of Intent</b></a></p>
+<p class="calibre1">Sometimes a comment goes beyond just useful information about the implementation and provides the intent behind a decision. In the following case we see an interesting decision documented by a comment. When comparing two objects, the author decided that he wanted to sort objects of his class higher than objects of any other.</p>
+<p class="calibre1">public int compareTo(Object o)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">if(o instanceof WikiPagePath)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">WikiPagePath p = (WikiPagePath) o;</p>
+<p class="calibre1">String compressedName = StringUtil.join(names, "");</p>
+<p class="calibre1">String compressedArgumentName = StringUtil.join(p.names, ""); return compressedName.compareTo(compressedArgumentName);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return 1; <b class="calibre3">// we are greater because we are the right type. </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">Here’s an even better example. You might not agree with the programmer’s solution to the problem, but at least you know what he was trying to do.</p>
+<p class="calibre1">public void testConcurrentAddWidgets() throws Exception {</p>
+<p class="calibre1">WidgetBuilder widgetBuilder =</p>
+<p class="calibre1">new WidgetBuilder(new Class[]{BoldWidget.class});</p>
+<p class="calibre1"><a id="p88"></a><b class="calibre3">Good Comments</b></p>
+<p class="calibre1">57</p>
+<p class="calibre1">String text = "'''bold text'''";</p>
+<p class="calibre1">ParentWidget parent =</p>
+<p class="calibre1">new BoldWidget(new MockWidgetRoot(), "'''bold text'''"); AtomicBoolean failFlag = new AtomicBoolean();</p>
+<p class="calibre1">failFlag.set(false);</p>
+<p class="calibre1"><b class="calibre3">//This is our best attempt to get a race condition </b></p>
+<p class="calibre1"><b class="calibre3">//by creating large number of threads. </b></p>
+<p class="calibre1">for (int i = 0; i &lt; 25000; i++) {</p>
+<p class="calibre1">WidgetBuilderThread widgetBuilderThread =</p>
+<p class="calibre1">new WidgetBuilderThread(widgetBuilder, text, parent, failFlag); Thread thread = new Thread(widgetBuilderThread);</p>
+<p class="calibre1">thread.start();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">assertEquals(false, failFlag.get());</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Clarification</b></a></p>
+<p class="calibre1">Sometimes it is just helpful to translate the meaning of some obscure argument or return value into something that’s readable. In general it is better to find a way to make that argument or return value clear in its own right; but when its part of the standard library, or in code that you cannot alter, then a helpful clarifying comment can be useful.</p>
+<p class="calibre1">public void testCompareTo() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">WikiPagePath a = PathParser.parse("PageA");</p>
+<p class="calibre1">WikiPagePath ab = PathParser.parse("PageA.PageB");</p>
+<p class="calibre1">WikiPagePath b = PathParser.parse("PageB");</p>
+<p class="calibre1">WikiPagePath aa = PathParser.parse("PageA.PageA");</p>
+<p class="calibre1">WikiPagePath bb = PathParser.parse("PageB.PageB");</p>
+<p class="calibre1">WikiPagePath ba = PathParser.parse("PageB.PageA");</p>
+<p class="calibre1">assertTrue(a.compareTo(a) == 0);    // a == a</p>
+<p class="calibre1">assertTrue(a.compareTo(b) != 0);    // a != b</p>
+<p class="calibre1">assertTrue(ab.compareTo(ab) == 0);  // ab == ab</p>
+<p class="calibre1">assertTrue(a.compareTo(b) == -1);   // a &lt; b</p>
+<p class="calibre1">assertTrue(aa.compareTo(ab) == -1); // aa &lt; ab</p>
+<p class="calibre1">assertTrue(ba.compareTo(bb) == -1); // ba &lt; bb</p>
+<p class="calibre1">assertTrue(b.compareTo(a) == 1);    // b &gt; a</p>
+<p class="calibre1">assertTrue(ab.compareTo(aa) == 1);  // ab &gt; aa</p>
+<p class="calibre1">assertTrue(bb.compareTo(ba) == 1);  // bb &gt; ba</p>
+<p class="calibre1">}</p>
+<p class="calibre1">There is a substantial risk, of course, that a clarifying comment is incorrect. Go through the previous example and see how difficult it is to verify that they are correct. This explains both why the clarification is necessary and why it’s risky. So before writing comments like this, take care that there is no better way, and then take even more care that they are accurate.</p>
+<p class="calibre1"><a id="p89"></a><img src="index-89_1.jpg" alt="Image 24" class="calibre2"/></p>
+<p class="calibre1">58</p>
+<div class="calibre6" id="calibre_pb_55"></div>
+</body>
+</html>

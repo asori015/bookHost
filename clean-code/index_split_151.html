@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_300">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">the terms from this language extensively. In short, the more you can use names that are overloaded with special meanings that are relevant to your project, the easier it will be for readers to know what your code is talking about.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">N4:  <i class="calibre4">Unambiguous Names</i></b></a></p>
+<p class="calibre1">Choose names that make the workings of a function or variable unambiguous. Consider this example from FitNesse:</p>
+<p class="calibre1">private String doRename() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">if(refactorReferences)</p>
+<p class="calibre1">renameReferences();</p>
+<p class="calibre1">renamePage();</p>
+<p class="calibre1">pathToRename.removeNameFromEnd();</p>
+<p class="calibre1">pathToRename.addNameToEnd(newName);</p>
+<p class="calibre1">return PathParser.render(pathToRename);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The name of this function does not say what the function does except in broad and vague terms. This is emphasized by the fact that there is a function named renamePage inside the function named doRename! What do the names tell you about the difference between the two functions? Nothing.</p>
+<p class="calibre1">A better name for that function is renamePageAndOptionallyAllReferences. This may seem long, and it is, but it’s only called from one place in the module, so it’s explanatory value outweighs the length.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">N5:  <i class="calibre4">Use Long Names for Long Scopes</i></b></a></p>
+<p class="calibre1">The length of a name should be related to the length of the scope. You can use very short variable names for tiny scopes, but for big scopes you should use longer names.</p>
+<p class="calibre1">Variable names like i and j are just fine if their scope is five lines long. Consider this snippet from the old standard “Bowling Game”:</p>
+<p class="calibre1">private void rollMany(int n, int pins)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">for (int i=0; i&lt;n; i++)</p>
+<p class="calibre1">g.roll(pins);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This is perfectly clear and would be obfuscated if the variable i were replaced with something annoying like rollCount. On the other hand, variables and functions with short names lose their meaning over long distances. So the longer the scope of the name, the longer and more precise the name should be.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">N6:  <i class="calibre4">Avoid Encodings</i></b></a></p>
+<p class="calibre1">Names should not be encoded with type or scope information. Prefixes such as m_ or f are useless in today’s environments. Also project and/or subsystem encodings such as</p>
+<p class="calibre1"><a id="p344"></a><b class="calibre3">Tests</b></p>
+<p class="calibre1">313</p>
+<p class="calibre1">vis_ (for visual imaging system) are distracting and redundant. Again, today’s environments provide all that information without having to mangle the names. Keep your names free of Hungarian pollution.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">N7:  <i class="calibre4">Names Should Describe Side-Effects</i></b></a></p>
+<p class="calibre1">Names should describe everything that a function, variable, or class is or does. Don’t hide side effects with a name. Don’t use a simple verb to describe a function that does more than just that simple action. For example, consider this code from TestNG: public ObjectOutputStream getOos() throws IOException {</p>
+<p class="calibre1">if (m_oos == null) {</p>
+<p class="calibre1">m_oos = new ObjectOutputStream(m_socket.getOutputStream());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return m_oos;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This function does a bit more than get an “oos”; it creates the “oos” if it hasn’t been created already. Thus, a better name might be createOrReturnOos.</p>
+<p class="calibre1"><a href="index_split_000.html#p17"><b class="calibre3">Tests</b></a></p>
+<p class="calibre1"><a href="index_split_000.html#p17"><b class="calibre3">T1:  <i class="calibre4">Insufficient Tests</i></b></a></p>
+<p class="calibre1">How many tests should be in a test suite? Unfortunately, the metric many programmers use is “That seems like enough.” A test suite should test everything that could possibly break.</p>
+<p class="calibre1">The tests are insufficient so long as there are conditions that have not been explored by the tests or calculations that have not been validated.</p>
+<p class="calibre1"><a href="index_split_000.html#p17"><b class="calibre3">T2:  <i class="calibre4">Use a Coverage Tool! </i></b></a></p>
+<p class="calibre1">Coverage tools reports gaps in your testing strategy. They make it easy to find modules, classes, and functions that are insufficiently tested. Most IDEs give you a visual indication, marking lines that are covered in green and those that are uncovered in red. This makes it quick and easy to find if or catch statements whose bodies haven’t been checked.</p>
+<p class="calibre1"><a href="index_split_000.html#p17"><b class="calibre3">T3:  <i class="calibre4">Don’t Skip Trivial Tests</i></b></a></p>
+<p class="calibre1">They are easy to write and their documentary value is higher than the cost to produce them.</p>
+<p class="calibre1"><a href="index_split_000.html#p17"><b class="calibre3">T4:  <i class="calibre4">An Ignored Test Is a Question about an Ambiguity</i></b></a></p>
+<p class="calibre1">Sometimes we are uncertain about a behavioral detail because the requirements are unclear. We can express our question about the requirements as a test that is commented out, or as a test that annotated with @Ignore. Which you choose depends upon whether the ambiguity is about something that would compile or not.</p>
+<p class="calibre1"><a id="p345"></a>314</p>
+<div class="calibre6" id="calibre_pb_301"></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_72">Chapter 4: Comments</h2>
+<p class="calibre1"><b class="calibre3">Listing 4-8 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">PrimeGenerator.java (refactored)</b></p>
+<p class="calibre1">private static boolean notCrossed(int i)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">return crossedOut[i] == false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static void putUncrossedIntegersIntoResult()</p>
+<p class="calibre1">{</p>
+<p class="calibre1">result = new int[numberOfUncrossedIntegers()];</p>
+<p class="calibre1">for (int j = 0, i = 2; i &lt; crossedOut.length; i++)</p>
+<p class="calibre1">if (notCrossed(i))</p>
+<p class="calibre1">result[j++] = i;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static int numberOfUncrossedIntegers()</p>
+<p class="calibre1">{</p>
+<p class="calibre1">int count = 0;</p>
+<p class="calibre1">for (int i = 2; i &lt; crossedOut.length; i++)</p>
+<p class="calibre1">if (notCrossed(i))</p>
+<p class="calibre1">count++;</p>
+<p class="calibre1">return count;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">It is easy to argue that the first comment is redundant because it reads very much like the generatePrimes function itself. Still, I think the comment serves to ease the reader into the algorithm, so I’m inclined to leave it.</p>
+<p class="calibre1">The second argument is almost certainly necessary. It explains the rationale behind the use of the square root as the loop limit. I could find no simple variable name, nor any different coding structure that made this point clear. On the other hand, the use of the square root might be a conceit. Am I really saving that much time by limiting the iteration to the square root? Could the calculation of the square root take more time than I’m saving?</p>
+<p class="calibre1">It’s worth thinking about. Using the square root as the iteration limit satisfies the old C</p>
+<p class="calibre1">and assembly language hacker in me, but I’m not convinced it’s worth the time and effort that everyone else will expend to understand it.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Bibliography</b></a></p>
+<p class="calibre1"><b class="calibre3">[KP78]:  </b>Kernighan and Plaugher,  <i class="calibre4">The Elements of Programming Style</i>, 2d. ed., McGraw-Hill, 1978.</p>
+<p class="calibre1"><a id="p106"></a><img src="index-106_1.png" alt="Image 25" class="calibre2"/></p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">5</b></a></p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Formatting</b></a></p>
+<p class="calibre1">When people look under the hood, we want them to be impressed with the neatness, consistency, and attention to detail that they perceive. We want them to be struck by the orderliness. We want their eyebrows to rise as they scroll through the modules. We want them to perceive that professionals have been at work. If instead they see a scrambled mass of code that looks like it was written by a bevy of drunken sailors, then they are likely to conclude that the same inattention to detail pervades every other aspect of the project.</p>
+<p class="calibre1">75</p>
+<p class="calibre1"><a id="p107"></a>76</p>
+<div class="calibre6" id="calibre_pb_73"></div>
+</body>
+</html>

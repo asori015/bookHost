@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_142">Chapter 10: Classes</h2>
+<p class="calibre1">they are needed. The common private behavior is isolated to a pair of utility classes, Where and ColumnList.</p>
+<p class="calibre1"><b class="calibre3">Listing 10-10 </b></p>
+<p class="calibre1"><b class="calibre3">A set of closed classes</b></p>
+<p class="calibre1">abstract public class Sql {</p>
+<p class="calibre1">public Sql(String table, Column[] columns)</p>
+<p class="calibre1">abstract public String generate();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class CreateSql extends Sql {</p>
+<p class="calibre1">public CreateSql(String table, Column[] columns)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class SelectSql extends Sql {</p>
+<p class="calibre1">public SelectSql(String table, Column[] columns)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class InsertSql extends Sql {</p>
+<p class="calibre1">public InsertSql(String table, Column[] columns, Object[] fields)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">private String valuesList(Object[] fields, final Column[] columns)</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class SelectWithCriteriaSql extends Sql {</p>
+<p class="calibre1">public SelectWithCriteriaSql(</p>
+<p class="calibre1">String table, Column[] columns, Criteria criteria)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class SelectWithMatchSql extends Sql {</p>
+<p class="calibre1">public SelectWithMatchSql(</p>
+<p class="calibre1">String table, Column[] columns, Column column, String pattern)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class FindByKeySql extends Sql</p>
+<p class="calibre1">public FindByKeySql(</p>
+<p class="calibre1">String table, Column[] columns, String keyColumn, String keyValue)</p>
+<p class="calibre1">@Override public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class PreparedInsertSql extends Sql {</p>
+<p class="calibre1">public PreparedInsertSql(String table, Column[] columns)</p>
+<p class="calibre1">@Override public String generate() {</p>
+<p class="calibre1">private String placeholderList(Column[] columns)</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class Where {</p>
+<p class="calibre1">public Where(String criteria)</p>
+<p class="calibre1">public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p180"></a><b class="calibre3">Organizing for Change</b></p>
+<p class="calibre1">149</p>
+<p class="calibre1"><b class="calibre3">Listing 10-10 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">A set of closed classes</b></p>
+<p class="calibre1">public class ColumnList {</p>
+<p class="calibre1">public ColumnList(Column[] columns)</p>
+<p class="calibre1">public String generate()</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The code in each class becomes excruciatingly simple. Our required comprehension time to understand any class decreases to almost nothing. The risk that one function could break another becomes vanishingly small. From a test standpoint, it becomes an easier task to prove all bits of logic in this solution, as the classes are all isolated from one another.</p>
+<p class="calibre1">Equally important, when it’s time to add the update statements, none of the existing classes need change! We code the logic to build update statements in a new subclass of Sql named UpdateSql. No other code in the system will break because of this change.</p>
+<p class="calibre1">Our restructured Sql logic represents the best of all worlds. It supports the SRP. It also supports another key OO class design principle known as the Open-Closed Principle, or OCP:4 Classes should be open for extension but closed for modification. Our restructured Sql class is open to allow new functionality via subclassing, but we can make this change while keeping every other class closed. We simply drop our UpdateSql class in place.</p>
+<p class="calibre1">We want to structure our systems so that we muck with as little as possible when we update them with new or changed features. In an ideal system, we incorporate new features by extending the system, not by making modifications to existing code.</p>
+<p class="calibre1"><a href="index_split_000.html#p13"><b class="calibre3">Isolating from Change</b></a></p>
+<p class="calibre1">Needs will change, therefore code will change. We learned in OO 101 that there are concrete classes, which contain implementation details (code), and abstract classes, which represent concepts only. A client class depending upon concrete details is at risk when those details change. We can introduce interfaces and abstract classes to help isolate the impact of those details.</p>
+<p class="calibre1">Dependencies upon concrete details create challenges for testing our system. If we’re building a Portfolio class and it depends upon an external TokyoStockExchange API to derive the portfolio’s value, our test cases are impacted by the volatility of such a lookup.</p>
+<p class="calibre1">It’s hard to write a test when we get a different answer every five minutes!</p>
+<p class="calibre1">Instead of designing Portfolio so that it directly depends upon TokyoStockExchange, we create an interface, StockExchange, that declares a single method: public interface StockExchange {</p>
+<p class="calibre1">Money currentPrice(String symbol);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">4.</p>
+<p class="calibre1">[PPP].</p>
+<p class="calibre1"><a id="p181"></a>150</p>
+<div class="calibre6" id="calibre_pb_143"></div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_202">Chapter 14: Successive Refinement</h2>
+<p class="calibre1"><b class="calibre3">Listing 14-10 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (Boolean and String)</b></p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">return falseIfNull(booleanArgs.get(arg));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean falseIfNull(Boolean b) {</p>
+<p class="calibre1">return b == null ? false : b;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String getString(char arg) {</p>
+<p class="calibre1">return blankIfNull(stringArgs.get(arg));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String blankIfNull(String s) {</p>
+<p class="calibre1">return s == null ? "" : s;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public boolean has(char arg) {</p>
+<p class="calibre1">return argsFound.contains(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public boolean isValid() {</p>
+<p class="calibre1">return valid;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">You can see that this is starting to get out of hand. It’s still not horrible, but the mess is certainly starting to grow. It’s a pile, but it’s not festering quite yet. It took the addition of the integer argument type to get this pile really fermenting and festering.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">So I Stopped</b></a></p>
+<p class="calibre1">I had at least two more argument types to add, and I could tell that they would make things much worse. If I bulldozed my way forward, I could probably get them to work, but I’d leave behind a mess that was too large to fix. If the structure of this code was ever going to be maintainable, now was the time to fix it.</p>
+<p class="calibre1">So I stopped adding features and started refactoring. Having just added the String and integer arguments, I knew that each argument type required new code in three major places. First, each argument type required some way to parse its schema element in order to select the HashMap for that type. Next, each argument type needed to be parsed in the command-line strings and converted to its true type. Finally, each argument type needed a getXXX method so that it could be returned to the caller as its true type.</p>
+<p class="calibre1">Many different types, all with similar methods—that sounds like a class to me. And so the ArgumentMarshaler concept was born.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">On Incrementalism</b></a></p>
+<p class="calibre1">One of the best ways to ruin a program is to make massive changes to its structure in the name of improvement. Some programs never recover from such “improvements.” The problem is that it’s very hard to get the program working the same way it worked before the “improvement.”</p>
+<p class="calibre1"><a id="p244"></a><b class="calibre3">Args: The Rough Draft</b></p>
+<p class="calibre1">213</p>
+<p class="calibre1">To avoid this, I use the discipline of Test-Driven Development (TDD). One of the central doctrines of this approach is to keep the system running at all times. In other words, using TDD, I am not allowed to make a change to the system that breaks that system.</p>
+<p class="calibre1">Every change I make must keep the system working as it worked before.</p>
+<p class="calibre1">To achieve this, I need a suite of automated tests that I can run on a whim and that verifies that the behavior of the system is unchanged. For the Args class I had created a suite of unit and acceptance tests while I was building the festering pile. The unit tests were written in Java and administered by JUnit. The acceptance tests were written as wiki pages in FitNesse. I could run these tests any time I wanted, and if they passed, I was confident that the system was working as I specified.</p>
+<p class="calibre1">So I proceeded to make a large number of very tiny changes. Each change moved the structure of the system toward the ArgumentMarshaler concept. And yet each change kept the system working. The first change I made was to add the skeleton of the ArgumentMarshaller to the end of the festering pile (Listing 14-11).</p>
+<p class="calibre1"><b class="calibre3">Listing 14-11</b></p>
+<p class="calibre1"><b class="calibre3">ArgumentMarshaller appended to Args.java</b></p>
+<p class="calibre1">private class ArgumentMarshaler {</p>
+<p class="calibre1">private boolean booleanValue = false;</p>
+<p class="calibre1">public void setBoolean(boolean value) {</p>
+<p class="calibre1">booleanValue = value;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public boolean getBoolean() {return booleanValue;}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class BooleanArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class StringArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class IntegerArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Clearly, this wasn’t going to break anything. So then I made the simplest modification I could, one that would break as little as possible. I changed the HashMap for the Boolean arguments to take an ArgumentMarshaler.</p>
+<p class="calibre1">private Map&lt;Character, <b class="calibre3">ArgumentMarshaler</b>&gt; booleanArgs =</p>
+<p class="calibre1">new HashMap&lt;Character, <b class="calibre3">ArgumentMarshaler</b>&gt;();</p>
+<p class="calibre1">This broke a few statements, which I quickly fixed.</p>
+<p class="calibre1">...</p>
+<p class="calibre1">private void parseBooleanSchemaElement(char elementId) {</p>
+<p class="calibre1">booleanArgs.put(elementId, <b class="calibre3">new BooleanArgumentMarshaler()</b>);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">..</p>
+<p class="calibre1"><a id="p245"></a>214</p>
+<div class="calibre6" id="calibre_pb_203"></div>
+</body>
+</html>

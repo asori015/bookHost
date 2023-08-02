@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_252">Chapter 15: JUnit Internals</h2>
+<p class="calibre1"><b class="calibre3">Listing 15-4 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">ComparisonCompactor.java (interim)</b></p>
+<p class="calibre1">if (<b class="calibre3">suffixLength</b> &gt; 0)</p>
+<p class="calibre1">result = result + computeCommonSuffix();</p>
+<p class="calibre1">return result;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">private String computeCommonSuffix() {</p>
+<p class="calibre1">int end = Math.min(expected.length() - <b class="calibre3">suffixLength</b> +</p>
+<p class="calibre1">contextLength, expected.length()</p>
+<p class="calibre1">);</p>
+<p class="calibre1">return</p>
+<p class="calibre1">expected.substring(expected.length() - <b class="calibre3">suffixLength</b>, end) +</p>
+<p class="calibre1">(expected.length() - <b class="calibre3">suffixLength</b> &lt;</p>
+<p class="calibre1">expected.length() - contextLength ?</p>
+<p class="calibre1">ELLIPSIS : "");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">We replaced the +1s in computeCommonSuffix with a -1 in charFromEnd, where it makes perfect sense, and two &lt;= operators in suffixOverlapsPrefix, where they also make perfect sense. This allowed us to change the name of suffixIndex to suffixLength, greatly enhanc-ing the readability of the code.</p>
+<p class="calibre1">There is a problem however. As I was eliminating the +1s, I noticed the following line in compactString:</p>
+<p class="calibre1">if (suffixLength &gt; 0)</p>
+<p class="calibre1">Take a look at it in Listing 15-4. By rights, because suffixLength is now one less than it used to be, I should change the &gt; operator to a &gt;= operator. But that makes no sense. It makes sense  <i class="calibre4">now! </i> This means that it didn’t use to make sense and was probably a bug.</p>
+<p class="calibre1">Well, not quite a bug. Upon further analysis we see that the if statement now prevents a zero length suffix from being appended. Before we made the change, the if statement was nonfunctional because suffixIndex could never be less than one!</p>
+<p class="calibre1">This calls into question  <i class="calibre4">both </i> if statements in compactString! It looks as though they could both be eliminated. So let’s comment them out and run the tests. They passed! So let’s restructure compactString to eliminate the extraneous if statements and make the function much simpler [G9].</p>
+<p class="calibre1">private String compactString(String source) {</p>
+<p class="calibre1">return</p>
+<p class="calibre1">computeCommonPrefix() +</p>
+<p class="calibre1">DELTA_START +</p>
+<p class="calibre1">source.substring(prefixLength, source.length() - suffixLength) +</p>
+<p class="calibre1">DELTA_END +</p>
+<p class="calibre1">computeCommonSuffix();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This is much better! Now we see that the compactString function is simply composing the fragments together. We can probably make this even clearer. Indeed, there are lots of little</p>
+<p class="calibre1"><a id="p294"></a><b class="calibre3">The JUnit Framework</b></p>
+<p class="calibre1">263</p>
+<p class="calibre1">cleanups we could do. But rather than drag you through the rest of the changes, I’ll just show you the result in Listing 15-5.</p>
+<p class="calibre1"><b class="calibre3">Listing 15-5 </b></p>
+<p class="calibre1"><b class="calibre3">ComparisonCompactor.java (final)</b></p>
+<p class="calibre1">package junit.framework;</p>
+<p class="calibre1">public class ComparisonCompactor {</p>
+<p class="calibre1">private static final String ELLIPSIS = "...";</p>
+<p class="calibre1">private static final String DELTA_END = "]";</p>
+<p class="calibre1">private static final String DELTA_START = "[";</p>
+<p class="calibre1">private int contextLength;</p>
+<p class="calibre1">private String expected;</p>
+<p class="calibre1">private String actual;</p>
+<p class="calibre1">private int prefixLength;</p>
+<p class="calibre1">private int suffixLength;</p>
+<p class="calibre1">public ComparisonCompactor(</p>
+<p class="calibre1">int contextLength, String expected, String actual</p>
+<p class="calibre1">) {</p>
+<p class="calibre1">this.contextLength = contextLength;</p>
+<p class="calibre1">this.expected = expected;</p>
+<p class="calibre1">this.actual = actual;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String formatCompactedComparison(String message) {</p>
+<p class="calibre1">String compactExpected = expected;</p>
+<p class="calibre1">String compactActual = actual;</p>
+<p class="calibre1">if (shouldBeCompacted()) {</p>
+<p class="calibre1">findCommonPrefixAndSuffix();</p>
+<p class="calibre1">compactExpected = compact(expected);</p>
+<p class="calibre1">compactActual = compact(actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return Assert.format(message, compactExpected, compactActual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean shouldBeCompacted() {</p>
+<p class="calibre1">return !shouldNotBeCompacted();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean shouldNotBeCompacted() {</p>
+<p class="calibre1">return expected == null ||</p>
+<p class="calibre1">actual == null ||</p>
+<p class="calibre1">expected.equals(actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void findCommonPrefixAndSuffix() {</p>
+<p class="calibre1">findCommonPrefix();</p>
+<p class="calibre1">suffixLength = 0;</p>
+<p class="calibre1">for (; !suffixOverlapsPrefix(); suffixLength++) {</p>
+<p class="calibre1">if (charFromEnd(expected, suffixLength) !=</p>
+<p class="calibre1">charFromEnd(actual, suffixLength)</p>
+<p class="calibre1">)</p>
+<p class="calibre1"><a id="p295"></a>264</p>
+<div class="calibre6" id="calibre_pb_253"></div>
+</body>
+</html>

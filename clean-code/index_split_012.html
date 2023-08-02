@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_22">Chapter 2: Meaningful Names</h2>
+<p class="calibre1">Java programmers don’t need type encoding. Objects are strongly typed, and editing environments have advanced such that they detect a type error long before you can run a compile! So nowadays HN and other forms of type encoding are simply impediments.</p>
+<p class="calibre1">They make it harder to change the name or type of a variable, function, or class. They make it harder to read the code. And they create the possibility that the encoding system will mislead the reader.</p>
+<p class="calibre1">PhoneNumber phoneString;</p>
+<p class="calibre1">// name not changed when type changed!</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Member Prefixes</b></a></p>
+<p class="calibre1">You also don’t need to prefix member variables with m_ anymore. Your classes and functions should be small enough that you don’t need them. And you should be using an editing environment that highlights or colorizes members to make them distinct.</p>
+<p class="calibre1">public class Part {</p>
+<p class="calibre1">private String m_dsc; // The textual description</p>
+<p class="calibre1">void setName(String name) {</p>
+<p class="calibre1">m_dsc = name;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">_________________________________________________</p>
+<p class="calibre1">public class Part {</p>
+<p class="calibre1">String description;</p>
+<p class="calibre1">void setDescription(String description) {</p>
+<p class="calibre1">this.description = description;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Besides, people quickly learn to ignore the prefix (or suffix) to see the meaningful part of the name. The more we read the code, the less we see the prefixes. Eventually the prefixes become unseen clutter and a marker of older code.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Interfaces and Implementations</b></a></p>
+<p class="calibre1">These are sometimes a special case for encodings. For example, say you are building an ABSTRACT FACTORY for the creation of shapes. This factory will be an interface and will be implemented by a concrete class. What should you name them? IShapeFactory and ShapeFactory? I prefer to leave interfaces unadorned. The preceding I, so common in today’s legacy wads, is a distraction at best and too much information at worst. I don’t want my users knowing that I’m handing them an interface. I just want them to know that it’s a ShapeFactory. So if I must encode either the interface or the implementation, I choose the implementation. Calling it ShapeFactoryImp, or even the hideous CShapeFactory, is preferable to encoding the interface.</p>
+<p class="calibre1"><a id="p56"></a><b class="calibre3">Method Names</b></p>
+<p class="calibre1">25</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Avoid Mental Mapping</b></a></p>
+<p class="calibre1">Readers shouldn’t have to mentally translate your names into other names they already know. This problem generally arises from a choice to use neither problem domain terms nor solution domain terms.</p>
+<p class="calibre1">This is a problem with single-letter variable names. Certainly a loop counter may be named i or j or k (though never l!) if its scope is very small and no other names can conflict with it. This is because those single-letter names for loop counters are traditional.</p>
+<p class="calibre1">However, in most other contexts a single-letter name is a poor choice; it’s just a place holder that the reader must mentally map to the actual concept. There can be no worse reason for using the name c than because a and b were already taken.</p>
+<p class="calibre1">In general programmers are pretty smart people. Smart people sometimes like to show off their smarts by demonstrating their mental juggling abilities. After all, if you can reliably remember that r is the lower-cased version of the url with the host and scheme removed, then you must clearly be very smart.</p>
+<p class="calibre1">One difference between a smart programmer and a professional programmer is that the professional understands that  <i class="calibre4">clarity is king</i>. Professionals use their powers for good and write code that others can understand.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Class Names</b></a></p>
+<p class="calibre1">Classes and objects should have noun or noun phrase names like Customer, WikiPage, Account, and AddressParser. Avoid words like Manager, Processor, Data, or Info in the name of a class. A class name should not be a verb.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Method Names</b></a></p>
+<p class="calibre1">Methods should have verb or verb phrase names like postPayment, deletePage, or save.</p>
+<p class="calibre1">Accessors, mutators, and predicates should be named for their value and prefixed with get, set, and is according to the javabean standard.4</p>
+<p class="calibre1">string name = employee.getName();</p>
+<p class="calibre1">customer.setName("mike");</p>
+<p class="calibre1">if (paycheck.isPosted())...</p>
+<p class="calibre1">When constructors are overloaded, use static factory methods with names that describe the arguments. For example,</p>
+<p class="calibre1">Complex fulcrumPoint = Complex.FromRealNumber(23.0);</p>
+<p class="calibre1">is generally better than</p>
+<p class="calibre1">Complex fulcrumPoint = new Complex(23.0);</p>
+<p class="calibre1">Consider enforcing their use by making the corresponding constructors private.</p>
+<p class="calibre1">4.</p>
+<p class="calibre1"><a href="http://java.sun.com/products/javabeans/docs/spec.html">http://java.sun.com/products/javabeans/docs/spec.html</a></p>
+<p class="calibre1"><a id="p57"></a><img src="index-57_1.jpg" alt="Image 18" class="calibre2"/></p>
+<p class="calibre1">26</p>
+<div class="calibre6" id="calibre_pb_23"></div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_274">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">I compiled this list by walking through several different programs and refactoring them. As I made each change, I asked myself  <i class="calibre4">why </i> I made that change and then wrote the reason down here. The result is a rather long list of things that smell bad to me when I read code.</p>
+<p class="calibre1">This list is meant to be read from top to bottom and also to be used as a reference.</p>
+<p class="calibre1">There is a cross-reference for each heuristic that shows you where it is referenced in the rest of the text in “Appendix C” on page 409.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">Comments</b></a></p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">C1:  <i class="calibre4">Inappropriate Information</i></b></a></p>
+<p class="calibre1">It is inappropriate for a comment to hold information better held in a different kind of system such as your source code control system, your issue tracking system, or any other record-keeping system. Change histories, for example, just clutter up source files with volumes of historical and uninteresting text. In general, meta-data such as authors, last-modified-date, SPR number, and so on should not appear in comments. Comments should be reserved for technical notes about the code and design.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">C2:  <i class="calibre4">Obsolete Comment</i></b></a></p>
+<p class="calibre1">A comment that has gotten old, irrelevant, and incorrect is obsolete. Comments get old quickly. It is best not to write a comment that will become obsolete. If you find an obsolete comment, it is best to update it or get rid of it as quickly as possible. Obsolete comments tend to migrate away from the code they once described. They become floating islands of irrelevance and misdirection in the code.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">C3:  <i class="calibre4">Redundant Comment</i></b></a></p>
+<p class="calibre1">A comment is redundant if it describes something that adequately describes itself. For example:</p>
+<p class="calibre1">i++; // increment i</p>
+<p class="calibre1">Another example is a Javadoc that says nothing more than (or even less than) the function signature:</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* @param sellRequest</p>
+<p class="calibre1">* @return</p>
+<p class="calibre1">* @throws ManagedComponentException</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">public SellResponse beginSellItem(SellRequest sellRequest)</p>
+<p class="calibre1">throws ManagedComponentException</p>
+<p class="calibre1">Comments should say things that the code cannot say for itself.</p>
+<p class="calibre1"><a id="p318"></a><b class="calibre3">Environment</b></p>
+<p class="calibre1">287</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">C4:  <i class="calibre4">Poorly Written  Comment</i></b></a></p>
+<p class="calibre1">A comment worth writing is worth writing well. If you are going to write a comment, take the time to make sure it is the best comment you can write. Choose your words carefully. Use correct grammar and punctuation. Don’t ramble. Don’t state the obvious.</p>
+<p class="calibre1">Be brief.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">C5:  <i class="calibre4">Commented-Out Code</i></b></a></p>
+<p class="calibre1">It makes me crazy to see stretches of code that are commented out. Who knows how old it is? Who knows whether or not it’s meaningful? Yet no one will delete it because everyone assumes someone else needs it or has plans for it.</p>
+<p class="calibre1">That code sits there and rots, getting less and less relevant with every passing day. It calls functions that no longer exist. It uses variables whose names have changed. It follows conventions that are long obsolete. It pollutes the modules that contain it and distracts the people who try to read it. Commented-out code is an  <i class="calibre4">abomination</i>.</p>
+<p class="calibre1">When you see commented-out code,  <i class="calibre4">delete it! </i> Don’t worry, the source code control system still remembers it. If anyone really needs it, he or she can go back and check out a previous version. Don’t suffer commented-out code to survive.</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">Environment</b></a></p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">E1:  <i class="calibre4">Build Requires More Than One Step</i></b></a></p>
+<p class="calibre1">Building a project should be a single trivial operation. You should not have to check many little pieces out from source code control. You should not need a sequence of arcane commands or context dependent scripts in order to build the individual elements. You should not have to search near and far for all the various little extra JARs, XML files, and other artifacts that the system requires. You  <i class="calibre4">should </i> be able to check out the system with one simple command and then issue one other simple command to build it.</p>
+<p class="calibre1">svn get mySystem</p>
+<p class="calibre1">cd mySystem</p>
+<p class="calibre1">ant all</p>
+<p class="calibre1"><a href="index_split_000.html#p15"><b class="calibre3">E2:  <i class="calibre4">Tests Require More Than One Step</i></b></a></p>
+<p class="calibre1">You should be able to run  <i class="calibre4">all </i> the unit tests with just one command. In the best case you can run all the tests by clicking on one button in your IDE. In the worst case you should be able to issue a single simple command in a shell. Being able to run all the tests is so fundamental and so important that it should be quick, easy, and obvious to do.</p>
+<p class="calibre1"><a id="p319"></a>288</p>
+<div class="calibre6" id="calibre_pb_275"></div>
+</body>
+</html>

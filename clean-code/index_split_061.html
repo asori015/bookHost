@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_120">Chapter 9: Unit Tests</h2>
+<p class="calibre1">In a way they were right. Their testing effort  <i class="calibre4">had </i> failed them. But it was their decision to allow the tests to be messy that was the seed of that failure. Had they kept their tests clean, their testing effort would not have failed. I can say this with some certainty because I have participated in, and coached, many teams who have been successful with  <i class="calibre4">clean </i> unit tests.</p>
+<p class="calibre1">The moral of the story is simple:  <i class="calibre4">Test code is just as important as production code. </i> It is not a second-class citizen. It requires thought, design, and care. It must be kept as clean as production code.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Tests Enable the -ilities</b></a></p>
+<p class="calibre1">If you don’t keep your tests clean, you will lose them. And without them, you lose the very thing that keeps your production code flexible. Yes, you read that correctly. It is  <i class="calibre4">unit tests</i> that keep our code flexible, maintainable, and reusable. The reason is simple. If you have tests, you do not fear making changes to the code! Without tests every change is a possible bug. No matter how flexible your architecture is, no matter how nicely partitioned your design, without tests you will be reluctant to make changes because of the fear that you will introduce undetected bugs.</p>
+<p class="calibre1">But  <i class="calibre4">with </i> tests that fear virtually disappears. The higher your test coverage, the less your fear. You can make changes with near impunity to code that has a less than stellar architecture and a tangled and opaque design. Indeed, you can  <i class="calibre4">improve </i> that architecture and design without fear!</p>
+<p class="calibre1">So having an automated suite of unit tests that cover the production code is the key to keeping your design and architecture as clean as possible. Tests enable all the -ilities, because tests enable  <i class="calibre4">change</i>.</p>
+<p class="calibre1">So if your tests are dirty, then your ability to change your code is hampered, and you begin to lose the ability to improve the structure of that code. The dirtier your tests, the dirtier your code becomes. Eventually you lose the tests, and your code rots.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Clean Tests</b></a></p>
+<p class="calibre1">What makes a clean test? Three things. Readability, readability, and readability. Readability is perhaps even more important in unit tests than it is in production code. What makes tests readable? The same thing that makes all code readable: clarity, simplicity, and density of expression. In a test you want to say a lot with as few expressions as possible.</p>
+<p class="calibre1">Consider the code from FitNesse in Listing 9-1. These three tests are difficult to understand and can certainly be improved. First, there is a terrible amount of duplicate code [G5] in the repeated calls to addPage and assertSubString. More importantly, this code is just loaded with details that interfere with the expressiveness of the test.</p>
+<p class="calibre1"><a id="p156"></a><b class="calibre3">Clean Tests</b></p>
+<p class="calibre1">125</p>
+<p class="calibre1"><b class="calibre3">Listing 9-1 </b></p>
+<p class="calibre1"><b class="calibre3">SerializedPageResponderTest.java</b></p>
+<p class="calibre1">public void testGetPageHieratchyAsXml() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">crawler.addPage(root, PathParser.parse("PageOne"));</p>
+<p class="calibre1">crawler.addPage(root, PathParser.parse("PageOne.ChildOne")); crawler.addPage(root, PathParser.parse("PageTwo"));</p>
+<p class="calibre1">request.setResource("root");</p>
+<p class="calibre1">request.addInput("type", "pages");</p>
+<p class="calibre1">Responder responder = new SerializedPageResponder();</p>
+<p class="calibre1">SimpleResponse response =</p>
+<p class="calibre1">(SimpleResponse) responder.makeResponse(</p>
+<p class="calibre1">new FitNesseContext(root), request);</p>
+<p class="calibre1">String xml = response.getContent();</p>
+<p class="calibre1">assertEquals("text/xml", response.getContentType()); assertSubString("&lt;name&gt;PageOne&lt;/name&gt;", xml); assertSubString("&lt;name&gt;PageTwo&lt;/name&gt;", xml); assertSubString("&lt;name&gt;ChildOne&lt;/name&gt;", xml); }</p>
+<p class="calibre1">public void testGetPageHieratchyAsXmlDoesntContainSymbolicLinks() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">WikiPage pageOne = crawler.addPage(root, PathParser.parse("PageOne")); crawler.addPage(root, PathParser.parse("PageOne.ChildOne")); crawler.addPage(root, PathParser.parse("PageTwo")); PageData data = pageOne.getData();</p>
+<p class="calibre1">WikiPageProperties properties = data.getProperties();</p>
+<p class="calibre1">WikiPageProperty symLinks = properties.set(SymbolicPage.PROPERTY_NAME); symLinks.set("SymPage", "PageTwo");</p>
+<p class="calibre1">pageOne.commit(data);</p>
+<p class="calibre1">request.setResource("root");</p>
+<p class="calibre1">request.addInput("type", "pages");</p>
+<p class="calibre1">Responder responder = new SerializedPageResponder();</p>
+<p class="calibre1">SimpleResponse response =</p>
+<p class="calibre1">(SimpleResponse) responder.makeResponse(</p>
+<p class="calibre1">new FitNesseContext(root), request);</p>
+<p class="calibre1">String xml = response.getContent();</p>
+<p class="calibre1">assertEquals("text/xml", response.getContentType()); assertSubString("&lt;name&gt;PageOne&lt;/name&gt;", xml); assertSubString("&lt;name&gt;PageTwo&lt;/name&gt;", xml); assertSubString("&lt;name&gt;ChildOne&lt;/name&gt;", xml); assertNotSubString("SymPage", xml); }</p>
+<p class="calibre1">public void testGetDataAsHtml() throws Exception</p>
+<p class="calibre1">{</p>
+<p class="calibre1">crawler.addPage(root, PathParser.parse("TestPageOne"), "test page"); request.setResource("TestPageOne");</p>
+<p class="calibre1">request.addInput("type", "data");</p>
+<p class="calibre1"><a id="p157"></a>126</p>
+<div class="calibre6" id="calibre_pb_121"></div>
+</body>
+</html>

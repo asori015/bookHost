@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_34">Chapter 3: Functions</h2>
+<p class="calibre1">So which is it? Is the function doing one thing or three things? Notice that the three steps of the function are one level of abstraction below the stated name of the function. We can describe the function by describing it as a brief  <i class="calibre4">TO</i> 4 paragraph: <i class="calibre4">TO RenderPageWithSetupsAndTeardowns, we check to see whether the page is a test page</i> <i class="calibre4">and if so, we include the setups and teardowns. In either case we render the page in</i> <i class="calibre4">HTML. </i></p>
+<p class="calibre1">If a function does only those steps that are one level below the stated name of the function, then the function is doing one thing. After all, the reason we write functions is to decompose a larger concept (in other words, the name of the function) into a set of steps at the next level of abstraction.</p>
+<p class="calibre1">It should be very clear that Listing 3-1 contains steps at many different levels of abstraction. So it is clearly doing more than one thing. Even Listing 3-2 has two levels of abstraction, as proved by our ability to shrink it down. But it would be very hard to meaningfully shrink Listing 3-3. We could extract the if statement into a function named includeSetupsAndTeardownsIfTestPage, but that simply restates the code without changing the level of abstraction.</p>
+<p class="calibre1">So, another way to know that a function is doing more than “one thing” is if you can extract another function from it with a name that is not merely a restatement of its implementation [G34].</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Sections within Functions</b></a></p>
+<p class="calibre1">Look at Listing 4-7 on page 71. Notice that the generatePrimes function is divided into sections such as  <i class="calibre4">declarations</i>,  <i class="calibre4">initializations</i>, and  <i class="calibre4">sieve</i>. This is an obvious symptom of doing more than one thing. Functions that do one thing cannot be reasonably divided into sections.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">One Level of Abstraction per Function</b></a></p>
+<p class="calibre1">In order to make sure our functions are doing “one thing,” we need to make sure that the statements within our function are all at the same level of abstraction. It is easy to see how Listing 3-1 violates this rule. There are concepts in there that are at a very high level of abstraction, such as getHtml(); others that are at an intermediate level of abstraction, such as: String pagePathName = PathParser.render(pagePath); and still others that are remarkably low level, such as: .append("\n").</p>
+<p class="calibre1">Mixing levels of abstraction within a function is always confusing. Readers may not be able to tell whether a particular expression is an essential concept or a detail. Worse, 4.</p>
+<p class="calibre1">The LOGO language used the keyword “TO” in the same way that Ruby and Python use “def.” So every function began with the word “TO.” This had an interesting effect on the way functions were designed.</p>
+<p class="calibre1"><a id="p68"></a><b class="calibre3">Switch Statements</b></p>
+<p class="calibre1">37</p>
+<p class="calibre1">like broken windows, once details are mixed with essential concepts, more and more details tend to accrete within the function.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Reading Code from Top to Bottom:  <i class="calibre4">The Stepdown Rule</i></b></a></p>
+<p class="calibre1">We want the code to read like a top-down narrative.5 We want every function to be followed by those at the next level of abstraction so that we can read the program, descending one level of abstraction at a time as we read down the list of functions. I call this  <i class="calibre4">The Stepdown Rule</i>.</p>
+<p class="calibre1">To say this differently, we want to be able to read the program as though it were a set of  <i class="calibre4">TO </i> paragraphs, each of which is describing the current level of abstraction and referencing subsequent  <i class="calibre4">TO</i> paragraphs at the next level down.</p>
+<p class="calibre1"><i class="calibre4">To include the setups and teardowns, we include setups, then we include the test page content, and then we include the teardowns. </i></p>
+<p class="calibre1"><i class="calibre4">To include the setups, we include the suite setup if this is a suite, then we include the</i> <i class="calibre4">regular setup. </i></p>
+<p class="calibre1"><i class="calibre4">To include the suite setup, we search the parent hierarchy for the “SuiteSetUp” page</i> <i class="calibre4">and add an include statement with the path of that page. </i></p>
+<p class="calibre1"><i class="calibre4">To search the parent. . . </i></p>
+<p class="calibre1">It turns out to be very difficult for programmers to learn to follow this rule and write functions that stay at a single level of abstraction. But learning this trick is also very important. It is the key to keeping functions short and making sure they do “one thing.”</p>
+<p class="calibre1">Making the code read like a top-down set of  <i class="calibre4">TO </i> paragraphs is an effective technique for keeping the abstraction level consistent.</p>
+<p class="calibre1">Take a look at Listing 3-7 at the end of this chapter. It shows the whole testableHtml function refactored according to the principles described here. Notice how each function introduces the next, and each function remains at a consistent level of abstraction.</p>
+<p class="calibre1"><a href="index_split_000.html#p9"><b class="calibre3">Switch Statements</b></a></p>
+<p class="calibre1">It’s hard to make a small switch statement.6 Even a switch statement with only two cases is larger than I’d like a single block or function to be. It’s also hard to make a switch statement that does one thing. By their nature, switch statements always do  <i class="calibre4">N </i> things. Unfortunately we can’t always avoid switch statements, but we  <i class="calibre4">can </i> make sure that each switch statement is buried in a low-level class and is never repeated. We do this, of course, with polymorphism.</p>
+<p class="calibre1">5.</p>
+<p class="calibre1">[KP78], p. 37.</p>
+<p class="calibre1">6.</p>
+<p class="calibre1">And, of course, I include if/else chains in this.</p>
+<p class="calibre1"><a id="p69"></a>38</p>
+<div class="calibre6" id="calibre_pb_35"></div>
+</body>
+</html>

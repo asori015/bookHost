@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_48">Chapter 3: Functions</h2>
+<p class="calibre1">never forget that your real goal is to tell the story of the system, and that the functions you write need to fit cleanly together into a clear and precise language to help you with that telling.</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">SetupTeardownIncluder</b></a></p>
+<p class="calibre1"><b class="calibre3">Listing 3-7 </b></p>
+<p class="calibre1"><b class="calibre3">SetupTeardownIncluder.java</b></p>
+<p class="calibre1">package fitnesse.html;</p>
+<p class="calibre1">import fitnesse.responders.run.SuiteResponder;</p>
+<p class="calibre1">import fitnesse.wiki.*;</p>
+<p class="calibre1">public class SetupTeardownIncluder {</p>
+<p class="calibre1">private PageData pageData;</p>
+<p class="calibre1">private boolean isSuite;</p>
+<p class="calibre1">private WikiPage testPage;</p>
+<p class="calibre1">private StringBuffer newPageContent;</p>
+<p class="calibre1">private PageCrawler pageCrawler;</p>
+<p class="calibre1">public static String render(PageData pageData) throws Exception {</p>
+<p class="calibre1">return render(pageData, false);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public static String render(PageData pageData, boolean isSuite) throws Exception {</p>
+<p class="calibre1">return new SetupTeardownIncluder(pageData).render(isSuite);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private SetupTeardownIncluder(PageData pageData) {</p>
+<p class="calibre1">this.pageData = pageData;</p>
+<p class="calibre1">testPage = pageData.getWikiPage();</p>
+<p class="calibre1">pageCrawler = testPage.getPageCrawler();</p>
+<p class="calibre1">newPageContent = new StringBuffer();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String render(boolean isSuite) throws Exception {</p>
+<p class="calibre1">this.isSuite = isSuite;</p>
+<p class="calibre1">if (isTestPage())</p>
+<p class="calibre1">includeSetupAndTeardownPages();</p>
+<p class="calibre1">return pageData.getHtml();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isTestPage() throws Exception {</p>
+<p class="calibre1">return pageData.hasAttribute("Test");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeSetupAndTeardownPages() throws Exception {</p>
+<p class="calibre1">includeSetupPages();</p>
+<p class="calibre1">includePageContent();</p>
+<p class="calibre1">includeTeardownPages();</p>
+<p class="calibre1">updatePageContent();</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p82"></a><b class="calibre3">SetupTeardownIncluder</b></p>
+<p class="calibre1">51</p>
+<p class="calibre1"><b class="calibre3">Listing 3-7 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">SetupTeardownIncluder.java</b></p>
+<p class="calibre1">private void includeSetupPages() throws Exception {</p>
+<p class="calibre1">if (isSuite)</p>
+<p class="calibre1">includeSuiteSetupPage();</p>
+<p class="calibre1">includeSetupPage();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeSuiteSetupPage() throws Exception {</p>
+<p class="calibre1">include(SuiteResponder.SUITE_SETUP_NAME, "-setup");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeSetupPage() throws Exception {</p>
+<p class="calibre1">include("SetUp", "-setup");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includePageContent() throws Exception {</p>
+<p class="calibre1">newPageContent.append(pageData.getContent());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeTeardownPages() throws Exception {</p>
+<p class="calibre1">includeTeardownPage();</p>
+<p class="calibre1">if (isSuite)</p>
+<p class="calibre1">includeSuiteTeardownPage();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeTeardownPage() throws Exception {</p>
+<p class="calibre1">include("TearDown", "-teardown");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void includeSuiteTeardownPage() throws Exception {</p>
+<p class="calibre1">include(SuiteResponder.SUITE_TEARDOWN_NAME, "-teardown");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void updatePageContent() throws Exception {</p>
+<p class="calibre1">pageData.setContent(newPageContent.toString());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void include(String pageName, String arg) throws Exception {</p>
+<p class="calibre1">WikiPage inheritedPage = findInheritedPage(pageName);</p>
+<p class="calibre1">if (inheritedPage != null) {</p>
+<p class="calibre1">String pagePathName = getPathNameForPage(inheritedPage);</p>
+<p class="calibre1">buildIncludeDirective(pagePathName, arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private WikiPage findInheritedPage(String pageName) throws Exception {</p>
+<p class="calibre1">return PageCrawlerImpl.getInheritedPage(pageName, testPage);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String getPathNameForPage(WikiPage page) throws Exception {</p>
+<p class="calibre1">WikiPagePath pagePath = pageCrawler.getFullPath(page);</p>
+<p class="calibre1">return PathParser.render(pagePath);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void buildIncludeDirective(String pagePathName, String arg) {</p>
+<p class="calibre1">newPageContent</p>
+<p class="calibre1">.append("\n!include ")</p>
+<p class="calibre1"><a id="p83"></a>52</p>
+<div class="calibre6" id="calibre_pb_49"></div>
+</body>
+</html>

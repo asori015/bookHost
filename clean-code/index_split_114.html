@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_226">Chapter 14: Successive Refinement</h2>
+<p class="calibre1"><b class="calibre3">   throw new ArgsException(); </b></p>
+<p class="calibre1"><b class="calibre3">      }</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void set(String s) {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1">return stringValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private class IntegerArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">private int intValue = 0;</p>
+<p class="calibre1">public void set(Iterator&lt;String&gt; currentArgument) throws ArgsException {</p>
+<p class="calibre1"><b class="calibre3">  String parameter = null; </b></p>
+<p class="calibre1"><b class="calibre3">    try {</b></p>
+<p class="calibre1"><b class="calibre3">      parameter = currentArgument.next(); </b></p>
+<p class="calibre1"><b class="calibre3">      set(parameter); </b></p>
+<p class="calibre1"><b class="calibre3">    } catch (NoSuchElementException e) {</b></p>
+<p class="calibre1"><b class="calibre3">      errorCode = ErrorCode.MISSING_INTEGER; </b></p>
+<p class="calibre1"><b class="calibre3">      throw new ArgsException(); </b></p>
+<p class="calibre1"><b class="calibre3">    } catch (ArgsException e) {</b></p>
+<p class="calibre1"><b class="calibre3">      errorParameter = parameter; </b></p>
+<p class="calibre1"><b class="calibre3">      errorCode = ErrorCode.INVALID_INTEGER; </b></p>
+<p class="calibre1"><b class="calibre3">      throw e; </b></p>
+<p class="calibre1"><b class="calibre3">    }</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void set(String s) throws ArgsException {</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">intValue = Integer.parseInt(s);</p>
+<p class="calibre1">} catch (NumberFormatException e) {</p>
+<p class="calibre1">throw new ArgsException();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1">return intValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">And so the  <i class="calibre4">coup de grace</i>: The type-case can be removed! Touche!</p>
+<p class="calibre1">private boolean setArgument(char argChar) throws ArgsException {</p>
+<p class="calibre1">ArgumentMarshaler m = marshalers.get(argChar);</p>
+<p class="calibre1">if (m == null)</p>
+<p class="calibre1">return false;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">m.set(currentArgument);</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">} catch (ArgsException e) {</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">errorArgumentId = argChar;</p>
+<p class="calibre1">throw e;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p268"></a><b class="calibre3">String Arguments</b></p>
+<p class="calibre1">237</p>
+<p class="calibre1">Now we can get rid of some crufty functions in IntegerArgumentMarshaler and clean it up a bit.</p>
+<p class="calibre1">private class IntegerArgumentMarshaler extends ArgumentMarshaler {</p>
+<p class="calibre1">private int intValue = 0</p>
+<p class="calibre1">public void set(Iterator&lt;String&gt; currentArgument) throws ArgsException {</p>
+<p class="calibre1">String parameter = null;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">parameter = currentArgument.next();</p>
+<p class="calibre1"><b class="calibre3">intValue = Integer.parseInt</b>(parameter);</p>
+<p class="calibre1">} catch (NoSuchElementException e) {</p>
+<p class="calibre1">errorCode = ErrorCode.MISSING_INTEGER;</p>
+<p class="calibre1">throw new ArgsException();</p>
+<p class="calibre1">} catch (<b class="calibre3">NumberFormatException</b> e) {</p>
+<p class="calibre1">errorParameter = parameter;</p>
+<p class="calibre1">errorCode = ErrorCode.INVALID_INTEGER;</p>
+<p class="calibre1">throw new ArgsException();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public Object get() {</p>
+<p class="calibre1">return intValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">We can also turn <b class="calibre3">ArgumentMarshaler</b> into an interface.</p>
+<p class="calibre1">private <b class="calibre3">interface</b> ArgumentMarshaler {</p>
+<p class="calibre1">void set(Iterator&lt;String&gt; currentArgument) throws ArgsException; Object get();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">So now let’s see how easy it is to add a new argument type to our structure. It should require very few changes, and those changes should be isolated. First, we begin by adding a new test case to check that the double argument works correctly.</p>
+<p class="calibre1">public void testSimpleDoublePresent() throws Exception {</p>
+<p class="calibre1">Args args = new Args("x##", new String[] {"-x","42.3"}); assertTrue(args.isValid());</p>
+<p class="calibre1">assertEquals(1, args.cardinality());</p>
+<p class="calibre1">assertTrue(args.has('x'));</p>
+<p class="calibre1">assertEquals(42.3, args.getDouble('x'), .001);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Now we clean up the schema parsing code and add the ## detection for the double argument type.</p>
+<p class="calibre1">private void parseSchemaElement(String element) throws ParseException {</p>
+<p class="calibre1">char elementId = element.charAt(0);</p>
+<p class="calibre1">String elementTail = element.substring(1);</p>
+<p class="calibre1">validateSchemaElementId(elementId);</p>
+<p class="calibre1">if (elementTail. <b class="calibre3">length() == 0</b>)</p>
+<p class="calibre1">marshalers.put(elementId, new BooleanArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail. <b class="calibre3">equals("*")</b>)</p>
+<p class="calibre1">marshalers.put(elementId, new StringArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail. <b class="calibre3">equals("#")</b>)</p>
+<p class="calibre1">marshalers.put(elementId, new IntegerArgumentMarshaler());</p>
+<p class="calibre1"><a id="p269"></a>238</p>
+<div class="calibre6" id="calibre_pb_227"></div>
+</body>
+</html>

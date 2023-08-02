@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_110">Chapter 8: Boundaries</h2>
+<p class="calibre1">with our own. In this chapter we look at practices and techniques to keep the boundaries of our software clean.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Using Third-Party Code</b></a></p>
+<p class="calibre1">There is a natural tension between the provider of an interface and the user of an interface.</p>
+<p class="calibre1">Providers of third-party packages and frameworks strive for broad applicability so they can work in many environments and appeal to a wide audience. Users, on the other hand, want an interface that is focused on their particular needs. This tension can cause problems at the boundaries of our systems.</p>
+<p class="calibre1">Let’s look at java.util.Map as an example. As you can see by examining Figure 8-1, Maps have a very broad interface with plenty of capabilities. Certainly this power and flexibility is useful, but it can also be a liability. For instance, our application might build up a Map and pass it around. Our intention might be that none of the recipients of our Map delete anything in the map. But right there at the top of the list is the clear() method. Any user of the Map has the power to clear it. Or maybe our design convention is that only particular types of objects can be stored in the Map, but Maps do not reliably constrain the types of objects placed within them. Any determined user can add items of any type to any Map.</p>
+<p class="calibre1">• clear() void – Map</p>
+<p class="calibre1">• containsKey(Object key) boolean – Map</p>
+<p class="calibre1">• containsValue(Object value) boolean – Map</p>
+<p class="calibre1">• entrySet() Set – Map</p>
+<p class="calibre1">• equals(Object o) boolean – Map</p>
+<p class="calibre1">• get(Object key) Object – Map</p>
+<p class="calibre1">• getClass() Class&lt;? extends Object&gt; – Object</p>
+<p class="calibre1">• hashCode() int – Map</p>
+<p class="calibre1">• isEmpty() boolean – Map</p>
+<p class="calibre1">• keySet() Set – Map</p>
+<p class="calibre1">• notify() void – Object</p>
+<p class="calibre1">• notifyAll() void – Object</p>
+<p class="calibre1">• put(Object key, Object value) Object – Map</p>
+<p class="calibre1">• putAll(Map t) void – Map</p>
+<p class="calibre1">• remove(Object key) Object – Map</p>
+<p class="calibre1">• size() int – Map</p>
+<p class="calibre1">• toString() String – Object</p>
+<p class="calibre1">• values() Collection – Map</p>
+<p class="calibre1">• wait() void – Object</p>
+<p class="calibre1">• wait(long timeout) void – Object</p>
+<p class="calibre1">• wait(long timeout, int nanos) void – Object</p>
+<p class="calibre1"><b class="calibre3">Figure 8-1</b></p>
+<p class="calibre1">The methods of Map</p>
+<p class="calibre1">If our application needs a Map of Sensors, you might find the sensors set up like this: Map sensors = new HashMap();</p>
+<p class="calibre1"><a id="p146"></a><b class="calibre3">Using Third-Party Code</b></p>
+<p class="calibre1">115</p>
+<p class="calibre1">Then, when some other part of the code needs to access the sensor, you see this code: Sensor s = (Sensor)sensors.get(sensorId );</p>
+<p class="calibre1">We don’t just see it once, but over and over again throughout the code. The client of this code carries the responsibility of getting an Object from the Map and casting it to the right type. This works, but it’s not clean code. Also, this code does not tell its story as well as it could. The readability of this code can be greatly improved by using generics, as shown below: Map&lt;Sensor&gt; sensors = new HashMap&lt;Sensor&gt;();</p>
+<p class="calibre1">...</p>
+<p class="calibre1">Sensor s = sensors.get(sensorId );</p>
+<p class="calibre1">However, this doesn’t solve the problem that Map&lt;Sensor&gt; provides more capability than we need or want.</p>
+<p class="calibre1">Passing an instance of Map&lt;Sensor&gt; liberally around the system means that there will be a lot of places to fix if the interface to Map ever changes. You might think such a change to be unlikely, but remember that it changed when generics support was added in Java 5.</p>
+<p class="calibre1">Indeed, we’ve seen systems that are inhibited from using generics because of the sheer magnitude of changes needed to make up for the liberal use of Maps.</p>
+<p class="calibre1">A cleaner way to use Map might look like the following. No user of Sensors would care one bit if generics were used or not. That choice has become (and always should be) an implementation detail.</p>
+<p class="calibre1">public class Sensors {</p>
+<p class="calibre1">private Map sensors = new HashMap();</p>
+<p class="calibre1">public Sensor getById(String id) {</p>
+<p class="calibre1">return (Sensor) sensors.get(id);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">//snip</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The interface at the boundary (Map) is hidden. It is able to evolve with very little impact on the rest of the application. The use of generics is no longer a big issue because the casting and type management is handled inside the Sensors class.</p>
+<p class="calibre1">This interface is also tailored and constrained to meet the needs of the application. It results in code that is easier to understand and harder to misuse. The Sensors class can enforce design and business rules.</p>
+<p class="calibre1">We are not suggesting that every use of Map be encapsulated in this form. Rather, we are advising you not to pass Maps (or any other interface at a boundary) around your system. If you use a boundary interface like Map, keep it inside the class, or close family of classes, where it is used. Avoid returning it from, or accepting it as an argument to, public APIs.</p>
+<p class="calibre1"><a id="p147"></a>116</p>
+<div class="calibre6" id="calibre_pb_111"></div>
+</body>
+</html>

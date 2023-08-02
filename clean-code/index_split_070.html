@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_138">Chapter 10: Classes</h2>
+<p class="calibre1"><b class="calibre3">Listing 10-7 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">RowColumnPagePrinter.java</b></p>
+<p class="calibre1">public void print(int data[]) {</p>
+<p class="calibre1">int pageNumber = 1;</p>
+<p class="calibre1">for (int firstIndexOnPage = 0;</p>
+<p class="calibre1">firstIndexOnPage &lt; data.length;</p>
+<p class="calibre1">firstIndexOnPage += numbersPerPage) {</p>
+<p class="calibre1">int lastIndexOnPage =</p>
+<p class="calibre1">Math.min(firstIndexOnPage + numbersPerPage - 1,</p>
+<p class="calibre1">data.length - 1);</p>
+<p class="calibre1">printPageHeader(pageHeader, pageNumber);</p>
+<p class="calibre1">printPage(firstIndexOnPage, lastIndexOnPage, data);</p>
+<p class="calibre1">printStream.println("\f");</p>
+<p class="calibre1">pageNumber++;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void printPage(int firstIndexOnPage,</p>
+<p class="calibre1">int lastIndexOnPage,</p>
+<p class="calibre1">int[] data) {</p>
+<p class="calibre1">int firstIndexOfLastRowOnPage =</p>
+<p class="calibre1">firstIndexOnPage + rowsPerPage - 1;</p>
+<p class="calibre1">for (int firstIndexInRow = firstIndexOnPage;</p>
+<p class="calibre1">firstIndexInRow &lt;= firstIndexOfLastRowOnPage;</p>
+<p class="calibre1">firstIndexInRow++) {</p>
+<p class="calibre1">printRow(firstIndexInRow, lastIndexOnPage, data);</p>
+<p class="calibre1">printStream.println("");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void printRow(int firstIndexInRow,</p>
+<p class="calibre1">int lastIndexOnPage,</p>
+<p class="calibre1">int[] data) {</p>
+<p class="calibre1">for (int column = 0; column &lt; columnsPerPage; column++) {</p>
+<p class="calibre1">int index = firstIndexInRow + column * rowsPerPage;</p>
+<p class="calibre1">if (index &lt;= lastIndexOnPage)</p>
+<p class="calibre1">printStream.format("%10d", data[index]);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void printPageHeader(String pageHeader,</p>
+<p class="calibre1">int pageNumber) {</p>
+<p class="calibre1">printStream.println(pageHeader + " --- Page " + pageNumber); printStream.println("");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setOutput(PrintStream printStream) {</p>
+<p class="calibre1">this.printStream = printStream;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p176"></a><b class="calibre3">Classes Should Be Small! </b></p>
+<p class="calibre1">145</p>
+<p class="calibre1"><b class="calibre3">Listing 10-8 </b></p>
+<p class="calibre1"><b class="calibre3">PrimeGenerator.java</b></p>
+<p class="calibre1">package literatePrimes;</p>
+<p class="calibre1">import java.util.ArrayList;</p>
+<p class="calibre1">public class PrimeGenerator {</p>
+<p class="calibre1">private static int[] primes;</p>
+<p class="calibre1">private static ArrayList&lt;Integer&gt; multiplesOfPrimeFactors; protected static int[] generate(int n) {</p>
+<p class="calibre1">primes = new int[n];</p>
+<p class="calibre1">multiplesOfPrimeFactors = new ArrayList&lt;Integer&gt;();</p>
+<p class="calibre1">set2AsFirstPrime();</p>
+<p class="calibre1">checkOddNumbersForSubsequentPrimes();</p>
+<p class="calibre1">return primes;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static void set2AsFirstPrime() {</p>
+<p class="calibre1">primes[0] = 2;</p>
+<p class="calibre1">multiplesOfPrimeFactors.add(2);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static void checkOddNumbersForSubsequentPrimes() {</p>
+<p class="calibre1">int primeIndex = 1;</p>
+<p class="calibre1">for (int candidate = 3;</p>
+<p class="calibre1">primeIndex &lt; primes.length;</p>
+<p class="calibre1">candidate += 2) {</p>
+<p class="calibre1">if (isPrime(candidate))</p>
+<p class="calibre1">primes[primeIndex++] = candidate;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static boolean isPrime(int candidate) {</p>
+<p class="calibre1">if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) {</p>
+<p class="calibre1">multiplesOfPrimeFactors.add(candidate);</p>
+<p class="calibre1">return false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return isNotMultipleOfAnyPreviousPrimeFactor(candidate);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static boolean</p>
+<p class="calibre1">isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {</p>
+<p class="calibre1">int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()]; int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor; return candidate == leastRelevantMultiple;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private static boolean</p>
+<p class="calibre1">isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {</p>
+<p class="calibre1">for (int n = 1; n &lt; multiplesOfPrimeFactors.size(); n++) {</p>
+<p class="calibre1">if (isMultipleOfNthPrimeFactor(candidate, n))</p>
+<p class="calibre1">return false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p177"></a>146</p>
+<div class="calibre6" id="calibre_pb_139"></div>
+</body>
+</html>

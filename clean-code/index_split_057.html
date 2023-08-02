@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_112">Chapter 8: Boundaries</h2>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Exploring and Learning Boundaries</b></a></p>
+<p class="calibre1">Third-party code helps us get more functionality delivered in less time. Where do we start when we want to utilize some third-party package? It’s not our job to test the third-party code, but it may be in our best interest to write tests for the third-party code we use.</p>
+<p class="calibre1">Suppose it is not clear how to use our third-party library. We might spend a day or two (or more) reading the documentation and deciding how we are going to use it. Then we might write our code to use the third-party code and see whether it does what we think. We would not be surprised to find ourselves bogged down in long debugging sessions trying to figure out whether the bugs we are experiencing are in our code or theirs.</p>
+<p class="calibre1">Learning the third-party code is hard. Integrating the third-party code is hard too.</p>
+<p class="calibre1">Doing both at the same time is doubly hard. What if we took a different approach? Instead of experimenting and trying out the new stuff in our production code, we could write some tests to explore our understanding of the third-party code. Jim Newkirk calls such tests <i class="calibre4">learning tests. </i> 1</p>
+<p class="calibre1">In learning tests we call the third-party API, as we expect to use it in our application.</p>
+<p class="calibre1">We’re essentially doing controlled experiments that check our understanding of that API.</p>
+<p class="calibre1">The tests focus on what we want out of the API.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Learning log4j</b></a></p>
+<p class="calibre1">Let’s say we want to use the apache log4j package rather than our own custom-built logger. We download it and open the introductory documentation page. Without too much reading we write our first test case, expecting it to write “hello” to the console.</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void testLogCreate() {</p>
+<p class="calibre1">Logger logger = Logger.getLogger("MyLogger");</p>
+<p class="calibre1">logger.info("hello");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">When we run it, the logger produces an error that tells us we need something called an Appender. After a little more reading we find that there is a ConsoleAppender. So we create a ConsoleAppender and see whether we have unlocked the secrets of logging to the console.</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void testLogAddAppender() {</p>
+<p class="calibre1">Logger logger = Logger.getLogger("MyLogger");</p>
+<p class="calibre1">ConsoleAppender appender = new ConsoleAppender();</p>
+<p class="calibre1">logger.addAppender(appender);</p>
+<p class="calibre1">logger.info("hello");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">1.</p>
+<p class="calibre1">[BeckTDD], pp. 136–137.</p>
+<p class="calibre1"><a id="p148"></a><b class="calibre3">Learning log4j</b></p>
+<p class="calibre1">117</p>
+<p class="calibre1">This time we find that the Appender has no output stream. Odd—it seems logical that it’d have one. After a little help from Google, we try the following:</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void testLogAddAppender() {</p>
+<p class="calibre1">Logger logger = Logger.getLogger("MyLogger");</p>
+<p class="calibre1">logger.removeAllAppenders();</p>
+<p class="calibre1">logger.addAppender(new ConsoleAppender(</p>
+<p class="calibre1">new PatternLayout("%p %t %m%n"),</p>
+<p class="calibre1">ConsoleAppender.SYSTEM_OUT));</p>
+<p class="calibre1">logger.info("hello");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">That worked; a log message that includes “hello” came out on the console! It seems odd that we have to tell the ConsoleAppender that it writes to the console.</p>
+<p class="calibre1">Interestingly enough, when we remove the ConsoleAppender.SystemOut argument, we see that “hello” is still printed. But when we take out the PatternLayout, it once again complains about the lack of an output stream. This is very strange behavior.</p>
+<p class="calibre1">Looking a little more carefully at the documentation, we see that the default ConsoleAppender constructor is “unconfigured,” which does not seem too obvious or useful.</p>
+<p class="calibre1">This feels like a bug, or at least an inconsistency, in log4j.</p>
+<p class="calibre1">A bit more googling, reading, and testing, and we eventually wind up with Listing 8-1.</p>
+<p class="calibre1">We’ve discovered a great deal about the way that log4j works, and we’ve encoded that knowledge into a set of simple unit tests.</p>
+<p class="calibre1"><b class="calibre3">Listing 8-1 </b></p>
+<p class="calibre1"><b class="calibre3">LogTest.java</b></p>
+<p class="calibre1">public class LogTest {</p>
+<p class="calibre1">private Logger logger;</p>
+<p class="calibre1">@Before</p>
+<p class="calibre1">public void initialize() {</p>
+<p class="calibre1">logger = Logger.getLogger("logger");</p>
+<p class="calibre1">logger.removeAllAppenders();</p>
+<p class="calibre1">Logger.getRootLogger().removeAllAppenders();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void basicLogger() {</p>
+<p class="calibre1">BasicConfigurator.configure();</p>
+<p class="calibre1">logger.info("basicLogger");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">@Test</p>
+<p class="calibre1">public void addAppenderWithStream() {</p>
+<p class="calibre1">logger.addAppender(new ConsoleAppender(</p>
+<p class="calibre1">new PatternLayout("%p %t %m%n"),</p>
+<p class="calibre1">ConsoleAppender.SYSTEM_OUT));</p>
+<p class="calibre1">logger.info("addAppenderWithStream");</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p149"></a>118</p>
+<div class="calibre6" id="calibre_pb_113"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_182">Chapter 13: Concurrency</h2>
+<p class="calibre1">You can add calls to this in various places within your code:</p>
+<p class="calibre1">public synchronized String nextUrlOrNull() {</p>
+<p class="calibre1">if(hasNext()) {</p>
+<p class="calibre1">ThreadJiglePoint.jiggle();</p>
+<p class="calibre1">String url = urlGenerator.next();</p>
+<p class="calibre1">ThreadJiglePoint.jiggle();</p>
+<p class="calibre1">updateHasNext();</p>
+<p class="calibre1">ThreadJiglePoint.jiggle();</p>
+<p class="calibre1">return url;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return null;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Now you use a simple aspect that randomly selects among doing nothing, sleeping, or yielding.</p>
+<p class="calibre1">Or imagine that the ThreadJigglePoint class has two implementations. The first implements jiggle to do nothing and is used in production. The second generates a random number to choose between sleeping, yielding, or just falling through. If you run your tests a thousand times with random jiggling, you may root out some flaws. If the tests pass, at least you can say you’ve done due diligence. Though a bit simplistic, this could be a reasonable option in lieu of a more sophisticated tool.</p>
+<p class="calibre1">There is a tool called ConTest,18 developed by IBM that does something similar, but it does so with quite a bit more sophistication.</p>
+<p class="calibre1">The point is to jiggle the code so that threads run in different orderings at different times. The combination of well-written tests and jiggling can dramatically increase the chance finding errors.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Use jiggling strategies to ferret out errors. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Conclusion</b></a></p>
+<p class="calibre1">Concurrent code is difficult to get right. Code that is simple to follow can become night-marish when multiple threads and shared data get into the mix. If you are faced with writing concurrent code, you need to write clean code with rigor or else face subtle and infrequent failures.</p>
+<p class="calibre1">First and foremost, follow the Single Responsibility Principle. Break your system into POJOs that separate thread-aware code from thread-ignorant code. Make sure when you are testing your thread-aware code, you are only testing it and nothing else. This suggests that your thread-aware code should be small and focused.</p>
+<p class="calibre1">Know the possible sources of concurrency issues: multiple threads operating on shared data, or using a common resource pool. Boundary cases, such as shutting down cleanly or finishing the iteration of a loop, can be especially thorny.</p>
+<p class="calibre1">18. <a href="http://www.alphaworks.ibm.com/tech/contest">http://www.alphaworks.ibm.com/tech/contest</a></p>
+<p class="calibre1"><a id="p222"></a><b class="calibre3">Bibliography</b></p>
+<p class="calibre1">191</p>
+<p class="calibre1">Learn your library and know the fundamental algorithms. Understand how some of the features offered by the library support solving problems similar to the fundamental algorithms.</p>
+<p class="calibre1">Learn how to find regions of code that must be locked and lock them. Do not lock regions of code that do not need to be locked. Avoid calling one locked section from another. This requires a deep understanding of whether something is or is not shared. Keep the amount of shared objects and the scope of the sharing as narrow as possible. Change designs of the objects with shared data to accommodate clients rather than forcing clients to manage shared state.</p>
+<p class="calibre1">Issues will crop up. The ones that do not crop up early are often written off as a one-time occurrence. These so-called one-offs typically only happen under load or at seemingly random times. Therefore, you need to be able to run your thread-related code in many configurations on many platforms repeatedly and continuously. Testability, which comes naturally from following the Three Laws of TDD, implies some level of plug-ability, which offers the support necessary to run code in a wider range of configurations.</p>
+<p class="calibre1">You will greatly improve your chances of finding erroneous code if you take the time to instrument your code. You can either do so by hand or using some kind of automated technology. Invest in this early. You want to be running your thread-based code as long as possible before you put it into production.</p>
+<p class="calibre1">If you take a clean approach, your chances of getting it right increase drastically.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Bibliography</b></a></p>
+<p class="calibre1"><b class="calibre3">[Lea99]:  </b> <i class="calibre4">Concurrent Programming in Java: Design Principles and Patterns</i>, 2d. ed., Doug Lea, Prentice Hall, 1999.</p>
+<p class="calibre1"><b class="calibre3">[PPP]:  </b> <i class="calibre4">Agile Software Development: Principles, Patterns, and Practices</i>, Robert C. Martin, Prentice Hall, 2002.</p>
+<p class="calibre1"><b class="calibre3">[PRAG]:  </b> <i class="calibre4">The Pragmatic Programmer</i>, Andrew Hunt, Dave Thomas, Addison-Wesley, 2000.</p>
+<p class="calibre1"><a id="p223"></a> <i class="calibre4">This page intentionally left blank </i></p>
+<p class="calibre1"><a id="p224"></a><img src="index-224_1.png" alt="Image 44" class="calibre2"/></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">14</b></a></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Successive Refinement</b></a></p>
+<p class="calibre1">Case Study of a Command-Line Argument Parser</p>
+<p class="calibre1">This chapter is a case study in successive refinement. You will see a module that started well but did not scale. Then you will see how the module was refactored and cleaned.</p>
+<p class="calibre1">Most of us have had to parse command-line arguments from time to time. If we don’t have a convenient utility, then we simply walk the array of strings that is passed into the main function. There are several good utilities available from various sources, 193</p>
+<p class="calibre1"><a id="p225"></a>194</p>
+<div class="calibre6" id="calibre_pb_183"></div>
+</body>
+</html>

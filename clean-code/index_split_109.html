@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 title="Chapter 14: Successive Refinement, **Listing 14-12**" class="calibre5" id="calibre_pb_216">Chapter 14: Successive Refinement</h2>
+<h3 class="sigilnotintoc"><b class="calibre7">Listing 14-12 </b></h3>
+
+<p class="calibre1"><b class="calibre3">Args.java (After first refactoring)</b></p>
+<p class="calibre1">package com.objectmentor.utilities.getopts;</p>
+<p class="calibre1">import java.text.ParseException;</p>
+<p class="calibre1">import java.util.*;</p>
+<p class="calibre1">public class Args {</p>
+<p class="calibre1">private String schema;</p>
+<p class="calibre1">private String[] args;</p>
+<p class="calibre1">private boolean valid = true;</p>
+<p class="calibre1">private Set&lt;Character&gt; unexpectedArguments = new TreeSet&lt;Character&gt;(); private Map&lt;Character, ArgumentMarshaler&gt; marshalers =</p>
+<p class="calibre1">new HashMap&lt;Character, ArgumentMarshaler&gt;();</p>
+<p class="calibre1">private Set&lt;Character&gt; argsFound = new HashSet&lt;Character&gt;(); private int currentArgument;</p>
+<p class="calibre1">private char errorArgumentId = '\0';</p>
+<p class="calibre1">private String errorParameter = "TILT";</p>
+<p class="calibre1">private ErrorCode errorCode = ErrorCode.OK;</p>
+<p class="calibre1">private enum ErrorCode {</p>
+<p class="calibre1">OK, MISSING_STRING, MISSING_INTEGER, INVALID_INTEGER, UNEXPECTED_ARGUMENT}</p>
+<p class="calibre1">public Args(String schema, String[] args) throws ParseException {</p>
+<p class="calibre1">this.schema = schema;</p>
+<p class="calibre1">this.args = args;</p>
+<p class="calibre1">valid = parse();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean parse() throws ParseException {</p>
+<p class="calibre1">if (schema.length() == 0 &amp;&amp; args.length == 0)</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">parseSchema();</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">parseArguments();</p>
+<p class="calibre1">} catch (ArgsException e) {</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return valid;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean parseSchema() throws ParseException {</p>
+<p class="calibre1">for (String element : schema.split(",")) {</p>
+<p class="calibre1">if (element.length() &gt; 0) {</p>
+<p class="calibre1">String trimmedElement = element.trim();</p>
+<p class="calibre1">parseSchemaElement(trimmedElement);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseSchemaElement(String element) throws ParseException {</p>
+<p class="calibre1">char elementId = element.charAt(0);</p>
+<p class="calibre1">String elementTail = element.substring(1);</p>
+<p class="calibre1">validateSchemaElementId(elementId);</p>
+<p class="calibre1">if (isBooleanSchemaElement(elementTail))</p>
+<p class="calibre1">marshalers.put(elementId, new BooleanArgumentMarshaler());</p>
+<p class="calibre1">else if (isStringSchemaElement(elementTail))</p>
+<p class="calibre1">marshalers.put(elementId, new StringArgumentMarshaler());</p>
+<p class="calibre1"><a id="p258"></a><b class="calibre3">String Arguments</b></p>
+<p class="calibre1">227</p>
+<p class="calibre1"><b class="calibre3">Listing 14-12 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (After first refactoring)</b></p>
+<p class="calibre1">else if (isIntegerSchemaElement(elementTail)) {</p>
+<p class="calibre1">marshalers.put(elementId, new IntegerArgumentMarshaler());</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">throw new ParseException(String.format(</p>
+<p class="calibre1">"Argument: %c has invalid format: %s.", elementId, elementTail), 0);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void validateSchemaElementId(char elementId) throws ParseException {</p>
+<p class="calibre1">if (!Character.isLetter(elementId)) {</p>
+<p class="calibre1">throw new ParseException(</p>
+<p class="calibre1">"Bad character:" + elementId + "in Args format: " + schema, 0);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isStringSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.equals("*");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isBooleanSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.length() == 0;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isIntegerSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.equals("#");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean parseArguments() throws ArgsException {</p>
+<p class="calibre1">for (currentArgument=0; currentArgument&lt;args.length; currentArgument++) {</p>
+<p class="calibre1">String arg = args[currentArgument];</p>
+<p class="calibre1">parseArgument(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseArgument(String arg) throws ArgsException {</p>
+<p class="calibre1">if (arg.startsWith("-"))</p>
+<p class="calibre1">parseElements(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElements(String arg) throws ArgsException {</p>
+<p class="calibre1">for (int i = 1; i &lt; arg.length(); i++)</p>
+<p class="calibre1">parseElement(arg.charAt(i));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElement(char argChar) throws ArgsException {</p>
+<p class="calibre1">if (setArgument(argChar))</p>
+<p class="calibre1">argsFound.add(argChar);</p>
+<p class="calibre1">else {</p>
+<p class="calibre1">unexpectedArguments.add(argChar);</p>
+<p class="calibre1">errorCode = ErrorCode.UNEXPECTED_ARGUMENT;</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p259"></a>228</p>
+<div class="calibre6" id="calibre_pb_217"></div>
+</body>
+</html>

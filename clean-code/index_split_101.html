@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_200">Chapter 14: Successive Refinement</h2>
+<p class="calibre1"><b class="calibre3">Listing 14-10 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (Boolean and String)</b></p>
+<p class="calibre1">private boolean isStringSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.equals("*");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isBooleanSchemaElement(String elementTail) {</p>
+<p class="calibre1">return elementTail.length() == 0;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseBooleanSchemaElement(char elementId) {</p>
+<p class="calibre1">booleanArgs.put(elementId, false);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean parseArguments() {</p>
+<p class="calibre1">for (currentArgument = 0; currentArgument &lt; args.length; currentArgument++)</p>
+<p class="calibre1">{</p>
+<p class="calibre1">String arg = args[currentArgument];</p>
+<p class="calibre1">parseArgument(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseArgument(String arg) {</p>
+<p class="calibre1">if (arg.startsWith("-"))</p>
+<p class="calibre1">parseElements(arg);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElements(String arg) {</p>
+<p class="calibre1">for (int i = 1; i &lt; arg.length(); i++)</p>
+<p class="calibre1">parseElement(arg.charAt(i));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseElement(char argChar) {</p>
+<p class="calibre1">if (setArgument(argChar))</p>
+<p class="calibre1">argsFound.add(argChar);</p>
+<p class="calibre1">else {</p>
+<p class="calibre1">unexpectedArguments.add(argChar);</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean setArgument(char argChar) {</p>
+<p class="calibre1">boolean set = true;</p>
+<p class="calibre1">if (isBoolean(argChar))</p>
+<p class="calibre1">setBooleanArg(argChar, true);</p>
+<p class="calibre1">else if (isString(argChar))</p>
+<p class="calibre1">setStringArg(argChar, "");</p>
+<p class="calibre1">else</p>
+<p class="calibre1">set = false;</p>
+<p class="calibre1">return set;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void setStringArg(char argChar, String s) {</p>
+<p class="calibre1">currentArgument++;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1"><a id="p242"></a><b class="calibre3">Args: The Rough Draft</b></p>
+<p class="calibre1">211</p>
+<p class="calibre1"><b class="calibre3">Listing 14-10 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Args.java (Boolean and String)</b></p>
+<p class="calibre1">stringArgs.put(argChar, args[currentArgument]);</p>
+<p class="calibre1">} catch (ArrayIndexOutOfBoundsException e) {</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">errorArgument = argChar;</p>
+<p class="calibre1">errorCode = ErrorCode.MISSING_STRING;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isString(char argChar) {</p>
+<p class="calibre1">return stringArgs.containsKey(argChar);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void setBooleanArg(char argChar, boolean value) {</p>
+<p class="calibre1">booleanArgs.put(argChar, value);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean isBoolean(char argChar) {</p>
+<p class="calibre1">return booleanArgs.containsKey(argChar);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public int cardinality() {</p>
+<p class="calibre1">return argsFound.size();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String usage() {</p>
+<p class="calibre1">if (schema.length() &gt; 0)</p>
+<p class="calibre1">return "-[" + schema + "]";</p>
+<p class="calibre1">else</p>
+<p class="calibre1">return "";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String errorMessage() throws Exception {</p>
+<p class="calibre1">if (unexpectedArguments.size() &gt; 0) {</p>
+<p class="calibre1">return unexpectedArgumentMessage();</p>
+<p class="calibre1">} else</p>
+<p class="calibre1">switch (errorCode) {</p>
+<p class="calibre1">case MISSING_STRING:</p>
+<p class="calibre1">return String.format("Could not find string parameter for -%c.", errorArgument);</p>
+<p class="calibre1">case OK:</p>
+<p class="calibre1">throw new Exception("TILT: Should not get here.");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return "";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private String unexpectedArgumentMessage() {</p>
+<p class="calibre1">StringBuffer message = new StringBuffer("Argument(s) -"); for (char c : unexpectedArguments) {</p>
+<p class="calibre1">message.append(c);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">message.append(" unexpected.");</p>
+<p class="calibre1">return message.toString();</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p243"></a>212</p>
+<div class="calibre6" id="calibre_pb_201"></div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_122">Chapter 9: Unit Tests</h2>
+<p class="calibre1"><b class="calibre3">Listing 9-1 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">SerializedPageResponderTest.java</b></p>
+<p class="calibre1">Responder responder = new SerializedPageResponder();</p>
+<p class="calibre1">SimpleResponse response =</p>
+<p class="calibre1">(SimpleResponse) responder.makeResponse(</p>
+<p class="calibre1">new FitNesseContext(root), request);</p>
+<p class="calibre1">String xml = response.getContent();</p>
+<p class="calibre1">assertEquals("text/xml", response.getContentType()); assertSubString("test page", xml);</p>
+<p class="calibre1">assertSubString("&lt;Test", xml);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">For example, look at the PathParser calls. They transform strings into PagePath instances used by the crawlers. This transformation is completely irrelevant to the test at hand and serves only to obfuscate the intent. The details surrounding the creation of the responder and the gathering and casting of the response are also just noise. Then there’s the ham-handed way that the request URL is built from a resource and an argument. (I helped write this code, so I feel free to roundly criticize it.) In the end, this code was not designed to be read. The poor reader is inundated with a swarm of details that must be understood before the tests make any real sense.</p>
+<p class="calibre1">Now consider the improved tests in Listing 9-2. These tests do the exact same thing, but they have been refactored into a much cleaner and more explanatory form.</p>
+<p class="calibre1"><b class="calibre3">Listing 9-2 </b></p>
+<p class="calibre1"><b class="calibre3">SerializedPageResponderTest.java (refactored)</b></p>
+<p class="calibre1">public void testGetPageHierarchyAsXml() throws Exception {</p>
+<p class="calibre1">makePages("PageOne", "PageOne.ChildOne", "PageTwo"); submitRequest("root", "type:pages");</p>
+<p class="calibre1">assertResponseIsXML();</p>
+<p class="calibre1">assertResponseContains(</p>
+<p class="calibre1">"&lt;name&gt;PageOne&lt;/name&gt;", "&lt;name&gt;PageTwo&lt;/name&gt;", "&lt;name&gt;ChildOne&lt;/name&gt;"</p>
+<p class="calibre1">);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void testSymbolicLinksAreNotInXmlPageHierarchy() throws Exception {</p>
+<p class="calibre1">WikiPage page = makePage("PageOne");</p>
+<p class="calibre1">makePages("PageOne.ChildOne", "PageTwo");</p>
+<p class="calibre1">addLinkTo(page, "PageTwo", "SymPage");</p>
+<p class="calibre1">submitRequest("root", "type:pages");</p>
+<p class="calibre1">assertResponseIsXML();</p>
+<p class="calibre1">assertResponseContains(</p>
+<p class="calibre1">"&lt;name&gt;PageOne&lt;/name&gt;", "&lt;name&gt;PageTwo&lt;/name&gt;", "&lt;name&gt;ChildOne&lt;/name&gt;"</p>
+<p class="calibre1">);</p>
+<p class="calibre1">assertResponseDoesNotContain("SymPage");</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p158"></a><b class="calibre3">Clean Tests</b></p>
+<p class="calibre1">127</p>
+<p class="calibre1"><b class="calibre3">Listing 9-2 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">SerializedPageResponderTest.java (refactored)</b></p>
+<p class="calibre1">public void testGetDataAsXml() throws Exception {</p>
+<p class="calibre1">makePageWithContent("TestPageOne", "test page"); submitRequest("TestPageOne", "type:data"); assertResponseIsXML();</p>
+<p class="calibre1">assertResponseContains("test page", "&lt;Test");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The BUILD-OPERATE-CHECK2 pattern is made obvious by the structure of these tests.</p>
+<p class="calibre1">Each of the tests is clearly split into three parts. The first part builds up the test data, the second part operates on that test data, and the third part checks that the operation yielded the expected results.</p>
+<p class="calibre1">Notice that the vast majority of annoying detail has been eliminated. The tests get right to the point and use only the data types and functions that they truly need. Anyone who reads these tests should be able to work out what they do very quickly, without being misled or overwhelmed by details.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Domain-Specific Testing Language</b></a></p>
+<p class="calibre1">The tests in Listing 9-2 demonstrate the technique of building a domain-specific language for your tests. Rather than using the APIs that programmers use to manipulate the system, we build up a set of functions and utilities that make use of those APIs and that make the tests more convenient to write and easier to read. These functions and utilities become a specialized API used by the tests. They are a testing  <i class="calibre4">language </i> that programmers use to help themselves to write their tests and to help those who must read those tests later on.</p>
+<p class="calibre1">This testing API is not designed up front; rather it evolves from the continued refactoring of test code that has gotten too tainted by obfuscating detail. Just as you saw me refactor Listing 9-1 into Listing 9-2, so too will disciplined developers refactor their test code into more succinct and expressive forms.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">A Dual Standard</b></a></p>
+<p class="calibre1">In one sense the team I mentioned at the beginning of this chapter had things right. The code within the testing API  <i class="calibre4">does </i> have a different set of engineering standards than production code. It must still be simple, succinct, and expressive, but it need not be as efficient as production code. After all, it runs in a test environment, not a production environment, and those two environment have very different needs.</p>
+<p class="calibre1">2.</p>
+<p class="calibre1"><a href="http://fitnesse.org/FitNesse.AcceptanceTestPatterns">http://fitnesse.org/FitNesse.AcceptanceTestPatterns</a></p>
+<p class="calibre1"><a id="p159"></a>128</p>
+<div class="calibre6" id="calibre_pb_123"></div>
+</body>
+</html>

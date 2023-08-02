@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_76">Chapter 5: Formatting</h2>
+<p class="calibre1">concepts and algorithms. Detail should increase as we move downward, until at the end we find the lowest level functions and details in the source file.</p>
+<p class="calibre1">A newspaper is composed of many articles; most are very small. Some are a bit larger.</p>
+<p class="calibre1">Very few contain as much text as a page can hold. This makes the newspaper  <i class="calibre4">usable</i>. If the newspaper were just one long story containing a disorganized agglomeration of facts, dates, and names, then we simply would not read it.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Vertical Openness Between Concepts</b></a></p>
+<p class="calibre1">Nearly all code is read left to right and top to bottom. Each line represents an expression or a clause, and each group of lines represents a complete thought. Those thoughts should be separated from each other with blank lines.</p>
+<p class="calibre1">Consider, for example, Listing 5-1. There are blank lines that separate the package declaration, the import(s), and each of the functions. This extremely simple rule has a profound effect on the visual layout of the code. Each blank line is a visual cue that identifies a new and separate concept. As you scan down the listing, your eye is drawn to the first line that follows a blank line.</p>
+<p class="calibre1"><b class="calibre3">Listing 5-1 </b></p>
+<p class="calibre1"><b class="calibre3">BoldWidget.java</b></p>
+<p class="calibre1">package fitnesse.wikitext.widgets;</p>
+<p class="calibre1">import java.util.regex.*;</p>
+<p class="calibre1">public class BoldWidget extends ParentWidget {</p>
+<p class="calibre1">public static final String REGEXP = "'''.+?'''";</p>
+<p class="calibre1">private static final Pattern pattern = Pattern.compile("'''(.+?)'''", Pattern.MULTILINE + Pattern.DOTALL</p>
+<p class="calibre1">);</p>
+<p class="calibre1">public BoldWidget(ParentWidget parent, String text) throws Exception {</p>
+<p class="calibre1">super(parent);</p>
+<p class="calibre1">Matcher match = pattern.matcher(text);</p>
+<p class="calibre1">match.find();</p>
+<p class="calibre1">addChildWidgets(match.group(1));</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String render() throws Exception {</p>
+<p class="calibre1">StringBuffer html = new StringBuffer("&lt;b&gt;");</p>
+<p class="calibre1">html.append(childHtml()).append("&lt;/b&gt;");</p>
+<p class="calibre1">return html.toString();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Taking those blank lines out, as in Listing 5-2, has a remarkably obscuring effect on the readability of the code.</p>
+<p class="calibre1"><a id="p110"></a><b class="calibre3">Vertical Formatting</b></p>
+<p class="calibre1">79</p>
+<p class="calibre1"><b class="calibre3">Listing 5-2 </b></p>
+<p class="calibre1"><b class="calibre3">BoldWidget.java</b></p>
+<p class="calibre1">package fitnesse.wikitext.widgets;</p>
+<p class="calibre1">import java.util.regex.*;</p>
+<p class="calibre1">public class BoldWidget extends ParentWidget {</p>
+<p class="calibre1">public static final String REGEXP = "'''.+?'''";</p>
+<p class="calibre1">private static final Pattern pattern = Pattern.compile("'''(.+?)'''", Pattern.MULTILINE + Pattern.DOTALL);</p>
+<p class="calibre1">public BoldWidget(ParentWidget parent, String text) throws Exception {</p>
+<p class="calibre1">super(parent);</p>
+<p class="calibre1">Matcher match = pattern.matcher(text);</p>
+<p class="calibre1">match.find();</p>
+<p class="calibre1">addChildWidgets(match.group(1));}</p>
+<p class="calibre1">public String render() throws Exception {</p>
+<p class="calibre1">StringBuffer html = new StringBuffer("&lt;b&gt;");</p>
+<p class="calibre1">html.append(childHtml()).append("&lt;/b&gt;");</p>
+<p class="calibre1">return html.toString();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This effect is even more pronounced when you unfocus your eyes. In the first example the different groupings of lines pop out at you, whereas the second example looks like a muddle. The difference between these two listings is a bit of vertical openness.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Vertical Density</b></a></p>
+<p class="calibre1">If openness separates concepts, then vertical density implies close association. So lines of code that are tightly related should appear vertically dense. Notice how the useless comments in Listing 5-3 break the close association of the two instance variables.</p>
+<p class="calibre1"><b class="calibre3">Listing 5-3 </b></p>
+<p class="calibre1">public class ReporterConfig {</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The class name of the reporter listener</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">private String m_className;</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* The properties of the reporter listener</p>
+<p class="calibre1">*/</p>
+<p class="calibre1">private List&lt;Property&gt; m_properties = new ArrayList&lt;Property&gt;(); public void addProperty(Property property) {</p>
+<p class="calibre1">m_properties.add(property);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Listing 5-4 is much easier to read. It fits in an “eye-full,” or at least it does for me. I can look at it and see that this is a class with two variables and a method, without having to move my head or eyes much. The previous listing forces me to use much more eye and head motion to achieve the same level of comprehension.</p>
+<p class="calibre1"><a id="p111"></a>80</p>
+<div class="calibre6" id="calibre_pb_77"></div>
+</body>
+</html>

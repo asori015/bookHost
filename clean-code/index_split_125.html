@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_248">Chapter 15: JUnit Internals</h2>
+<p class="calibre1"><b class="calibre3">private boolean shouldNotCompact() {</b></p>
+<p class="calibre1"><b class="calibre3">return expected == null || actual == null || areStringsEqual(); </b></p>
+<p class="calibre1"><b class="calibre3">  }</b></p>
+<p class="calibre1">I don’t much care for the this.expected and this.actual notation in the compact function. This happened when we changed the name of fExpected to expected. Why are there variables in this function that have the same names as the member variables? Don’t they represent something else [N4]? We should make the names unambiguous.</p>
+<p class="calibre1">String <b class="calibre3">compactExpected</b> = compactString(<b class="calibre3">expected</b>); String <b class="calibre3">compactActual</b> = compactString(<b class="calibre3">actual</b>);</p>
+<p class="calibre1">Negatives are slightly harder to understand than positives [G29]. So let’s turn that if statement on its head and invert the sense of the conditional.</p>
+<p class="calibre1">public String compact(String message) {</p>
+<p class="calibre1">if (<b class="calibre3">canBeCompacted</b>()) {</p>
+<p class="calibre1">findCommonPrefix();</p>
+<p class="calibre1">findCommonSuffix();</p>
+<p class="calibre1">String compactExpected = compactString(expected);</p>
+<p class="calibre1">String compactActual = compactString(actual);</p>
+<p class="calibre1">return Assert.format(message, compactExpected, compactActual);</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1">return Assert.format(message, expected, actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean <b class="calibre3">canBeCompacted</b>() {</p>
+<p class="calibre1">return expected <b class="calibre3">!=</b> null <b class="calibre3">&amp;&amp; </b> actual <b class="calibre3">!=</b> null <b class="calibre3">&amp;&amp; ! </b>areStringsEqual();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">The name of the function is strange [N7]. Although it does compact the strings, it actually might not compact the strings if canBeCompacted returns  false. So naming this function compact hides the side effect of the error check. Notice also that the function returns a formatted message, not just the compacted strings. So the name of the function should really be formatCompactedComparison. That makes it read a lot better when taken with the function argument: public String formatCompactedComparison(String message) {</p>
+<p class="calibre1">The body of the if statement is where the true compacting of the expected and actual strings is done. We should extract that as a method named compactExpectedAndActual. However, we want the formatCompactedComparison function to do all the formatting. The compact... function should do nothing but compacting [G30]. So let’s split it up as follows: ...</p>
+<p class="calibre1"><b class="calibre3">  private String compactExpected; </b></p>
+<p class="calibre1"><b class="calibre3">  private String compactActual; </b></p>
+<p class="calibre1">...</p>
+<p class="calibre1">public String formatCompactedComparison(String message) {</p>
+<p class="calibre1">if (canBeCompacted()) {</p>
+<p class="calibre1"><b class="calibre3">      compactExpectedAndActual(); </b></p>
+<p class="calibre1">return Assert.format(message, compactExpected, compactActual);</p>
+<p class="calibre1">} else {</p>
+<p class="calibre1"><a id="p290"></a><b class="calibre3">The JUnit Framework</b></p>
+<p class="calibre1">259</p>
+<p class="calibre1">return Assert.format(message, expected, actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void <b class="calibre3">compactExpectedAndActual</b>() {</p>
+<p class="calibre1">findCommonPrefix();</p>
+<p class="calibre1">findCommonSuffix();</p>
+<p class="calibre1">compactExpected = compactString(expected);</p>
+<p class="calibre1">compactActual = compactString(actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Notice that this required us to promote compactExpected and compactActual to member variables. I don’t like the way that the last two lines of the new function return variables, but the first two don’t. They aren’t using consistent conventions [G11]. So we should change findCommonPrefix and findCommonSuffix to return the prefix and suffix values.</p>
+<p class="calibre1">private void compactExpectedAndActual() {</p>
+<p class="calibre1"><b class="calibre3">prefixIndex = </b>findCommonPrefix();</p>
+<p class="calibre1"><b class="calibre3">suffixIndex = </b>findCommonSuffix();</p>
+<p class="calibre1">compactExpected = compactString(expected);</p>
+<p class="calibre1">compactActual = compactString(actual);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private <b class="calibre3">int</b> findCommonPrefix() {</p>
+<p class="calibre1"><b class="calibre3">int</b> prefix<b class="calibre3">Index</b> = 0;</p>
+<p class="calibre1">int end = Math.min(expected.length(), actual.length());</p>
+<p class="calibre1">for (; prefix<b class="calibre3">Index</b> &lt; end; prefix<b class="calibre3">Index</b>++) {</p>
+<p class="calibre1">if (expected.charAt(prefix<b class="calibre3">Index</b>) != actual.charAt(prefix<b class="calibre3">Index</b>)) break;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">    return prefixIndex; </b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">private <b class="calibre3">int</b> findCommonSuffix() {</p>
+<p class="calibre1">int expectedSuffix = expected.length() - 1;</p>
+<p class="calibre1">int actualSuffix = actual.length() - 1;</p>
+<p class="calibre1">for (; actualSuffix &gt;= prefix<b class="calibre3">Index</b> &amp;&amp; expectedSuffix &gt;= prefixIndex; actualSuffix--, expectedSuffix--) {</p>
+<p class="calibre1">if (expected.charAt(expectedSuffix) != actual.charAt(actualSuffix)) break;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">return </b>expected.length() - expectedSuffix;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">We should also change the names of the member variables to be a little more accurate</p>
+<p class="calibre1">[N1]; after all, they are both indices.</p>
+<p class="calibre1">Careful inspection of findCommonSuffix exposes a  <i class="calibre4">hidden temporal coupling </i>[G31]; it depends on the fact that prefixIndex is calculated by findCommonPrefix. If these two functions were called out of order, there would be a difficult debugging session ahead. So, to expose this temporal coupling, let’s have findCommonSuffix take the prefixIndex as an argument.</p>
+<p class="calibre1">private void compactExpectedAndActual() {</p>
+<p class="calibre1">prefixIndex = findCommonPrefix();</p>
+<p class="calibre1">suffixIndex = findCommonSuffix(<b class="calibre3">prefixIndex</b>);</p>
+<p class="calibre1"><a id="p291"></a>260</p>
+<div class="calibre6" id="calibre_pb_249"></div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_74">Chapter 5: Formatting</h2>
+<p class="calibre1">You should take care that your code is nicely formatted. You should choose a set of simple rules that govern the format of your code, and then you should consistently apply those rules. If you are working on a team, then the team should agree to a single set of formatting rules and all members should comply. It helps to have an automated tool that can apply those formatting rules for you.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">The Purpose of Formatting</b></a></p>
+<p class="calibre1">First of all, let’s be clear. Code formatting is  <i class="calibre4">important</i>. It is too important to ignore and it is too important to treat religiously. Code formatting is about communication, and communication is the professional developer’s first order of business.</p>
+<p class="calibre1">Perhaps you thought that “getting it working” was the first order of business for a professional developer. I hope by now, however, that this book has disabused you of that idea. The functionality that you create today has a good chance of changing in the next release, but the readability of your code will have a profound effect on all the changes that will ever be made. The coding style and readability set precedents that continue to affect maintainability and extensibility long after the original code has been changed beyond recognition. Your style and discipline survives, even though your code does not.</p>
+<p class="calibre1">So what are the formatting issues that help us to communicate best?</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Vertical Formatting</b></a></p>
+<p class="calibre1">Let’s start with vertical size. How big should a source file be? In Java, file size is closely related to class size. We’ll talk about class size when we talk about classes. For the moment let’s just consider file size.</p>
+<p class="calibre1">How big are most Java source files? It turns out that there is a huge range of sizes and some remarkable differences in style. Figure 5-1 shows some of those differences.</p>
+<p class="calibre1">Seven different projects are depicted. Junit, FitNesse, testNG, Time and Money, JDepend, Ant, and Tomcat. The lines through the boxes show the minimum and maximum file lengths in each project. The box shows approximately one-third (one standard deviation1) of the files. The middle of the box is the mean. So the average file size in the FitNesse project is about 65 lines, and about one-third of the files are between 40 and 100+ lines. The largest file in FitNesse is about 400 lines and the smallest is 6 lines.</p>
+<p class="calibre1">Note that this is a log scale, so the small difference in vertical position implies a very large difference in absolute size.</p>
+<p class="calibre1">1.</p>
+<p class="calibre1">The box shows sigma/2 above and below the mean. Yes, I know that the file length distribution is not normal, and so the standard deviation is not mathematically precise. But we’re not trying for precision here. We’re just trying to get a feel.</p>
+<p class="calibre1"><a id="p108"></a><img src="index-108_1.jpg" alt="Image 26" class="calibre2"/></p>
+<p class="calibre1"><b class="calibre3">Vertical Formatting</b></p>
+<p class="calibre1">77</p>
+<p class="calibre1"><b class="calibre3">Figure 5-1</b></p>
+<p class="calibre1">File length distributions LOG scale (box height = sigma)</p>
+<p class="calibre1">Junit, FitNesse, and Time and Money are composed of relatively small files. None are over 500 lines and most of those files are less than 200 lines. Tomcat and Ant, on the other hand, have some files that are several thousand lines long and close to half are over 200 lines.</p>
+<p class="calibre1">What does that mean to us? It appears to be possible to build significant systems (FitNesse is close to 50,000 lines) out of files that are typically 200 lines long, with an upper limit of 500. Although this should not be a hard and fast rule, it should be considered very desirable. Small files are usually easier to understand than large files are.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">The Newspaper Metaphor</b></a></p>
+<p class="calibre1">Think of a well-written newspaper article. You read it vertically. At the top you expect a headline that will tell you what the story is about and allows you to decide whether it is something you want to read. The first paragraph gives you a synopsis of the whole story, hiding all the details while giving you the broad-brush concepts. As you continue downward, the details increase until you have all the dates, names, quotes, claims, and other minutia.</p>
+<p class="calibre1">We would like a source file to be like a newspaper article. The name should be simple but explanatory. The name, by itself, should be sufficient to tell us whether we are in the right module or not. The topmost parts of the source file should provide the high-level <a id="p109"></a>78</p>
+<div class="calibre6" id="calibre_pb_75"></div>
+</body>
+</html>

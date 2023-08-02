@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_94">Chapter 6: Objects and Data Structures</h2>
+<p class="calibre1"><b class="calibre3">Listing 6-5 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Procedural Shape</b></p>
+<p class="calibre1">else if (shape instanceof Rectangle) {</p>
+<p class="calibre1">Rectangle r = (Rectangle)shape;</p>
+<p class="calibre1">return r.height * r.width;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">else if (shape instanceof Circle) {</p>
+<p class="calibre1">Circle c = (Circle)shape;</p>
+<p class="calibre1">return PI * c.radius * c.radius;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">throw new NoSuchShapeException();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Object-oriented programmers might wrinkle their noses at this and complain that it is procedural—and they’d be right. But the sneer may not be warranted. Consider what would happen if a perimeter() function were added to Geometry. The shape classes would be unaffected! Any other classes that depended upon the shapes would also be unaffected!</p>
+<p class="calibre1">On the other hand, if I add a new shape, I must change all the functions in Geometry to deal with it. Again, read that over. Notice that the two conditions are diametrically opposed.</p>
+<p class="calibre1">Now consider the object-oriented solution in Listing 6-6. Here the area() method is polymorphic. No Geometry class is necessary. So if I add a new shape, none of the existing <i class="calibre4">functions</i> are affected, but if I add a new function all of the  <i class="calibre4">shapes</i> must be changed!1</p>
+<p class="calibre1"><b class="calibre3">Listing 6-6 </b></p>
+<p class="calibre1"><b class="calibre3">Polymorphic Shapes</b></p>
+<p class="calibre1">public class Square implements Shape {</p>
+<p class="calibre1">private Point topLeft;</p>
+<p class="calibre1">private double side;</p>
+<p class="calibre1">public double area() {</p>
+<p class="calibre1">return side*side;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class Rectangle implements Shape {</p>
+<p class="calibre1">private Point topLeft;</p>
+<p class="calibre1">private double height;</p>
+<p class="calibre1">private double width;</p>
+<p class="calibre1">public double area() {</p>
+<p class="calibre1">return height * width;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">1.</p>
+<p class="calibre1">There are ways around this that are well known to experienced object-oriented designers: VISITOR, or dual-dispatch, for example. But these techniques carry costs of their own and generally return the structure to that of a procedural program.</p>
+<p class="calibre1"><a id="p128"></a><b class="calibre3">The Law of Demeter</b></p>
+<p class="calibre1">97</p>
+<p class="calibre1"><b class="calibre3">Listing 6-6 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">Polymorphic Shapes</b></p>
+<p class="calibre1">public class Circle implements Shape {</p>
+<p class="calibre1">private Point center;</p>
+<p class="calibre1">private double radius;</p>
+<p class="calibre1">public final double PI = 3.141592653589793;</p>
+<p class="calibre1">public double area() {</p>
+<p class="calibre1">return PI * radius * radius;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Again, we see the complimentary nature of these two definitions; they are virtual opposites! This exposes the fundamental dichotomy between objects and data structures: <i class="calibre4">Procedural code (code using data structures) makes it easy to add new functions without</i> <i class="calibre4">changing the existing data structures. OO code, on the other hand, makes it easy to add</i> <i class="calibre4">new classes without changing existing functions. </i></p>
+<p class="calibre1">The complement is also true:</p>
+<p class="calibre1"><i class="calibre4">Procedural code makes it hard to add new data structures because all the functions must</i> <i class="calibre4">change. OO code makes it hard to add new functions because all the classes must change. </i></p>
+<p class="calibre1">So, the things that are hard for OO are easy for procedures, and the things that are hard for procedures are easy for OO!</p>
+<p class="calibre1">In any complex system there are going to be times when we want to add new data types rather than new functions. For these cases objects and OO are most appropriate. On the other hand, there will also be times when we’ll want to add new functions as opposed to data types. In that case procedural code and data structures will be more appropriate.</p>
+<p class="calibre1">Mature programmers know that the idea that everything is an object  <i class="calibre4">is a myth</i>. Sometimes you really  <i class="calibre4">do</i> want simple data structures with procedures operating on them.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">The Law of Demeter</b></a></p>
+<p class="calibre1">There is a well-known heuristic called the  <i class="calibre4">Law of Demeter</i> 2 that says a module should not know about the innards of the  <i class="calibre4">objects </i> it manipulates. As we saw in the last section, objects hide their data and expose operations. This means that an object should not expose its internal structure through accessors because to do so is to expose, rather than to hide, its internal structure.</p>
+<p class="calibre1">More precisely, the Law of Demeter says that a method  <i class="calibre4">f </i> of a class  <i class="calibre4">C </i> should only call the methods of these:</p>
+<p class="calibre1"><i class="calibre4">• C</i></p>
+<p class="calibre1">• An object created by  <i class="calibre4">f</i></p>
+<p class="calibre1">2.</p>
+<p class="calibre1"><a href="http://en.wikipedia.org/wiki/Law_of_Demeter">http://en.wikipedia.org/wiki/Law_of_Demeter </a></p>
+<p class="calibre1"><a id="p129"></a><img src="index-129_1.jpg" alt="Image 31" class="calibre2"/></p>
+<p class="calibre1">98</p>
+<div class="calibre6" id="calibre_pb_95"></div>
+</body>
+</html>

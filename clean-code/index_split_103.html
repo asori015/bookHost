@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_204">Chapter 14: Successive Refinement</h2>
+<p class="calibre1">private void setBooleanArg(char argChar, boolean value) {</p>
+<p class="calibre1">booleanArgs. <b class="calibre3">get</b>(argChar)<b class="calibre3">.setBoolean</b>(value);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">return falseIfNull(booleanArgs.get(arg). <b class="calibre3">getBoolean()</b>);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Notice how these changes are in exactly the areas that I mentioned before: the parse, set, and get for the argument type. Unfortunately, small as this change was, some of the tests started failing. If you look carefully at getBoolean, you’ll see that if you call it with 'y,' but there is no y argument, then booleanArgs.get('y') will return null, and the function will throw a NullPointerException. The falseIfNull function had been used to protect against this, but the change I made caused that function to become irrelevant.</p>
+<p class="calibre1">Incrementalism demanded that I get this working quickly before making any other changes. Indeed, the fix was not too difficult. I just had to move the check for null. It was no longer the boolean being null that I needed to check; it was the ArgumentMarshaller.</p>
+<p class="calibre1">First, I removed the falseIfNull call in the getBoolean function. It was useless now, so I also eliminated the function itself. The tests still failed in the same way, so I was confident that I hadn’t introduced any new errors.</p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">return booleanArgs.get(arg).getBoolean();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">Next, I split the function into two lines and put the ArgumentMarshaller into its own variable named argumentMarshaller. I didn’t care for the long variable name; it was badly redundant and cluttered up the function. So I shortened it to am [N5].</p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">Args.ArgumentMarshaler <b class="calibre3">am</b> = booleanArgs.get(arg);</p>
+<p class="calibre1">return <b class="calibre3">am</b>.getBoolean();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">And then I put in the null detection logic.</p>
+<p class="calibre1">public boolean getBoolean(char arg) {</p>
+<p class="calibre1">Args.ArgumentMarshaler am = booleanArgs.get(arg);</p>
+<p class="calibre1">return <b class="calibre3">am != null &amp;&amp; </b> am.getBoolean();</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">String Arguments</b></a></p>
+<p class="calibre1">Adding String arguments was very similar to adding boolean arguments. I had to change the HashMap and get the parse, set, and get functions working. There shouldn’t be any surprises in what follows except, perhaps, that I seem to be putting all the marshalling implementation in the ArgumentMarshaller base class instead of distributing it to the derivatives.</p>
+<p class="calibre1">private Map&lt;Character<b class="calibre3">, ArgumentMarshaler</b>&gt; stringArgs =</p>
+<p class="calibre1">new HashMap&lt;Character<b class="calibre3">, ArgumentMarshaler</b>&gt;();</p>
+<p class="calibre1">...</p>
+<p class="calibre1"><a id="p246"></a><b class="calibre3">String Arguments</b></p>
+<p class="calibre1">215</p>
+<p class="calibre1">private void parseStringSchemaElement(char elementId) {</p>
+<p class="calibre1">stringArgs.put(elementId<b class="calibre3">, new StringArgumentMarshaler()</b>);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">private void setStringArg(char argChar) throws ArgsException {</p>
+<p class="calibre1">currentArgument++;</p>
+<p class="calibre1">try {</p>
+<p class="calibre1">stringArgs<b class="calibre3">.get</b>(argChar)<b class="calibre3">.setString</b>(args[currentArgument]);</p>
+<p class="calibre1">} catch (ArrayIndexOutOfBoundsException e) {</p>
+<p class="calibre1">valid = false;</p>
+<p class="calibre1">errorArgumentId = argChar;</p>
+<p class="calibre1">errorCode = ErrorCode.MISSING_STRING;</p>
+<p class="calibre1">throw new ArgsException();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">public String getString(char arg) {</p>
+<p class="calibre1"><b class="calibre3">Args.ArgumentMarshaler am =</b> stringArgs.get(arg);</p>
+<p class="calibre1">return <b class="calibre3">am == null ? "" </b> : am.getString();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">...</p>
+<p class="calibre1">private class ArgumentMarshaler {</p>
+<p class="calibre1">private boolean booleanValue = false;</p>
+<p class="calibre1"><b class="calibre3">    private String stringValue; </b></p>
+<p class="calibre1">public void setBoolean(boolean value) {</p>
+<p class="calibre1">booleanValue = value;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public boolean getBoolean() {</p>
+<p class="calibre1">return booleanValue;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">public void setString(String s) {</b></p>
+<p class="calibre1"><b class="calibre3">      stringValue = s; </b></p>
+<p class="calibre1"><b class="calibre3">    }</b></p>
+<p class="calibre1"><b class="calibre3">    public String getString() {</b></p>
+<p class="calibre1"><b class="calibre3">      return stringValue == null ? "" : stringValue; </b></p>
+<p class="calibre1"><b class="calibre3">    }</b></p>
+<p class="calibre1">}</p>
+<p class="calibre1">Again, these changes were made one at a time and in such a way that the tests kept running, if not passing. When a test broke, I made sure to get it passing again before continuing with the next change.</p>
+<p class="calibre1">By now you should be able to see my intent. Once I get all the current marshalling behavior into the ArgumentMarshaler base class, I’m going to start pushing that behavior down into the derivatives. This will allow me to keep everything running while I gradually change the shape of this program.</p>
+<p class="calibre1">The obvious next step was to move the int argument functionality into the ArgumentMarshaler. Again, there weren’t any surprises.</p>
+<p class="calibre1">private Map&lt;Character<b class="calibre3">, ArgumentMarshaler</b>&gt; intArgs =</p>
+<p class="calibre1">new HashMap&lt;Character<b class="calibre3">, ArgumentMarshaler</b>&gt;();</p>
+<p class="calibre1">...</p>
+<p class="calibre1"><a id="p247"></a>216</p>
+<div class="calibre6" id="calibre_pb_205"></div>
+</body>
+</html>

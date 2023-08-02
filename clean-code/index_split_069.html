@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_136">Chapter 10: Classes</h2>
+<p class="calibre1"><b class="calibre3">Listing 10-5 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">PrintPrimes.java</b></p>
+<p class="calibre1">int J;</p>
+<p class="calibre1">int K;</p>
+<p class="calibre1">boolean JPRIME;</p>
+<p class="calibre1">int ORD;</p>
+<p class="calibre1">int SQUARE;</p>
+<p class="calibre1">int N;</p>
+<p class="calibre1">int MULT[] = new int[ORDMAX + 1];</p>
+<p class="calibre1">J = 1;</p>
+<p class="calibre1">K = 1;</p>
+<p class="calibre1">P[1] = 2;</p>
+<p class="calibre1">ORD = 2;</p>
+<p class="calibre1">SQUARE = 9;</p>
+<p class="calibre1">while (K &lt; M) {</p>
+<p class="calibre1">do {</p>
+<p class="calibre1">J = J + 2;</p>
+<p class="calibre1">if (J == SQUARE) {</p>
+<p class="calibre1">ORD = ORD + 1;</p>
+<p class="calibre1">SQUARE = P[ORD] * P[ORD];</p>
+<p class="calibre1">MULT[ORD - 1] = J;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">N = 2;</p>
+<p class="calibre1">JPRIME = true;</p>
+<p class="calibre1">while (N &lt; ORD &amp;&amp; JPRIME) {</p>
+<p class="calibre1">while (MULT[N] &lt; J)</p>
+<p class="calibre1">MULT[N] = MULT[N] + P[N] + P[N];</p>
+<p class="calibre1">if (MULT[N] == J)</p>
+<p class="calibre1">JPRIME = false;</p>
+<p class="calibre1">N = N + 1;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">} while (!JPRIME);</p>
+<p class="calibre1">K = K + 1;</p>
+<p class="calibre1">P[K] = J;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">{</p>
+<p class="calibre1">PAGENUMBER = 1;</p>
+<p class="calibre1">PAGEOFFSET = 1;</p>
+<p class="calibre1">while (PAGEOFFSET &lt;= M) {</p>
+<p class="calibre1">System.out.println("The First " + M +</p>
+<p class="calibre1">" Prime Numbers --- Page " + PAGENUMBER);</p>
+<p class="calibre1">System.out.println("");</p>
+<p class="calibre1">for (ROWOFFSET = PAGEOFFSET; ROWOFFSET &lt; PAGEOFFSET + RR; ROWOFFSET++){</p>
+<p class="calibre1">for (C = 0; C &lt; CC;C++)</p>
+<p class="calibre1">if (ROWOFFSET + C * RR &lt;= M)</p>
+<p class="calibre1">System.out.format("%10d", P[ROWOFFSET + C * RR]);</p>
+<p class="calibre1">System.out.println("");</p>
+<p class="calibre1">}</p>
+<p class="calibre1">System.out.println("\f");</p>
+<p class="calibre1">PAGENUMBER = PAGENUMBER + 1;</p>
+<p class="calibre1">PAGEOFFSET = PAGEOFFSET + RR * CC;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p174"></a><b class="calibre3">Classes Should Be Small! </b></p>
+<p class="calibre1">143</p>
+<p class="calibre1">This program, written as a single function, is a mess. It has a deeply indented structure, a plethora of odd variables, and a tightly coupled structure. At the very least, the one big function should be split up into a few smaller functions.</p>
+<p class="calibre1">Listing 10-6 through Listing 10-8 show the result of splitting the code in Listing 10-5</p>
+<p class="calibre1">into smaller classes and functions, and choosing meaningful names for those classes, functions, and variables.</p>
+<p class="calibre1"><b class="calibre3">Listing 10-6 </b></p>
+<p class="calibre1"><b class="calibre3">PrimePrinter.java (refactored)</b></p>
+<p class="calibre1">package literatePrimes;</p>
+<p class="calibre1">public class PrimePrinter {</p>
+<p class="calibre1">public static void main(String[] args) {</p>
+<p class="calibre1">final int NUMBER_OF_PRIMES = 1000;</p>
+<p class="calibre1">int[] primes = PrimeGenerator.generate(NUMBER_OF_PRIMES);</p>
+<p class="calibre1">final int ROWS_PER_PAGE = 50;</p>
+<p class="calibre1">final int COLUMNS_PER_PAGE = 4;</p>
+<p class="calibre1">RowColumnPagePrinter tablePrinter =</p>
+<p class="calibre1">new RowColumnPagePrinter(ROWS_PER_PAGE,</p>
+<p class="calibre1">COLUMNS_PER_PAGE,</p>
+<p class="calibre1">"The First " + NUMBER_OF_PRIMES +</p>
+<p class="calibre1">" Prime Numbers");</p>
+<p class="calibre1">tablePrinter.print(primes);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">Listing 10-7 </b></p>
+<p class="calibre1"><b class="calibre3">RowColumnPagePrinter.java</b></p>
+<p class="calibre1">package literatePrimes;</p>
+<p class="calibre1">import java.io.PrintStream;</p>
+<p class="calibre1">public class RowColumnPagePrinter {</p>
+<p class="calibre1">private int rowsPerPage;</p>
+<p class="calibre1">private int columnsPerPage;</p>
+<p class="calibre1">private int numbersPerPage;</p>
+<p class="calibre1">private String pageHeader;</p>
+<p class="calibre1">private PrintStream printStream;</p>
+<p class="calibre1">public RowColumnPagePrinter(int rowsPerPage,</p>
+<p class="calibre1">int columnsPerPage,</p>
+<p class="calibre1">String pageHeader) {</p>
+<p class="calibre1">this.rowsPerPage = rowsPerPage;</p>
+<p class="calibre1">this.columnsPerPage = columnsPerPage;</p>
+<p class="calibre1">this.pageHeader = pageHeader;</p>
+<p class="calibre1">numbersPerPage = rowsPerPage * columnsPerPage;</p>
+<p class="calibre1">printStream = System.out;</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p175"></a>144</p>
+<div class="calibre6" id="calibre_pb_137"></div>
+</body>
+</html>

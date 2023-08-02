@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_10">Chapter 1: Clean Code</h2>
+<p class="calibre1"><b class="calibre3">Michael Feathers, author of  <i class="calibre4">Working</i></b></p>
+<p class="calibre1"><i class="calibre4"><b class="calibre3">Effectively with Legacy Code</b></i></p>
+<p class="calibre1"><i class="calibre4">I could list all of the qualities that I notice in</i></p>
+<p class="calibre1"><i class="calibre4">clean code, but there is one overarching quality</i></p>
+<p class="calibre1"><i class="calibre4">that leads to all of them. Clean code always</i></p>
+<p class="calibre1"><i class="calibre4">looks like it was written by someone who cares. </i></p>
+<p class="calibre1"><i class="calibre4">There is nothing obvious that you can do to</i></p>
+<p class="calibre1"><i class="calibre4">make it better. All of those things were thought</i></p>
+<p class="calibre1"><i class="calibre4">about by the code’s author, and if you try to</i></p>
+<p class="calibre1"><i class="calibre4">imagine improvements, you’re led back to</i></p>
+<p class="calibre1"><i class="calibre4">where you are, sitting in appreciation of the</i></p>
+<p class="calibre1"><i class="calibre4">code someone left for you—code left by some-</i></p>
+<p class="calibre1"><i class="calibre4">one who cares deeply about the craft. </i></p>
+<p class="calibre1">One word: care. That’s really the topic of</p>
+<p class="calibre1">this book. Perhaps an appropriate subtitle</p>
+<p class="calibre1">would be  <i class="calibre4">How to Care for Code</i>.</p>
+<p class="calibre1">Michael hit it on the head. Clean code is</p>
+<p class="calibre1">code that has been taken care of. Someone has taken the time to keep it simple and orderly.</p>
+<p class="calibre1">They have paid appropriate attention to details. They have cared.</p>
+<p class="calibre1"><b class="calibre3">Ron Jeffries, author of  <i class="calibre4">Extreme Programming </i></b></p>
+<p class="calibre1"><i class="calibre4"><b class="calibre3">Installed</b></i><b class="calibre3"> and  <i class="calibre4">Extreme Programming </i></b></p>
+<p class="calibre1"><i class="calibre4"><b class="calibre3">Adventures in C#</b></i></p>
+<p class="calibre1">Ron began his career programming in Fortran at</p>
+<p class="calibre1">the Strategic Air Command and has written code in</p>
+<p class="calibre1">almost every language and on almost every</p>
+<p class="calibre1">machine. It pays to consider his words carefully.</p>
+<p class="calibre1"><i class="calibre4">In recent years I begin, and nearly end, with Beck’s</i></p>
+<p class="calibre1"><i class="calibre4">rules of simple code. In priority order, simple code:</i></p>
+<p class="calibre1"><i class="calibre4">• Runs all the tests; </i></p>
+<p class="calibre1"><i class="calibre4">• Contains no duplication; </i></p>
+<p class="calibre1"><i class="calibre4">• Expresses all the design ideas that are in the </i></p>
+<p class="calibre1"><i class="calibre4">system; </i></p>
+<p class="calibre1"><i class="calibre4">• Minimizes the number of entities such as classes, </i></p>
+<p class="calibre1"><i class="calibre4">methods, functions, and the like. </i></p>
+<p class="calibre1"><i class="calibre4">Of these, I focus mostly on duplication. When the same thing is done over and over,</i> <i class="calibre4">it’s a sign that there is an idea in our mind that is not well represented in the code. I try to</i> <i class="calibre4">figure out what it is. Then I try to express that idea more clearly. </i></p>
+<p class="calibre1"><i class="calibre4">Expressiveness to me includes meaningful names, and I am likely to change the</i> <i class="calibre4">names of things several times before I settle in. With modern coding tools such as Eclipse,</i> <i class="calibre4">renaming is quite inexpensive, so it doesn’t trouble me to change. Expressiveness goes</i> <a id="p42"></a><img src="index-42_1.png" alt="Image 14" class="calibre2"/></p>
+<p class="calibre1"><b class="calibre3">The Total Cost of Owning a Mess</b></p>
+<p class="calibre1">11</p>
+<p class="calibre1"><i class="calibre4">beyond names, however. I also look at whether an object or method is doing more than one</i> <i class="calibre4">thing. If it’s an object, it probably needs to be broken into two or more objects. If it’s a</i> <i class="calibre4">method, I will always use the Extract Method refactoring on it, resulting in one method</i> <i class="calibre4">that says more clearly what it does, and some submethods saying how it is done. </i></p>
+<p class="calibre1"><i class="calibre4">Duplication and expressiveness take me a very long way into what I consider clean</i> <i class="calibre4">code, and improving dirty code with just these two things in mind can make a huge difference. There is, however, one other thing that I’m aware of doing, which is a bit harder to</i> <i class="calibre4">explain. </i></p>
+<p class="calibre1"><i class="calibre4">After years of doing this work, it seems to me that all programs are made up of very</i> <i class="calibre4">similar elements. One example is “find things in a collection.” Whether we have a database of employee records, or a hash map of keys and values, or an array of items of some</i> <i class="calibre4">kind, we often find ourselves wanting a particular item from that collection. When I find</i> <i class="calibre4">that happening, I will often wrap the particular implementation in a more abstract method</i> <i class="calibre4">or class. That gives me a couple of interesting advantages. </i></p>
+<p class="calibre1"><i class="calibre4">I can implement the functionality now with something simple, say a hash map, but</i> <i class="calibre4">since now all the references to that search are covered by my little abstraction, I can</i> <i class="calibre4">change the implementation any time I want. I can go forward quickly while preserving my</i> <i class="calibre4">ability to change later. </i></p>
+<p class="calibre1"><i class="calibre4">In addition, the collection abstraction often calls my attention to what’s “really” </i></p>
+<p class="calibre1"><i class="calibre4">going on, and keeps me from running down the path of implementing arbitrary collection</i> <i class="calibre4">behavior when all I really need is a few fairly simple ways of finding what I want. </i></p>
+<p class="calibre1"><i class="calibre4">Reduced duplication, high expressiveness, and early building of simple abstractions. </i></p>
+<p class="calibre1"><i class="calibre4">That’s what makes clean code for me. </i></p>
+<p class="calibre1">Here, in a few short paragraphs, Ron has summarized the contents of this book. No duplication, one thing, expressiveness, tiny abstractions. Everything is there.</p>
+<p class="calibre1"><b class="calibre3">Ward Cunningham, inventor of Wiki, </b></p>
+<p class="calibre1"><b class="calibre3">inventor of Fit, coinventor of eXtreme </b></p>
+<p class="calibre1"><b class="calibre3">Programming. Motive force behind </b></p>
+<p class="calibre1"><b class="calibre3">Design Patterns. Smalltalk and OO </b></p>
+<p class="calibre1"><b class="calibre3">thought leader. The godfather of all </b></p>
+<p class="calibre1"><b class="calibre3">those who care about code. </b></p>
+<p class="calibre1"><i class="calibre4">You know you are working on clean code when each</i></p>
+<p class="calibre1"><i class="calibre4">routine you read turns out to be pretty much what</i></p>
+<p class="calibre1"><i class="calibre4">you expected. You can call it beautiful code when</i></p>
+<p class="calibre1"><i class="calibre4">the code also makes it look like the language was</i></p>
+<p class="calibre1"><i class="calibre4">made for the problem. </i></p>
+<p class="calibre1">Statements like this are characteristic of Ward.</p>
+<p class="calibre1">You read it, nod your head, and then go on to the</p>
+<p class="calibre1">next topic. It sounds so reasonable, so obvious, that it barely registers as something profound. You might think it was pretty much what you expected. But let’s take a closer look.</p>
+<p class="calibre1"><a id="p43"></a><img src="index-43_1.png" alt="Image 15" class="calibre2"/></p>
+<p class="calibre1">12</p>
+<div class="calibre6" id="calibre_pb_11"></div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_286">Chapter 17: Smells and Heuristics</h2>
+<p class="calibre1">Before you consider yourself to be done with a function, make sure you  <i class="calibre4">understand</i> how it works. It is not good enough that it passes all the tests. You must  <i class="calibre4">know</i> 10 that the solution is correct.</p>
+<p class="calibre1">Often the best way to gain this knowledge and understanding is to refactor the function into something that is so clean and expressive that it is  <i class="calibre4">obvious</i> how it works.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G22:  <i class="calibre4">Make Logical Dependencies Physical</i></b></a></p>
+<p class="calibre1">If one module depends upon another, that dependency should be physical, not just logical.</p>
+<p class="calibre1">The dependent module should not make assumptions (in other words, logical dependencies) about the module it depends upon. Rather it should explicitly ask that module for all the information it depends upon.</p>
+<p class="calibre1">For example, imagine that you are writing a function that prints a plain text report of hours worked by employees. One class named HourlyReporter gathers all the data into a convenient form and then passes it to HourlyReportFormatter to print it. (See Listing 17-1.) <b class="calibre3">Listing 17-1 </b></p>
+<p class="calibre1"><b class="calibre3">HourlyReporter.java</b></p>
+<p class="calibre1">public class HourlyReporter {</p>
+<p class="calibre1">private HourlyReportFormatter formatter;</p>
+<p class="calibre1">private List&lt;LineItem&gt; page;</p>
+<p class="calibre1">private final int PAGE_SIZE = 55;</p>
+<p class="calibre1">public HourlyReporter(HourlyReportFormatter formatter) {</p>
+<p class="calibre1">this.formatter = formatter;</p>
+<p class="calibre1">page = new ArrayList&lt;LineItem&gt;();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void generateReport(List&lt;HourlyEmployee&gt; employees) {</p>
+<p class="calibre1">for (HourlyEmployee e : employees) {</p>
+<p class="calibre1">addLineItemToPage(e);</p>
+<p class="calibre1">if (page.size() == PAGE_SIZE)</p>
+<p class="calibre1">printAndClearItemList();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">if (page.size() &gt; 0)</p>
+<p class="calibre1">printAndClearItemList();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void printAndClearItemList() {</p>
+<p class="calibre1">formatter.format(page);</p>
+<p class="calibre1">page.clear();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void addLineItemToPage(HourlyEmployee e) {</p>
+<p class="calibre1">LineItem item = new LineItem();</p>
+<p class="calibre1">item.name = e.getName();</p>
+<p class="calibre1">item.hours = e.getTenthsWorked() / 10;</p>
+<p class="calibre1">10. There is a difference between knowing how the code works and knowing whether the algorithm will do the job required of it.</p>
+<p class="calibre1">Being unsure that an algorithm is appropriate is often a fact of life. Being unsure what your code does is just laziness.</p>
+<p class="calibre1"><a id="p330"></a><b class="calibre3">General</b></p>
+<p class="calibre1">299</p>
+<p class="calibre1"><b class="calibre3">Listing 17-1 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">HourlyReporter.java</b></p>
+<p class="calibre1">item.tenths = e.getTenthsWorked() % 10;</p>
+<p class="calibre1">page.add(item);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public class LineItem {</p>
+<p class="calibre1">public String name;</p>
+<p class="calibre1">public int hours;</p>
+<p class="calibre1">public int tenths;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">This code has a logical dependency that has not been physicalized. Can you spot it? It is the constant PAGE_SIZE. Why should the HourlyReporter know the size of the page? Page size should be the responsibility of the HourlyReportFormatter.</p>
+<p class="calibre1">The fact that PAGE_SIZE is declared in HourlyReporter represents a misplaced responsibility [G17] that causes HourlyReporter to assume that it knows what the page size ought to be. Such an assumption is a logical dependency. HourlyReporter depends on the fact that HourlyReportFormatter can deal with page sizes of 55. If some implementation of HourlyReportFormatter could not deal with such sizes, then there would be an error.</p>
+<p class="calibre1">We can physicalize this dependency by creating a new method in HourlyReportFormatter named getMaxPageSize(). HourlyReporter will then call that function rather than using the PAGE_SIZE constant.</p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G23:  <i class="calibre4">Prefer Polymorphism to If/Else or Switch/Case</i></b></a></p>
+<p class="calibre1">This might seem a strange suggestion given the topic of Chapter 6. After all, in that chapter I make the point that switch statements are probably appropriate in the parts of the system where adding new functions is more likely than adding new types.</p>
+<p class="calibre1">First, most people use switch statements because it’s the obvious brute force solution, not because it’s the right solution for the situation. So this heuristic is here to remind us to consider polymorphism before using a switch.</p>
+<p class="calibre1">Second, the cases where functions are more volatile than types are relatively rare. So <i class="calibre4">every</i> switch statement should be suspect.</p>
+<p class="calibre1">I use the following “ONE SWITCH” rule:  <i class="calibre4">There may be no more than one switch statement for a given type of selection. The cases in that switch statement must create polymorphic objects that take the place of other such switch statements in the rest of the system. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p16"><b class="calibre3">G24:  <i class="calibre4">Follow Standard Conventions</i></b></a></p>
+<p class="calibre1">Every team should follow a coding standard based on common industry norms. This coding standard should specify things like where to declare instance variables; how to name classes, methods, and variables; where to put braces; and so on. The team should not need a document to describe these conventions because their code provides the examples.</p>
+<p class="calibre1"><a id="p331"></a>300</p>
+<div class="calibre6" id="calibre_pb_287"></div>
+</body>
+</html>

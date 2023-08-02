@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_66">Chapter 4: Comments</h2>
+<p class="calibre1"><b class="calibre3">Listing 4-6 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">wc.java</b></p>
+<p class="calibre1">while ((line = in.readLine()) != null) {</p>
+<p class="calibre1">lineCount++;</p>
+<p class="calibre1">charCount += line.length();</p>
+<p class="calibre1">String words[] = line.split("\\W");</p>
+<p class="calibre1">wordCount += words.length;</p>
+<p class="calibre1"><b class="calibre3">      } //while</b></p>
+<p class="calibre1">System.out.println("wordCount = " + wordCount);</p>
+<p class="calibre1">System.out.println("lineCount = " + lineCount);</p>
+<p class="calibre1">System.out.println("charCount = " + charCount);</p>
+<p class="calibre1"><b class="calibre3">    } // try</b></p>
+<p class="calibre1">catch (IOException e) {</p>
+<p class="calibre1">System.err.println("Error:" + e.getMessage());</p>
+<p class="calibre1"><b class="calibre3">    } //catch</b></p>
+<p class="calibre1">} //main</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a href="index_split_000.html#p10"><b class="calibre3">Attributions and Bylines</b></a></p>
+<p class="calibre1">/* Added by Rick */</p>
+<p class="calibre1">Source code control systems are very good at remembering who added what, when.</p>
+<p class="calibre1">There is no need to pollute the code with little bylines. You might think that such comments would be useful in order to help others know who to talk to about the code. But the reality is that they tend to stay around for years and years, getting less and less accurate and relevant.</p>
+<p class="calibre1">Again, the source code control system is a better place for this kind of information.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Commented-Out Code</b></a></p>
+<p class="calibre1">Few practices are as odious as commenting-out code. Don’t do this!</p>
+<p class="calibre1">InputStreamResponse response = new InputStreamResponse();</p>
+<p class="calibre1">response.setBody(formatter.getResultStream(), formatter.getByteCount());</p>
+<p class="calibre1"><b class="calibre3">//</b></p>
+<p class="calibre1"><b class="calibre3">InputStream resultsStream = formatter.getResultStream(); </b></p>
+<p class="calibre1"><b class="calibre3">//</b></p>
+<p class="calibre1"><b class="calibre3">StreamReader reader = new StreamReader(resultsStream); </b></p>
+<p class="calibre1"><b class="calibre3">//</b></p>
+<p class="calibre1"><b class="calibre3">response.setContent(reader.read(formatter.getByteCount()));</b> Others who see that commented-out code won’t have the courage to delete it. They’ll think it is there for a reason and is too important to delete. So commented-out code gathers like dregs at the bottom of a bad bottle of wine.</p>
+<p class="calibre1">Consider this from apache commons:</p>
+<p class="calibre1">this.bytePos = writeBytes(pngIdBytes, 0);</p>
+<p class="calibre1"><b class="calibre3">//hdrPos = bytePos; </b></p>
+<p class="calibre1">writeHeader();</p>
+<p class="calibre1">writeResolution();</p>
+<p class="calibre1"><b class="calibre3">//dataPos = bytePos; </b></p>
+<p class="calibre1">if (writeImageData()) {</p>
+<p class="calibre1">writeEnd();</p>
+<p class="calibre1">this.pngBytes = resizeByteArray(this.pngBytes, this.maxPos);</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><a id="p100"></a><b class="calibre3">Bad Comments</b></p>
+<p class="calibre1">69</p>
+<p class="calibre1">else {</p>
+<p class="calibre1">this.pngBytes = null;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return this.pngBytes;</p>
+<p class="calibre1">Why are those two lines of code commented? Are they important? Were they left as reminders for some imminent change? Or are they just cruft that someone commented-out years ago and has simply not bothered to clean up.</p>
+<p class="calibre1">There was a time, back in the sixties, when commenting-out code might have been useful. But we’ve had good source code control systems for a very long time now. Those systems will remember the code for us. We don’t have to comment it out any more. Just delete the code. We won’t lose it. Promise.</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">HTML Comments</b></a></p>
+<p class="calibre1">HTML in source code comments is an abomination, as you can tell by reading the code below. It makes the comments hard to read in the one place where they should be easy to read—the editor/IDE. If comments are going to be extracted by some tool (like Javadoc) to appear in a Web page, then it should be the responsibility of that tool, and not the programmer, to adorn the comments with appropriate HTML.</p>
+<p class="calibre1">/**</p>
+<p class="calibre1">* Task to run fit tests.</p>
+<p class="calibre1">* This task runs fitnesse tests and publishes the results.</p>
+<p class="calibre1">* &lt;p/&gt;</p>
+<p class="calibre1">* &lt;pre&gt;</p>
+<p class="calibre1">* Usage:</p>
+<p class="calibre1">* &amp;lt;taskdef name=&amp;quot;execute-fitnesse-tests&amp;quot;</p>
+<p class="calibre1">*     classname=&amp;quot;fitnesse.ant.ExecuteFitnesseTestsTask&amp;quot;</p>
+<p class="calibre1">*     classpathref=&amp;quot;classpath&amp;quot; /&amp;gt;</p>
+<p class="calibre1">* OR</p>
+<p class="calibre1">* &amp;lt;taskdef classpathref=&amp;quot;classpath&amp;quot;</p>
+<p class="calibre1">*             resource=&amp;quot;tasks.properties&amp;quot; /&amp;gt;</p>
+<p class="calibre1">* &lt;p/&gt;</p>
+<p class="calibre1">* &amp;lt;execute-fitnesse-tests</p>
+<p class="calibre1">*     suitepage=&amp;quot;FitNesse.SuiteAcceptanceTests&amp;quot;</p>
+<p class="calibre1">*     fitnesseport=&amp;quot;8082&amp;quot;</p>
+<p class="calibre1">*     resultsdir=&amp;quot;${results.dir}&amp;quot;</p>
+<p class="calibre1">*     resultshtmlpage=&amp;quot;fit-results.html&amp;quot;</p>
+<p class="calibre1">*     classpathref=&amp;quot;classpath&amp;quot; /&amp;gt;</p>
+<p class="calibre1">* &lt;/pre&gt;</p>
+<p class="calibre1">*/</p>
+<p class="calibre1"><a href="index_split_000.html#p11"><b class="calibre3">Nonlocal Information</b></a></p>
+<p class="calibre1">If you must write a comment, then make sure it describes the code it appears near. Don’t offer systemwide information in the context of a local comment. Consider, for example, the javadoc comment below. Aside from the fact that it is horribly redundant, it also offers information about the default port. And yet the function has absolutely no control over what that default is. The comment is not describing the function, but some other, far distant part of the system. Of course there is no guarantee that this comment will be changed when the code containing the default is changed.</p>
+<p class="calibre1"><a id="p101"></a>70</p>
+<div class="calibre6" id="calibre_pb_67"></div>
+</body>
+</html>

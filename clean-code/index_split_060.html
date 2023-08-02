@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_118">Chapter 9: Unit Tests</h2>
+<p class="calibre1">I cobbled together a simple driver program that listened to the keyboard. Every time a character was typed, it would schedule a command that would type the same character five seconds later. Then I tapped out a rhythmic melody on the keyboard and waited for that melody to replay on the screen five seconds later.</p>
+<p class="calibre1">“I . . . want-a-girl . . . just . . . like-the-girl-who-marr . . . ied . . . dear . . . old . . . dad.”</p>
+<p class="calibre1">I actually sang that melody while typing the “.” key, and then I sang it again as the dots appeared on the screen.</p>
+<p class="calibre1">That was my test! Once I saw it work and demonstrated it to my colleagues, I threw the test code away.</p>
+<p class="calibre1">As I said, our profession has come a long way. Nowadays I would write a test that made sure that every nook and cranny of that code worked as I expected it to. I would isolate my code from the operating system rather than just calling the standard timing functions. I would mock out those timing functions so that I had absolute control over the time. I would schedule commands that set boolean flags, and then I would step the time forward, watching those flags and ensuring that they went from false to true just as I changed the time to the right value.</p>
+<p class="calibre1">Once I got a suite of tests to pass, I would make sure that those tests were convenient to run for anyone else who needed to work with the code. I would ensure that the tests and the code were checked in together into the same source package.</p>
+<p class="calibre1">Yes, we’ve come a long way; but we have farther to go. The Agile and TDD move-ments have encouraged many programmers to write automated unit tests, and more are joining their ranks every day. But in the mad rush to add testing to our discipline, many programmers have missed some of the more subtle, and important, points of writing good tests.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">The Three Laws of TDD</b></a></p>
+<p class="calibre1">By now everyone knows that TDD asks us to write unit tests first, before we write production code. But that rule is just the tip of the iceberg. Consider the following three laws:1</p>
+<p class="calibre1"><b class="calibre3">First Law </b>You may not write production code until you have written a failing unit test.</p>
+<p class="calibre1"><b class="calibre3">Second Law </b>You may not write more of a unit test than is sufficient to fail, and not compiling is failing.</p>
+<p class="calibre1"><b class="calibre3">Third Law </b>You may not write more production code than is sufficient to pass the currently failing test.</p>
+<p class="calibre1">1.</p>
+<p class="calibre1"><i class="calibre4">Professionalism and Test-Driven Development</i>, Robert C. Martin, Object Mentor, IEEE Software, May/June 2007 (Vol. 24, No. 3)   pp. 32–36</p>
+<p class="calibre1"><a href="http://doi.ieeecomputersociety.org/10.1109/MS.2007.85">http://doi.ieeecomputersociety.org/10.1109/MS.2007.85 </a></p>
+<p class="calibre1"><a id="p154"></a><b class="calibre3">Keeping Tests Clean</b></p>
+<p class="calibre1">123</p>
+<p class="calibre1">These three laws lock you into a cycle that is perhaps thirty seconds long. The tests and the production code are written  <i class="calibre4">together, </i> with the tests just a few seconds ahead of the production code.</p>
+<p class="calibre1">If we work this way, we will write dozens of tests every day, hundreds of tests every month, and thousands of tests every year. If we work this way, those tests will cover virtually all of our production code. The sheer bulk of those tests, which can rival the size of the production code itself, can present a daunting management problem.</p>
+<p class="calibre1"><a href="index_split_000.html#p12"><b class="calibre3">Keeping Tests Clean</b></a></p>
+<p class="calibre1">Some years back I was asked to coach a team who had explicitly decided that their test code  <i class="calibre4">should not </i> be maintained to the same standards of quality as their production code.</p>
+<p class="calibre1">They gave each other license to break the rules in their unit tests. “Quick and dirty” was the watchword. Their variables did not have to be well named, their test functions did not need to be short and descriptive. Their test code did not need to be well designed and thoughtfully partitioned. So long as the test code worked, and so long as it covered the production code, it was good enough.</p>
+<p class="calibre1">Some of you reading this might sympathize with that decision. Perhaps, long in the past, you wrote tests of the kind that I wrote for that Timer class. It’s a huge step from writing that kind of throw-away test, to writing a suite of automated unit tests. So, like the team I was coaching, you might decide that having dirty tests is better than having no tests.</p>
+<p class="calibre1">What this team did not realize was that having dirty tests is equivalent to, if not worse than, having no tests. The problem is that tests must change as the production code evolves. The dirtier the tests, the harder they are to change. The more tangled the test code, the more likely it is that you will spend more time cramming new tests into the suite than it takes to write the new production code. As you modify the production code, old tests start to fail, and the mess in the test code makes it hard to get those tests to pass again. So the tests become viewed as an ever-increasing liability.</p>
+<p class="calibre1">From release to release the cost of maintaining my team’s test suite rose. Eventually it became the single biggest complaint among the developers. When managers asked why their estimates were getting so large, the developers blamed the tests. In the end they were forced to discard the test suite entirely.</p>
+<p class="calibre1">But, without a test suite they lost the ability to make sure that changes to their code base worked as expected. Without a test suite they could not ensure that changes to one part of their system did not break other parts of their system. So their defect rate began to rise. As the number of unintended defects rose, they started to fear making changes. They stopped cleaning their production code because they feared the changes would do more harm than good. Their production code began to rot. In the end they were left with no tests, tangled and bug-riddled production code, frustrated customers, and the feeling that their testing effort had failed them.</p>
+<p class="calibre1"><a id="p155"></a>124</p>
+<div class="calibre6" id="calibre_pb_119"></div>
+</body>
+</html>

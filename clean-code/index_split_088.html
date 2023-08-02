@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_174">Chapter 13: Concurrency</h2>
+<p class="calibre1">If there is an easy way to avoid sharing objects, the resulting code will be far less likely to cause problems. You might be concerned about the cost of all the extra object creation. It is worth experimenting to find out if this is in fact a problem. However, if using copies of objects allows the code to avoid synchronizing, the savings in avoiding the intrinsic lock will likely make up for the additional creation and garbage collection overhead.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Corollary: Threads Should Be as Independent as Possible</b></a></p>
+<p class="calibre1">Consider writing your threaded code such that each thread exists in its own world, sharing no data with any other thread. Each thread processes one client request, with all of its required data coming from an unshared source and stored as local variables. This makes each of those threads behave as if it were the only thread in the world and there were no synchronization requirements.</p>
+<p class="calibre1">For example, classes that subclass from HttpServlet receive all of their information as parameters passed in to the doGet and doPost methods. This makes each Servlet act as if it has its own machine. So long as the code in the Servlet uses only local variables, there is no chance that the Servlet will cause synchronization problems. Of course, most applications using Servlets eventually run into shared resources such as database connections.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Attempt to partition data into independent subsets than can be</i> <i class="calibre4">operated on by independent threads, possibly in different processors. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Know Your  Library</b></a></p>
+<p class="calibre1">Java 5 offers many improvements for concurrent development over previous versions. There are several things to consider when writing threaded code in Java 5:</p>
+<p class="calibre1">• Use the provided thread-safe collections.</p>
+<p class="calibre1">• Use the executor framework for executing unrelated tasks.</p>
+<p class="calibre1">• Use nonblocking solutions when possible.</p>
+<p class="calibre1">• Several library classes are not thread safe.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Thread-Safe Collections</b></a></p>
+<p class="calibre1">When Java was young, Doug Lea wrote the seminal book8  <i class="calibre4">Concurrent Programming in</i> <i class="calibre4">Java</i>. Along with the book he developed several thread-safe collections, which later became part of the JDK in the java.util.concurrent package. The collections in that package are safe for multithreaded situations and they perform well. In fact, the 8. [Lea99].</p>
+<p class="calibre1"><a id="p214"></a><b class="calibre3">Know Your Execution Models</b></p>
+<p class="calibre1">183</p>
+<p class="calibre1">ConcurrentHashMap implementation performs better than HashMap in nearly all situations. It also allows for simultaneous concurrent reads and writes, and it has methods supporting common composite operations that are otherwise not thread safe. If Java 5 is the deployment environment, start with ConcurrentHashMap.</p>
+<p class="calibre1">There are several other kinds of classes added to support advanced concurrency design. Here are a few examples:</p>
+<p class="calibre1"><b class="calibre3">ReentrantLock</b></p>
+<p class="calibre1">A lock that can be acquired in one method and released in another.</p>
+<p class="calibre1"><b class="calibre3">Semaphore</b></p>
+<p class="calibre1">An implementation of the classic semaphore, a lock with a count.</p>
+<p class="calibre1"><b class="calibre3">CountDownLatch</b></p>
+<p class="calibre1">A lock that waits for a number of events before releasing all</p>
+<p class="calibre1">threads waiting on it. This allows all threads to have a fair chance of starting at about the same time.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Review the classes available to you. In the case of Java, become</i> <i class="calibre4">familiar with java.util.concurrent, java.util.concurrent.atomic, java.util.concurrent.locks. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Know Your Execution Models</b></a></p>
+<p class="calibre1">There are several different ways to partition behavior in a concurrent application. To discuss them we need to understand some basic definitions.</p>
+<p class="calibre1">Bound Resources</p>
+<p class="calibre1">Resources of a fixed size or number used in a concurrent environment. Examples include database connections and fixed-size read/</p>
+<p class="calibre1">write buffers.</p>
+<p class="calibre1">Mutual Exclusion</p>
+<p class="calibre1">Only one thread can access shared data or a shared resource at a time.</p>
+<p class="calibre1">Starvation</p>
+<p class="calibre1">One thread or a group of threads is prohibited from proceeding for an excessively long time or forever. For example, always letting fast-running threads through first could starve out longer running threads if there is no end to the fast-running threads.</p>
+<p class="calibre1">Deadlock</p>
+<p class="calibre1">Two or more threads waiting for each other to finish. Each thread has a resource that the other thread requires and neither can finish until it gets the other resource.</p>
+<p class="calibre1">Livelock</p>
+<p class="calibre1">Threads in lockstep, each trying to do work but finding another</p>
+<p class="calibre1">“in the way.” Due to resonance, threads continue trying to</p>
+<p class="calibre1">make progress but are unable to for an excessively long time—</p>
+<p class="calibre1">or forever.</p>
+<p class="calibre1">Given these definitions, we can now discuss the various execution models used in concurrent programming.</p>
+<p class="calibre1"><a id="p215"></a>184</p>
+<div class="calibre6" id="calibre_pb_175"></div>
+</body>
+</html>

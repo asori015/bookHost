@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_236">Chapter 14: Successive Refinement</h2>
+<p class="calibre1"><b class="calibre3">Listing 14-15 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">ArgsException.java</b></p>
+<p class="calibre1">public ArgsException(ErrorCode errorCode, String errorParameter) {</p>
+<p class="calibre1">this.errorCode = errorCode;</p>
+<p class="calibre1">this.errorParameter = errorParameter;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public ArgsException(ErrorCode errorCode, char errorArgumentId, String errorParameter) {</p>
+<p class="calibre1">this.errorCode = errorCode;</p>
+<p class="calibre1">this.errorParameter = errorParameter;</p>
+<p class="calibre1">this.errorArgumentId = errorArgumentId;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public char getErrorArgumentId() {</p>
+<p class="calibre1">return errorArgumentId;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setErrorArgumentId(char errorArgumentId) {</p>
+<p class="calibre1">this.errorArgumentId = errorArgumentId;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String getErrorParameter() {</p>
+<p class="calibre1">return errorParameter;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setErrorParameter(String errorParameter) {</p>
+<p class="calibre1">this.errorParameter = errorParameter;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public ErrorCode getErrorCode() {</p>
+<p class="calibre1">return errorCode;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public void setErrorCode(ErrorCode errorCode) {</p>
+<p class="calibre1">this.errorCode = errorCode;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public String errorMessage() throws Exception {</p>
+<p class="calibre1">switch (errorCode) {</p>
+<p class="calibre1">case OK:</p>
+<p class="calibre1">throw new Exception("TILT: Should not get here.");</p>
+<p class="calibre1">case UNEXPECTED_ARGUMENT:</p>
+<p class="calibre1">return String.format("Argument -%c unexpected.", errorArgumentId); case MISSING_STRING:</p>
+<p class="calibre1">return String.format("Could not find string parameter for -%c.", errorArgumentId);</p>
+<p class="calibre1">case INVALID_INTEGER:</p>
+<p class="calibre1">return String.format("Argument -%c expects an integer but was '%s'.", errorArgumentId, errorParameter);</p>
+<p class="calibre1">case MISSING_INTEGER:</p>
+<p class="calibre1">return String.format("Could not find integer parameter for -%c.", errorArgumentId);</p>
+<p class="calibre1">case INVALID_DOUBLE:</p>
+<p class="calibre1">return String.format("Argument -%c expects a double but was '%s'.", errorArgumentId, errorParameter);</p>
+<p class="calibre1"><a id="p278"></a><b class="calibre3">String Arguments</b></p>
+<p class="calibre1">247</p>
+<p class="calibre1"><b class="calibre3">Listing 14-15 (continued)</b></p>
+<p class="calibre1"><b class="calibre3">ArgsException.java</b></p>
+<p class="calibre1">case MISSING_DOUBLE:</p>
+<p class="calibre1">return String.format("Could not find double parameter for -%c.", errorArgumentId);</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return "";</p>
+<p class="calibre1">}</p>
+<p class="calibre1">public enum ErrorCode {</p>
+<p class="calibre1">OK, INVALID_FORMAT, UNEXPECTED_ARGUMENT, INVALID_ARGUMENT_NAME, MISSING_STRING,</p>
+<p class="calibre1">MISSING_INTEGER, INVALID_INTEGER,</p>
+<p class="calibre1">MISSING_DOUBLE, INVALID_DOUBLE}</p>
+<p class="calibre1">}</p>
+<p class="calibre1"><b class="calibre3">Listing 14-16 </b></p>
+<p class="calibre1"><b class="calibre3">Args.java</b></p>
+<p class="calibre1">public class Args {</p>
+<p class="calibre1">private String schema;</p>
+<p class="calibre1">private Map&lt;Character, ArgumentMarshaler&gt; marshalers =</p>
+<p class="calibre1">new HashMap&lt;Character, ArgumentMarshaler&gt;();</p>
+<p class="calibre1">private Set&lt;Character&gt; argsFound = new HashSet&lt;Character&gt;(); private Iterator&lt;String&gt; currentArgument;</p>
+<p class="calibre1">private List&lt;String&gt; argsList;</p>
+<p class="calibre1">public Args(String schema, String[] args) throws ArgsException {</p>
+<p class="calibre1">this.schema = schema;</p>
+<p class="calibre1">argsList = Arrays.asList(args);</p>
+<p class="calibre1">parse();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parse() throws ArgsException {</p>
+<p class="calibre1">parseSchema();</p>
+<p class="calibre1">parseArguments();</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private boolean parseSchema() throws ArgsException {</p>
+<p class="calibre1">for (String element : schema.split(",")) {</p>
+<p class="calibre1">if (element.length() &gt; 0) {</p>
+<p class="calibre1">parseSchemaElement(element.trim());</p>
+<p class="calibre1">}</p>
+<p class="calibre1">}</p>
+<p class="calibre1">return true;</p>
+<p class="calibre1">}</p>
+<p class="calibre1">private void parseSchemaElement(String element) throws ArgsException {</p>
+<p class="calibre1">char elementId = element.charAt(0);</p>
+<p class="calibre1">String elementTail = element.substring(1);</p>
+<p class="calibre1">validateSchemaElementId(elementId);</p>
+<p class="calibre1">if (elementTail.length() == 0)</p>
+<p class="calibre1">marshalers.put(elementId, new BooleanArgumentMarshaler());</p>
+<p class="calibre1">else if (elementTail.equals("*"))</p>
+<p class="calibre1">marshalers.put(elementId, new StringArgumentMarshaler());</p>
+<p class="calibre1"><a id="p279"></a>248</p>
+<div class="calibre6" id="calibre_pb_237"></div>
+</body>
+</html>

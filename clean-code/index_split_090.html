@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>index</title>
+    <meta name="generator" content="pdftohtml 0.36"/>
+    <meta name="date" content="2009-10-16T23:21:09+00:00"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+<link rel="stylesheet" type="text/css" href="page_styles.css"/>
+</head>
+  <body class="calibre">
+<h2 class="calibre5" id="calibre_pb_178">Chapter 13: Concurrency</h2>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Writing Correct Shut-Down Code Is Hard</b></a></p>
+<p class="calibre1">Writing a system that is meant to stay live and run forever is different from writing something that works for awhile and then shuts down gracefully.</p>
+<p class="calibre1">Graceful shutdown can be hard to get correct. Common problems involve deadlock,15</p>
+<p class="calibre1">with threads waiting for a signal to continue that never comes.</p>
+<p class="calibre1">For example, imagine a system with a parent thread that spawns several child threads and then waits for them all to finish before it releases its resources and shuts down. What if one of the spawned threads is deadlocked? The parent will wait forever, and the system will never shut down.</p>
+<p class="calibre1">Or consider a similar system that has been  <i class="calibre4">instructed </i> to shut down. The parent tells all the spawned children to abandon their tasks and finish. But what if two of the children were operating as a producer/consumer pair. Suppose the producer receives the signal from the parent and quickly shuts down. The consumer might have been expecting a message from the producer and be blocked in a state where it cannot receive the shutdown signal. It could get stuck waiting for the producer and never finish, preventing the parent from finishing as well.</p>
+<p class="calibre1">Situations like this are not at all uncommon. So if you must write concurrent code that involves shutting down gracefully, expect to spend much of your time getting the shutdown to happen correctly.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Think about shut-down early and get it working early. It’s going to</i> <i class="calibre4">take longer than you expect. Review existing algorithms because this is probably harder</i> <i class="calibre4">than you think. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Testing Threaded Code</b></a></p>
+<p class="calibre1">Proving that code is correct is impractical. Testing does not guarantee correctness. However, good testing can minimize risk. This is all true in a single-threaded solution. As soon as there are two or more threads using the same code and working with shared data, things get substantially more complex.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Write tests that have the potential to expose problems and then</i> <i class="calibre4">run them frequently, with different programatic configurations and system configurations</i> <i class="calibre4">and load. If tests ever fail, track down the failure. Don’t ignore a failure just because the</i> <i class="calibre4">tests pass on a subsequent run. </i></p>
+<p class="calibre1">That is a whole lot to take into consideration. Here are a few more fine-grained recommendations:</p>
+<p class="calibre1">• Treat spurious failures as candidate threading issues.</p>
+<p class="calibre1">• Get your nonthreaded code working first.</p>
+<p class="calibre1">15. See “Deadlock” on page 335.</p>
+<p class="calibre1"><a id="p218"></a><b class="calibre3">Testing Threaded Code</b></p>
+<p class="calibre1">187</p>
+<p class="calibre1">• Make your threaded code pluggable.</p>
+<p class="calibre1">• Make your threaded code tunable.</p>
+<p class="calibre1">• Run with more threads than processors.</p>
+<p class="calibre1">• Run on different platforms.</p>
+<p class="calibre1">• Instrument your code to try and force failures.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Treat Spurious Failures as Candidate Threading Issues</b></a></p>
+<p class="calibre1">Threaded code causes things to fail that “simply cannot fail.” Most developers do not have an intuitive feel for how threading interacts with other code (authors included). Bugs in threaded code might exhibit their symptoms once in a thousand, or a million, executions.</p>
+<p class="calibre1">Attempts to repeat the systems can be frustratingly. This often leads developers to write off the failure as a cosmic ray, a hardware glitch, or some other kind of “one-off.” It is best to assume that one-offs do not exist. The longer these “one-offs” are ignored, the more code is built on top of a potentially faulty approach.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Do not ignore system failures as one-offs. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Get Your Nonthreaded Code Working First</b></a></p>
+<p class="calibre1">This may seem obvious, but it doesn’t hurt to reinforce it. Make sure code works outside of its use in threads. Generally, this means creating POJOs that are called by your threads.</p>
+<p class="calibre1">The POJOs are not thread aware, and can therefore be tested outside of the threaded environment. The more of your system you can place in such POJOs, the better.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Do not try to chase down nonthreading bugs and threading bugs</i> <i class="calibre4">at the same time. Make sure your code works outside of threads</i>.</p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Make Your Threaded Code Pluggable</b></a></p>
+<p class="calibre1">Write the concurrency-supporting code such that it can be run in several configurations:</p>
+<p class="calibre1">• One thread, several threads, varied as it executes</p>
+<p class="calibre1">• Threaded code interacts with something that can be both real or a test double.</p>
+<p class="calibre1">• Execute with test doubles that run quickly, slowly, variable.</p>
+<p class="calibre1">• Configure tests so they can run for a number of iterations.</p>
+<p class="calibre1"><b class="calibre3">Recommendation</b>:  <i class="calibre4">Make your thread-based code especially pluggable so that you</i> <i class="calibre4">can run it in various configurations. </i></p>
+<p class="calibre1"><a href="index_split_000.html#p14"><b class="calibre3">Make Your Threaded Code Tunable</b></a></p>
+<p class="calibre1">Getting the right balance of threads typically requires trial an error. Early on, find ways to time the performance of your system under different configurations. Allow the number of</p>
+<p class="calibre1"><a id="p219"></a>188</p>
+<div class="calibre6" id="calibre_pb_179"></div>
+</body>
+</html>
