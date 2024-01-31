@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ncx PUBLIC '-//NISO//DTD ncx 2005-1//EN' 'http://www.daisy.org/z3986/2005/ncx-2005-1.dtd'>
+<ncx xml:lang="en-US" version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+     <meta name="dtb:uid" content="9780575104426"></meta>
+     <meta name="dtb:depth" content="0"></meta>
+     <meta name="dtb:totalPageCount" content="0"></meta>
+     <meta name="dtb:maxPageNumber" content="0"></meta>
+  </head>
+  <docTitle><text>Dune Messiah</text></docTitle>
+  <docAuthor><text>Frank Herbert</text></docAuthor>
+  <navMap> 
+    <navPoint class="chapter" playOrder="1" id="1">
+      <navLabel><text>Cover</text></navLabel>
+      <content src="9780575104426_oeb_cover_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="2" id="2">
+      <navLabel><text>Title</text></navLabel>
+      <content src="9780575104426_oeb_tp_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="3" id="3">
+      <navLabel><text>Contents</text></navLabel>
+      <content src="9780575104426_oeb_toc_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="4" id="4">
+      <navLabel><text>Also by Frank Herbert</text></navLabel>
+      <content src="9780575104426_oeb_otherbooks_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="5" id="5">
+      <navLabel><text>Chapter 1</text></navLabel>
+      <content src="9780575104426_oeb_c01_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="6" id="6">
+      <navLabel><text>Chapter 2</text></navLabel>
+      <content src="9780575104426_oeb_c02_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="7" id="7">
+      <navLabel><text>Chapter 3</text></navLabel>
+      <content src="9780575104426_oeb_c03_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="8" id="8">
+      <navLabel><text>Chapter 4</text></navLabel>
+      <content src="9780575104426_oeb_c04_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="9" id="9">
+      <navLabel><text>Chapter 5</text></navLabel>
+      <content src="9780575104426_oeb_c05_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="10" id="10">
+      <navLabel><text>Chapter 6</text></navLabel>
+      <content src="9780575104426_oeb_c06_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="11" id="11">
+      <navLabel><text>Chapter 7</text></navLabel>
+      <content src="9780575104426_oeb_c07_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="12" id="12">
+      <navLabel><text>Chapter 8</text></navLabel>
+      <content src="9780575104426_oeb_c08_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="13" id="13">
+      <navLabel><text>Chapter 9</text></navLabel>
+      <content src="9780575104426_oeb_c09_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="14" id="14">
+      <navLabel><text>Chapter 10</text></navLabel>
+      <content src="9780575104426_oeb_c10_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="15" id="15">
+      <navLabel><text>Chapter 11</text></navLabel>
+      <content src="9780575104426_oeb_c11_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="16" id="16">
+      <navLabel><text>Chapter 12</text></navLabel>
+      <content src="9780575104426_oeb_c12_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="17" id="17">
+      <navLabel><text>Chapter 13</text></navLabel>
+      <content src="9780575104426_oeb_c13_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="18" id="18">
+      <navLabel><text>Chapter 14</text></navLabel>
+      <content src="9780575104426_oeb_c14_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="19" id="19">
+      <navLabel><text>Chapter 15</text></navLabel>
+      <content src="9780575104426_oeb_c15_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="20" id="20">
+      <navLabel><text>Chapter 16</text></navLabel>
+      <content src="9780575104426_oeb_c16_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="21" id="21">
+      <navLabel><text>Chapter 17</text></navLabel>
+      <content src="9780575104426_oeb_c17_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="22" id="22">
+      <navLabel><text>Chapter 18</text></navLabel>
+      <content src="9780575104426_oeb_c18_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="23" id="23">
+      <navLabel><text>Chapter 19</text></navLabel>
+      <content src="9780575104426_oeb_c19_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="24" id="24">
+      <navLabel><text>Chapter 20</text></navLabel>
+      <content src="9780575104426_oeb_c20_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="25" id="25">
+      <navLabel><text>Chapter 21</text></navLabel>
+      <content src="9780575104426_oeb_c21_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="26" id="26">
+      <navLabel><text>Chapter 22</text></navLabel>
+      <content src="9780575104426_oeb_c22_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="27" id="27">
+      <navLabel><text>Chapter 23</text></navLabel>
+      <content src="9780575104426_oeb_c23_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="28" id="28">
+      <navLabel><text>Chapter 24</text></navLabel>
+      <content src="9780575104426_oeb_c24_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="29" id="29">
+      <navLabel><text>Epilogue</text></navLabel>
+      <content src="9780575104426_oeb_epi_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="30" id="30">
+      <navLabel><text>Appendix I</text></navLabel>
+      <content src="9780575104426_oeb_app01_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="31" id="31">
+      <navLabel><text>Appendix II</text></navLabel>
+      <content src="9780575104426_oeb_app02_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="32" id="32">
+      <navLabel><text>Appendix III</text></navLabel>
+      <content src="9780575104426_oeb_app03_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="33" id="33">
+      <navLabel><text>Appendix IV</text></navLabel>
+      <content src="9780575104426_oeb_app04_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="34" id="34">
+      <navLabel><text>Terminology of the Imperium</text></navLabel>
+      <content src="9780575104426_oeb_terminology_r1.html"></content> 
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="35" id="35">
+      <navLabel><text>Cartographic Notes for Map</text></navLabel>
+      <content src="9780575104426_oeb_bm_r1.html"></content> 
+    <navPoint class="chapter" playOrder="36" id="map">
+      <navLabel><text>untitled</text></navLabel>
+      <content src="9780575104426_oeb_map_r1.html"></content> 
+    </navPoint>
+  
+    </navPoint>
+  
+    <navPoint class="chapter" playOrder="37" id="36">
+      <navLabel><text>Copyright</text></navLabel>
+      <content src="9780575104426_oeb_cop_r1.html"></content> 
+    </navPoint>
+  
+  </navMap>
+</ncx>
