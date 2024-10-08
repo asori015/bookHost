@@ -1,0 +1,222 @@
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" prefix="calibre: https://calibre-ebook.com">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:title id="id">Shōgun</dc:title>
+    <dc:creator id="id-1">James Clavell</dc:creator>
+    <dc:identifier>isbn:9781982537548</dc:identifier>
+    <dc:identifier>calibre:752</dc:identifier>
+    <dc:identifier>uuid:df4e85a9-7df4-418e-acc5-da666bccaa20</dc:identifier>
+    <dc:identifier id="pub-id">ISBN:9781982537548</dc:identifier>
+    <dc:identifier id="uuid">UUID:1E790AFC-82EF-4E6A-868D-7200A201EB50</dc:identifier>
+    <dc:identifier>ODID:4294190@sails.overdrive.com</dc:identifier>
+    <dc:language>en</dc:language>
+    <dc:contributor id="id-2">calibre (7.4.0) [https://calibre-ebook.com]</dc:contributor>
+    <dc:date>2018-09-11T04:00:00+00:00</dc:date>
+    <dc:description>&lt;div&gt;
+&lt;p style="font-family: 'Amazon Ember','Arial','sans-serif'; font-size: 14px"&gt;&lt;span style="color: #0f1111; background-color: #ffffff"&gt;The classic epic novel of feudal Japan that captured the heart of a culture and the imagination of the world, by the #1 New York Times bestselling author and unparalleled master of historical fiction, James Clavell&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font-family: 'Amazon Ember','Arial','sans-serif'; font-size: 14px; color: #0f1111"&gt; &lt;/p&gt;
+&lt;p style="font-family: 'Amazon Ember','Arial','sans-serif'; font-size: 14px"&gt;&lt;span style="color: #0f1111; background-color: #ffffff"&gt;After Englishman John Blackthorne is lost at sea, he awakens in a place few Europeans know of and even fewer have seen—Nippon. Thrust into the closed society that is seventeenth-century Japan, a land where the line between life and death is razor-thin, Blackthorne must negotiate not only a foreign people, with unknown customs and language, but also his own definitions of morality, truth, and freedom. As internal political strife and a clash of cultures lead to seemingly inevitable conflict, Blackthorne's loyalty and strength of character are tested by both passion and loss, and he is torn between two worlds that will each be forever changed.&lt;/span&gt;&lt;/p&gt;
+&lt;p style="font-family: 'Amazon Ember','Arial','sans-serif'; font-size: 14px; color: #0f1111"&gt; &lt;/p&gt;
+&lt;p style="font-family: 'Amazon Ember','Arial','sans-serif'; font-size: 14px"&gt;&lt;span style="color: #0f1111; background-color: #ffffff"&gt;Powerful and engrossing, capturing both the rich pageantry and stark realities of life in feudal Japan, Shōgun is a critically acclaimed powerhouse of a book. Heart-stopping, edge-of-your-seat action melds seamlessly with intricate historical detail and raw human emotion. Endlessly compelling, this sweeping saga captivated the world to become not only one of the best-selling novels of all time but also one of the highest-rated television miniseries, as well as inspiring a nationwide surge of interest in the culture of Japan. Shakespearean in both scope and depth, Shōgun is, as the New York Times put it, "...not only something you read—you live it." Provocative, absorbing, and endlessly fascinating, there is only one: Shōgun.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</dc:description>
+    <dc:publisher>Blackstone Publishing</dc:publisher>
+    <opf:meta refines="#id" property="title-type">main</opf:meta>
+    <opf:meta refines="#id" property="file-as">Shōgun</opf:meta>
+    <meta name="schema:accessMode" content="textual"/>
+    <meta name="schema:accessMode" content="visual"/>
+    <meta name="schema:accessModeSufficient" content="textual,visual"/>
+    <meta name="schema:accessModeSufficient" content="textual"/>
+    <meta name="schema:accessibilityFeature" content="structuralNavigation"/>
+    <meta name="schema:accessibilityFeature" content="tableOfContents"/>
+    <meta name="schema:accessibilityFeature" content="readingOrder"/>
+    <meta name="schema:accessibilityFeature" content="alternativeText"/>
+    <meta name="schema:accessibilityHazard" content="none"/>
+    <meta name="schema:accessibilitySummary" content="The structure and markup of this publication follow WCAG guidelines. Images used in this publication have not been verified to follow these guidelines. Images integral to the content include alternate text descriptions. This summary has been automatically generated based on the content of this publication."/>
+    <meta name="generator" content="Vellum"/>
+    <meta name="vellum-version" content="3.5.2"/>
+    <meta name="vellum-target-platform" content="Generic"/>
+    <meta property="dcterms:modified" scheme="dcterms:W3CDTF">2024-02-06T06:54:49Z</meta>
+    <meta property="calibre:timestamp" scheme="dcterms:W3CDTF">2024-02-06T06:45:42Z</meta>
+    <opf:meta refines="#id-2" property="role" scheme="marc:relators">bkp</opf:meta>
+    <opf:meta refines="#id-1" property="role" scheme="marc:relators">aut</opf:meta>
+    <opf:meta refines="#id-1" property="file-as">Clavell, James</opf:meta>
+    <opf:meta property="belongs-to-collection" id="id-3">The Asian Saga</opf:meta>
+    <opf:meta refines="#id-3" property="collection-type">series</opf:meta>
+    <opf:meta refines="#id-3" property="group-position">1</opf:meta>
+  </metadata>
+  <manifest>
+    <item id="titlepage" href="titlepage-1.xhtml" media-type="application/xhtml+xml" properties="calibre:title-page svg"/>
+    <item id="blackstone-newsletter-xhtml" href="blackstone-newsletter.xhtml" media-type="application/xhtml+xml"/>
+    <item id="praise-xhtml" href="praise.xhtml" media-type="application/xhtml+xml"/>
+    <item id="titlepage-xhtml" href="titlepage.xhtml" media-type="application/xhtml+xml"/>
+    <item id="copyright-xhtml" href="copyright.xhtml" media-type="application/xhtml+xml"/>
+    <item id="the-asian-saga-chronology-xhtml" href="the-asian-saga-chronology.xhtml" media-type="application/xhtml+xml"/>
+    <item id="contents-xhtml" href="contents.xhtml" media-type="application/xhtml+xml"/>
+    <item id="prologue-xhtml" href="prologue.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-xhtml" href="part-001.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-001-xhtml" href="part-001-chapter-001.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-002-xhtml" href="part-001-chapter-002.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-003-xhtml" href="part-001-chapter-003.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-004-xhtml" href="part-001-chapter-004.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-005-xhtml" href="part-001-chapter-005.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-006-xhtml" href="part-001-chapter-006.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-007-xhtml" href="part-001-chapter-007.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-008-xhtml" href="part-001-chapter-008.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-001-chapter-009-xhtml" href="part-001-chapter-009.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-xhtml" href="part-002.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-010-xhtml" href="part-002-chapter-010.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-011-xhtml" href="part-002-chapter-011.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-012-xhtml" href="part-002-chapter-012.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-013-xhtml" href="part-002-chapter-013.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-014-xhtml" href="part-002-chapter-014.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-015-xhtml" href="part-002-chapter-015.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-016-xhtml" href="part-002-chapter-016.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-017-xhtml" href="part-002-chapter-017.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-018-xhtml" href="part-002-chapter-018.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-019-xhtml" href="part-002-chapter-019.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-020-xhtml" href="part-002-chapter-020.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-021-xhtml" href="part-002-chapter-021.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-022-xhtml" href="part-002-chapter-022.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-023-xhtml" href="part-002-chapter-023.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-024-xhtml" href="part-002-chapter-024.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-025-xhtml" href="part-002-chapter-025.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-026-xhtml" href="part-002-chapter-026.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-027-xhtml" href="part-002-chapter-027.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-028-xhtml" href="part-002-chapter-028.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-002-chapter-029-xhtml" href="part-002-chapter-029.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-xhtml" href="part-003.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-030-xhtml" href="part-003-chapter-030.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-031-xhtml" href="part-003-chapter-031.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-032-xhtml" href="part-003-chapter-032.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-033-xhtml" href="part-003-chapter-033.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-034-xhtml" href="part-003-chapter-034.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-035-xhtml" href="part-003-chapter-035.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-036-xhtml" href="part-003-chapter-036.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-037-xhtml" href="part-003-chapter-037.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-038-xhtml" href="part-003-chapter-038.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-039-xhtml" href="part-003-chapter-039.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-040-xhtml" href="part-003-chapter-040.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-041-xhtml" href="part-003-chapter-041.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-042-xhtml" href="part-003-chapter-042.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-043-xhtml" href="part-003-chapter-043.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-044-xhtml" href="part-003-chapter-044.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-045-xhtml" href="part-003-chapter-045.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-003-chapter-046-xhtml" href="part-003-chapter-046.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-xhtml" href="part-004.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-chapter-047-xhtml" href="part-004-chapter-047.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-chapter-048-xhtml" href="part-004-chapter-048.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-chapter-049-xhtml" href="part-004-chapter-049.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-chapter-050-xhtml" href="part-004-chapter-050.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-004-chapter-051-xhtml" href="part-004-chapter-051.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-xhtml" href="part-005.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-052-xhtml" href="part-005-chapter-052.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-053-xhtml" href="part-005-chapter-053.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-054-xhtml" href="part-005-chapter-054.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-055-xhtml" href="part-005-chapter-055.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-056-xhtml" href="part-005-chapter-056.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-057-xhtml" href="part-005-chapter-057.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-058-xhtml" href="part-005-chapter-058.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-005-chapter-059-xhtml" href="part-005-chapter-059.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-006-xhtml" href="part-006.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-006-chapter-060-xhtml" href="part-006-chapter-060.xhtml" media-type="application/xhtml+xml"/>
+    <item id="part-006-chapter-061-xhtml" href="part-006-chapter-061.xhtml" media-type="application/xhtml+xml"/>
+    <item id="that-year-at-dawn-xhtml" href="that-year-at-dawn.xhtml" media-type="application/xhtml+xml"/>
+    <item id="about-the-author-xhtml" href="about-the-author.xhtml" media-type="application/xhtml+xml"/>
+    <item id="blackstone-newsletter-2-xhtml" href="blackstone-newsletter-2.xhtml" media-type="application/xhtml+xml"/>
+    <item id="nav" href="../nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="media-css" href="css/media.css" media-type="text/css"/>
+    <item id="style-css" href="css/style.css" media-type="text/css"/>
+    <item id="book1-jpg" href="images/book1.jpg" media-type="image/jpeg"/>
+    <item id="book2-jpg" href="images/book2.jpg" media-type="image/jpeg"/>
+    <item id="book3-jpg" href="images/book3.jpg" media-type="image/jpeg"/>
+    <item id="book4-jpg" href="images/book4.jpg" media-type="image/jpeg"/>
+    <item id="book5-jpg" href="images/book5.jpg" media-type="image/jpeg"/>
+    <item id="book6-jpg" href="images/book6.jpg" media-type="image/jpeg"/>
+    <item id="break-rule-screen-png" href="images/break-rule-screen.png" media-type="image/png"/>
+    <item id="chronology-jpg" href="images/chronology.jpg" media-type="image/jpeg"/>
+    <item id="clavell-headshot-jpg" href="images/clavell-headshot.jpg" media-type="image/jpeg"/>
+    <item id="cover" href="images/cover.jpg" media-type="image/jpeg" properties="cover-image"/>
+    <item id="titlepage-jpg" href="images/titlepage.jpg" media-type="image/jpeg"/>
+    <item id="vellum-created-png" href="images/vellum-created.png" media-type="image/png"/>
+    <item id="alegreya-regular-ttf" href="fonts/Alegreya-Regular.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="sil-open-font-license-11-txt" href="fonts/SIL-Open-Font-License-1.1.txt" media-type="text/plain"/>
+  </manifest>
+  <spine>
+    <itemref idref="titlepage"/>
+    <itemref idref="blackstone-newsletter-xhtml"/>
+    <itemref idref="praise-xhtml"/>
+    <itemref idref="titlepage-xhtml"/>
+    <itemref idref="copyright-xhtml"/>
+    <itemref idref="the-asian-saga-chronology-xhtml"/>
+    <itemref idref="contents-xhtml"/>
+    <itemref idref="prologue-xhtml"/>
+    <itemref idref="part-001-xhtml"/>
+    <itemref idref="part-001-chapter-001-xhtml"/>
+    <itemref idref="part-001-chapter-002-xhtml"/>
+    <itemref idref="part-001-chapter-003-xhtml"/>
+    <itemref idref="part-001-chapter-004-xhtml"/>
+    <itemref idref="part-001-chapter-005-xhtml"/>
+    <itemref idref="part-001-chapter-006-xhtml"/>
+    <itemref idref="part-001-chapter-007-xhtml"/>
+    <itemref idref="part-001-chapter-008-xhtml"/>
+    <itemref idref="part-001-chapter-009-xhtml"/>
+    <itemref idref="part-002-xhtml"/>
+    <itemref idref="part-002-chapter-010-xhtml"/>
+    <itemref idref="part-002-chapter-011-xhtml"/>
+    <itemref idref="part-002-chapter-012-xhtml"/>
+    <itemref idref="part-002-chapter-013-xhtml"/>
+    <itemref idref="part-002-chapter-014-xhtml"/>
+    <itemref idref="part-002-chapter-015-xhtml"/>
+    <itemref idref="part-002-chapter-016-xhtml"/>
+    <itemref idref="part-002-chapter-017-xhtml"/>
+    <itemref idref="part-002-chapter-018-xhtml"/>
+    <itemref idref="part-002-chapter-019-xhtml"/>
+    <itemref idref="part-002-chapter-020-xhtml"/>
+    <itemref idref="part-002-chapter-021-xhtml"/>
+    <itemref idref="part-002-chapter-022-xhtml"/>
+    <itemref idref="part-002-chapter-023-xhtml"/>
+    <itemref idref="part-002-chapter-024-xhtml"/>
+    <itemref idref="part-002-chapter-025-xhtml"/>
+    <itemref idref="part-002-chapter-026-xhtml"/>
+    <itemref idref="part-002-chapter-027-xhtml"/>
+    <itemref idref="part-002-chapter-028-xhtml"/>
+    <itemref idref="part-002-chapter-029-xhtml"/>
+    <itemref idref="part-003-xhtml"/>
+    <itemref idref="part-003-chapter-030-xhtml"/>
+    <itemref idref="part-003-chapter-031-xhtml"/>
+    <itemref idref="part-003-chapter-032-xhtml"/>
+    <itemref idref="part-003-chapter-033-xhtml"/>
+    <itemref idref="part-003-chapter-034-xhtml"/>
+    <itemref idref="part-003-chapter-035-xhtml"/>
+    <itemref idref="part-003-chapter-036-xhtml"/>
+    <itemref idref="part-003-chapter-037-xhtml"/>
+    <itemref idref="part-003-chapter-038-xhtml"/>
+    <itemref idref="part-003-chapter-039-xhtml"/>
+    <itemref idref="part-003-chapter-040-xhtml"/>
+    <itemref idref="part-003-chapter-041-xhtml"/>
+    <itemref idref="part-003-chapter-042-xhtml"/>
+    <itemref idref="part-003-chapter-043-xhtml"/>
+    <itemref idref="part-003-chapter-044-xhtml"/>
+    <itemref idref="part-003-chapter-045-xhtml"/>
+    <itemref idref="part-003-chapter-046-xhtml"/>
+    <itemref idref="part-004-xhtml"/>
+    <itemref idref="part-004-chapter-047-xhtml"/>
+    <itemref idref="part-004-chapter-048-xhtml"/>
+    <itemref idref="part-004-chapter-049-xhtml"/>
+    <itemref idref="part-004-chapter-050-xhtml"/>
+    <itemref idref="part-004-chapter-051-xhtml"/>
+    <itemref idref="part-005-xhtml"/>
+    <itemref idref="part-005-chapter-052-xhtml"/>
+    <itemref idref="part-005-chapter-053-xhtml"/>
+    <itemref idref="part-005-chapter-054-xhtml"/>
+    <itemref idref="part-005-chapter-055-xhtml"/>
+    <itemref idref="part-005-chapter-056-xhtml"/>
+    <itemref idref="part-005-chapter-057-xhtml"/>
+    <itemref idref="part-005-chapter-058-xhtml"/>
+    <itemref idref="part-005-chapter-059-xhtml"/>
+    <itemref idref="part-006-xhtml"/>
+    <itemref idref="part-006-chapter-060-xhtml"/>
+    <itemref idref="part-006-chapter-061-xhtml"/>
+    <itemref idref="that-year-at-dawn-xhtml"/>
+    <itemref idref="about-the-author-xhtml"/>
+    <itemref idref="blackstone-newsletter-2-xhtml"/>
+  </spine>
+</package>
