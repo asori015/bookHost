@@ -1,0 +1,66 @@
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="bookid" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:title>Galactic North</dc:title>
+      <dc:creator>Alastair Reynolds</dc:creator>
+      <dc:publisher>Penguin Group US</dc:publisher>
+      <dc:format/>
+      <dc:date>2010-12-27</dc:date>
+      <dc:subject/>
+      <dc:description>&lt;p&gt;The first short story collection by "ONE OF SCIENCE FICTION'S BEST AND MOST AMBITIOUS NOVELISTS"(SFX).&lt;p&gt;With eight short stories and novellas, Galactic North imparts the centuriesspanning events that have produced this dark and turbulent world.&lt;p&gt;Centuries from now, solidarity stretches thin as humanity spreads past the solar system and to the nearest stars. Technology has produced powerful new tools, but lethal risk accompanies each new advancement.</dc:description>
+      <dc:rights>Copyright © 2006 by Alastair Reynolds.</dc:rights>
+      <dc:identifier id="bookid">9780441016006</dc:identifier>
+      <dc:language>en</dc:language>
+  </metadata>
+  <manifest>
+    <item href="page-template.xpgt" id="pt" media-type="application/vnd.adobe-page-template+xml"/>
+    <item href="reyn_9780441016006_oeb_css_r1.css" id="style" media-type="text/css"/>
+    <item href="reyn_9780441016006_msr_cvi_r1.jpg" id="coverimagestandard" media-type="image/jpeg"/>
+    <item href="reyn_9780441016006_msr_cvt_r1.jpg" id="thumbimagestandard" media-type="image/jpeg"/>
+    <item href="reyn_9780441016006_msr_ppl_r1.jpg" id="PPCthumbnailimage" media-type="image/jpeg"/>
+    <item href="reyn_9780441016006_oeb_cover_r1.xhtml" id="cover" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_toc_r1.xhtml" id="toc" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="reyn_9780441016006_oeb_fm1_r1.xhtml" id="fm1" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_als_r1.xhtml" id="als" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_tp_r1.xhtml" id="tp" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_ded_r1.xhtml" id="ded" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c01_r1.xhtml" id="c01" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c02_r1.xhtml" id="c02" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c03_r1.xhtml" id="c03" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c04_r1.xhtml" id="c04" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c05_r1.xhtml" id="c05" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c06_r1.xhtml" id="c06" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c07_r1.xhtml" id="c07" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_c08_r1.xhtml" id="c08" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_aft_r1.xhtml" id="aft" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_cop_r1.xhtml" id="cop" media-type="application/xhtml+xml"/>
+      <item href="reyn_9780441016006_oeb_alsbm_r1.xhtml" id="alsbm" media-type="application/xhtml+xml"/>
+    <item href="reyn_9780441016006_oeb_001_r1.jpg" id="reyn_9780441016006_oeb_001_r1" media-type="image/jpeg"/>
+</manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="toc"/>
+    <itemref idref="fm1"/>
+    <itemref idref="als"/>
+    <itemref idref="tp"/>
+    <itemref idref="cop"/>
+    <itemref idref="ded"/>
+    <itemref idref="c01"/>
+    <itemref idref="c02"/>
+    <itemref idref="c03"/>
+    <itemref idref="c04"/>
+    <itemref idref="c05"/>
+    <itemref idref="c06"/>
+    <itemref idref="c07"/>
+    <itemref idref="c08"/>
+    <itemref idref="aft"/>
+      <itemref idref="alsbm"/>
+</spine>
+  <guide>
+    <reference href="reyn_9780441016006_oeb_toc_r1.xhtml" title="Table of Contents" type="toc"/>
+    <reference href="reyn_9780441016006_msr_cvi_r1.jpg" title="Cover" type="other.ms-coverimage-standard"/>
+    <reference href="reyn_9780441016006_msr_cvt_r1.jpg" title="ThumbImageStandard" type="other.ms-thumbimage-standard"/>
+    <reference href="reyn_9780441016006_msr_ppl_r1.jpg" title="PPCThumbnailImage" type="other.ms-thumbimage"/>
+    <reference href="reyn_9780441016006_oeb_cop_r1.xhtml" title="Copyright" type="copyright"/>
+  </guide>
+</package>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+       <meta name="dtb:uid" content="http://www.hxa7241.org/articles/content/epup-guide_hxa7241_2007_1.epub"/>
+    </head>
+    <docTitle>
+       <text>Galactic North</text>
+    </docTitle>
+    <navMap>
+	  <navPoint id="fm1" playOrder="1">
+		 <navLabel>
+			<text>Praise</text>
+		 </navLabel>
+		 <content src="reyn_9780441016006_oeb_fm1_r1.xhtml"/>
+	  </navPoint>
+	  <navPoint id="tp" playOrder="2">
+         <navLabel>
+            <text>Title Page</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_tp_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="cop" playOrder="3">
+         <navLabel>
+            <text>Copyright Page</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_cop_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="ded" playOrder="4">
+         <navLabel>
+            <text>Dedication</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_ded_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c01" playOrder="5">
+         <navLabel>
+            <text>GREAT WALL OF MARS</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c01_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c02" playOrder="6">
+         <navLabel>
+            <text>GLACIAL</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c02_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c03" playOrder="7">
+         <navLabel>
+            <text>A SPY IN EUROPA</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c03_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c04" playOrder="8">
+         <navLabel>
+            <text>WEATHER</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c04_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c05" playOrder="9">
+         <navLabel>
+            <text>DILATION SLEEP</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c05_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c06" playOrder="10">
+         <navLabel>
+            <text>GRAFENWALDER’S BESTIARY</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c06_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c07" playOrder="11">
+         <navLabel>
+            <text>NIGHTINGALE</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c07_r1.xhtml"/>
+      </navPoint>
+      <navPoint id="c08" playOrder="12">
+         <navLabel>
+            <text>GALACTIC NORTH</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_c08_r1.xhtml"/>
+
+      </navPoint>
+      <navPoint id="aft" playOrder="13">
+         <navLabel>
+            <text>AFTERWORD</text>
+         </navLabel>
+         <content src="reyn_9780441016006_oeb_aft_r1.xhtml"/>
+      </navPoint>
+    </navMap>
+</ncx>
