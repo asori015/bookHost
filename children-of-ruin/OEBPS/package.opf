@@ -1,0 +1,224 @@
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="pub-id" version="3.0" xml:lang="en">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:title>Children of Ruin</dc:title>
+<dc:creator id="creator01">Adrian Tchaikovsky</dc:creator>
+<meta property="role" refines="#creator01" scheme="marc:relators">aut</meta>
+<meta property="file-as" refines="#creator01">TCHAIKOVSKY, ADRIAN</meta>
+<meta property="display-seq" refines="#creator01">1</meta>
+<dc:publisher>Orbit</dc:publisher>
+<dc:rights>Copyright © 2019 by Adrian Czajkowski</dc:rights>
+<dc:date>2019-05-14</dc:date>
+<dc:identifier id="pub-id">9780316452540</dc:identifier>
+<meta property="dcterms:modified">2019-03-18T09:49:19Z</meta>
+<dc:language>en</dc:language>
+<meta content="cover-image" name="cover"/>
+<description xmlns="http://purl.org/dc/elements/1.1/">&lt;b&gt;The astonishing sequel to &lt;i&gt;Children of Time&lt;/i&gt;, the award-winning novel of humanity's battle for survival on a terraformed planet.&lt;/b&gt;&lt;p&gt;&lt;br&gt;&lt;p&gt;Thousands of years ago, Earth's terraforming program took to the stars. On the world they called Nod, scientists discovered alien life - but it was their mission to overwrite it with the memory of Earth. Then humanity's great empire fell, and the program's decisions were lost to time.&lt;p&gt;&lt;br&gt;&lt;p&gt;Aeons later, humanity and its new spider allies detected fragmentary radio signals between the stars. They dispatched an exploration vessel, hoping to find cousins from old Earth.&lt;p&gt;&lt;br&gt;&lt;p&gt;But those ancient terraformers woke something on Nod better left undisturbed.&lt;p&gt;&lt;br&gt;&lt;p&gt;And it's been waiting for them.&lt;p&gt;For more from Adrian Tchaikovsky, check out:&lt;p&gt;&lt;br&gt;&lt;p&gt;&lt;i&gt;Children of Time&lt;/i&gt;</description>
+</metadata>
+<manifest>
+<item href="cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+<item href="images/9780316452540.jpg" id="cover-image" media-type="image/jpeg" properties="cover-image"/>
+<item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+<item href="css/stylesheet.css" id="style" media-type="text/css"/>
+<item href="css/discover-page.css" id="style1" media-type="text/css"/>
+<item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+<item href="copyright.xhtml" id="copyright" media-type="application/xhtml+xml"/>
+<item href="toc.xhtml" id="toc" media-type="application/xhtml+xml"/>
+<item href="images/publisher-logo.png" id="apublisherlogo" media-type="image/png"/>
+<item href="images/Art_tit.jpg" id="aArt_tit" media-type="image/jpeg"/>
+<item href="images/Art_sborn3.jpg" id="aArt_sborn3" media-type="image/jpeg"/>
+<item href="images/Art_sborn1.jpg" id="aArt_sborn1" media-type="image/jpeg"/>
+<item href="images/Art_logo.jpg" id="aArt_logo" media-type="image/jpeg"/>
+<item href="images/Art_author.jpg" id="aArt_author" media-type="image/jpeg"/>
+<item href="praise.xhtml" id="praise" media-type="application/xhtml+xml"/>
+<item href="ad-card.xhtml" id="ad-card" media-type="application/xhtml+xml"/>
+<item href="dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
+<item href="epigraph.xhtml" id="epigraph" media-type="application/xhtml+xml"/>
+<item href="part001.xhtml" id="part001" media-type="application/xhtml+xml"/>
+<item href="chapter001.xhtml" id="chapter001" media-type="application/xhtml+xml"/>
+<item href="chapter002.xhtml" id="chapter002" media-type="application/xhtml+xml"/>
+<item href="chapter003.xhtml" id="chapter003" media-type="application/xhtml+xml"/>
+<item href="chapter004.xhtml" id="chapter004" media-type="application/xhtml+xml"/>
+<item href="chapter005.xhtml" id="chapter005" media-type="application/xhtml+xml"/>
+<item href="chapter006.xhtml" id="chapter006" media-type="application/xhtml+xml"/>
+<item href="part002.xhtml" id="part002" media-type="application/xhtml+xml"/>
+<item href="chapter007.xhtml" id="chapter007" media-type="application/xhtml+xml"/>
+<item href="chapter008.xhtml" id="chapter008" media-type="application/xhtml+xml"/>
+<item href="chapter009.xhtml" id="chapter009" media-type="application/xhtml+xml"/>
+<item href="part003.xhtml" id="part003" media-type="application/xhtml+xml"/>
+<item href="chapter010.xhtml" id="chapter010" media-type="application/xhtml+xml"/>
+<item href="chapter011.xhtml" id="chapter011" media-type="application/xhtml+xml"/>
+<item href="chapter012.xhtml" id="chapter012" media-type="application/xhtml+xml"/>
+<item href="chapter013.xhtml" id="chapter013" media-type="application/xhtml+xml"/>
+<item href="chapter014.xhtml" id="chapter014" media-type="application/xhtml+xml"/>
+<item href="chapter015.xhtml" id="chapter015" media-type="application/xhtml+xml"/>
+<item href="chapter016.xhtml" id="chapter016" media-type="application/xhtml+xml"/>
+<item href="part004.xhtml" id="part004" media-type="application/xhtml+xml"/>
+<item href="chapter017.xhtml" id="chapter017" media-type="application/xhtml+xml"/>
+<item href="chapter018.xhtml" id="chapter018" media-type="application/xhtml+xml"/>
+<item href="chapter019.xhtml" id="chapter019" media-type="application/xhtml+xml"/>
+<item href="chapter020.xhtml" id="chapter020" media-type="application/xhtml+xml"/>
+<item href="chapter021.xhtml" id="chapter021" media-type="application/xhtml+xml"/>
+<item href="chapter022.xhtml" id="chapter022" media-type="application/xhtml+xml"/>
+<item href="chapter023.xhtml" id="chapter023" media-type="application/xhtml+xml"/>
+<item href="part005.xhtml" id="part005" media-type="application/xhtml+xml"/>
+<item href="chapter024.xhtml" id="chapter024" media-type="application/xhtml+xml"/>
+<item href="chapter025.xhtml" id="chapter025" media-type="application/xhtml+xml"/>
+<item href="chapter026.xhtml" id="chapter026" media-type="application/xhtml+xml"/>
+<item href="chapter027.xhtml" id="chapter027" media-type="application/xhtml+xml"/>
+<item href="chapter028.xhtml" id="chapter028" media-type="application/xhtml+xml"/>
+<item href="chapter029.xhtml" id="chapter029" media-type="application/xhtml+xml"/>
+<item href="chapter030.xhtml" id="chapter030" media-type="application/xhtml+xml"/>
+<item href="chapter031.xhtml" id="chapter031" media-type="application/xhtml+xml"/>
+<item href="chapter032.xhtml" id="chapter032" media-type="application/xhtml+xml"/>
+<item href="part006.xhtml" id="part006" media-type="application/xhtml+xml"/>
+<item href="chapter033.xhtml" id="chapter033" media-type="application/xhtml+xml"/>
+<item href="chapter034.xhtml" id="chapter034" media-type="application/xhtml+xml"/>
+<item href="chapter035.xhtml" id="chapter035" media-type="application/xhtml+xml"/>
+<item href="chapter036.xhtml" id="chapter036" media-type="application/xhtml+xml"/>
+<item href="chapter037.xhtml" id="chapter037" media-type="application/xhtml+xml"/>
+<item href="chapter038.xhtml" id="chapter038" media-type="application/xhtml+xml"/>
+<item href="chapter039.xhtml" id="chapter039" media-type="application/xhtml+xml"/>
+<item href="chapter040.xhtml" id="chapter040" media-type="application/xhtml+xml"/>
+<item href="part007.xhtml" id="part007" media-type="application/xhtml+xml"/>
+<item href="chapter041.xhtml" id="chapter041" media-type="application/xhtml+xml"/>
+<item href="chapter042.xhtml" id="chapter042" media-type="application/xhtml+xml"/>
+<item href="chapter043.xhtml" id="chapter043" media-type="application/xhtml+xml"/>
+<item href="chapter044.xhtml" id="chapter044" media-type="application/xhtml+xml"/>
+<item href="chapter045.xhtml" id="chapter045" media-type="application/xhtml+xml"/>
+<item href="chapter046.xhtml" id="chapter046" media-type="application/xhtml+xml"/>
+<item href="chapter047.xhtml" id="chapter047" media-type="application/xhtml+xml"/>
+<item href="chapter048.xhtml" id="chapter048" media-type="application/xhtml+xml"/>
+<item href="part008.xhtml" id="part008" media-type="application/xhtml+xml"/>
+<item href="chapter049.xhtml" id="chapter049" media-type="application/xhtml+xml"/>
+<item href="chapter050.xhtml" id="chapter050" media-type="application/xhtml+xml"/>
+<item href="chapter051.xhtml" id="chapter051" media-type="application/xhtml+xml"/>
+<item href="chapter052.xhtml" id="chapter052" media-type="application/xhtml+xml"/>
+<item href="chapter053.xhtml" id="chapter053" media-type="application/xhtml+xml"/>
+<item href="chapter054.xhtml" id="chapter054" media-type="application/xhtml+xml"/>
+<item href="chapter055.xhtml" id="chapter055" media-type="application/xhtml+xml"/>
+<item href="chapter056.xhtml" id="chapter056" media-type="application/xhtml+xml"/>
+<item href="chapter057.xhtml" id="chapter057" media-type="application/xhtml+xml"/>
+<item href="chapter058.xhtml" id="chapter058" media-type="application/xhtml+xml"/>
+<item href="chapter059.xhtml" id="chapter059" media-type="application/xhtml+xml"/>
+<item href="chapter060.xhtml" id="chapter060" media-type="application/xhtml+xml"/>
+<item href="chapter061.xhtml" id="chapter061" media-type="application/xhtml+xml"/>
+<item href="chapter062.xhtml" id="chapter062" media-type="application/xhtml+xml"/>
+<item href="chapter063.xhtml" id="chapter063" media-type="application/xhtml+xml"/>
+<item href="chapter064.xhtml" id="chapter064" media-type="application/xhtml+xml"/>
+<item href="chapter065.xhtml" id="chapter065" media-type="application/xhtml+xml"/>
+<item href="chapter066.xhtml" id="chapter066" media-type="application/xhtml+xml"/>
+<item href="chapter067.xhtml" id="chapter067" media-type="application/xhtml+xml"/>
+<item href="chapter068.xhtml" id="chapter068" media-type="application/xhtml+xml"/>
+<item href="part009.xhtml" id="part009" media-type="application/xhtml+xml"/>
+<item href="discover-page_pre.xhtml" id="discover-page_pre" media-type="application/xhtml+xml"/>
+<item href="discover-page.xhtml" id="discover-page" media-type="application/xhtml+xml"/>
+<item href="chapter069.xhtml" id="chapter069" media-type="application/xhtml+xml"/>
+<item href="acknowledgements.xhtml" id="acknowledgements" media-type="application/xhtml+xml"/>
+<item href="appendix001.xhtml" id="appendix001" media-type="application/xhtml+xml"/>
+<item href="personblurb.xhtml" id="personblurb" media-type="application/xhtml+xml"/>
+<item href="teaser001.xhtml" id="teaser001" media-type="application/xhtml+xml"/>
+<item href="teaser002.xhtml" id="teaser002" media-type="application/xhtml+xml"/>
+<item href="nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+</manifest>
+<spine page-progression-direction="ltr" toc="ncx">
+<itemref idref="cover" linear="yes"/>
+<itemref idref="titlepage" linear="yes"/>
+<itemref idref="copyright" linear="yes"/>
+<itemref idref="toc" linear="yes"/>
+<itemref idref="dedication" linear="yes"/>
+<itemref idref="discover-page_pre" linear="yes"/>
+<itemref idref="epigraph" linear="yes"/>
+<itemref idref="part001" linear="yes"/>
+<itemref idref="chapter001" linear="yes"/>
+<itemref idref="chapter002" linear="yes"/>
+<itemref idref="chapter003" linear="yes"/>
+<itemref idref="chapter004" linear="yes"/>
+<itemref idref="chapter005" linear="yes"/>
+<itemref idref="chapter006" linear="yes"/>
+<itemref idref="part002" linear="yes"/>
+<itemref idref="chapter007" linear="yes"/>
+<itemref idref="chapter008" linear="yes"/>
+<itemref idref="chapter009" linear="yes"/>
+<itemref idref="part003" linear="yes"/>
+<itemref idref="chapter010" linear="yes"/>
+<itemref idref="chapter011" linear="yes"/>
+<itemref idref="chapter012" linear="yes"/>
+<itemref idref="chapter013" linear="yes"/>
+<itemref idref="chapter014" linear="yes"/>
+<itemref idref="chapter015" linear="yes"/>
+<itemref idref="chapter016" linear="yes"/>
+<itemref idref="part004" linear="yes"/>
+<itemref idref="chapter017" linear="yes"/>
+<itemref idref="chapter018" linear="yes"/>
+<itemref idref="chapter019" linear="yes"/>
+<itemref idref="chapter020" linear="yes"/>
+<itemref idref="chapter021" linear="yes"/>
+<itemref idref="chapter022" linear="yes"/>
+<itemref idref="chapter023" linear="yes"/>
+<itemref idref="part005" linear="yes"/>
+<itemref idref="chapter024" linear="yes"/>
+<itemref idref="chapter025" linear="yes"/>
+<itemref idref="chapter026" linear="yes"/>
+<itemref idref="chapter027" linear="yes"/>
+<itemref idref="chapter028" linear="yes"/>
+<itemref idref="chapter029" linear="yes"/>
+<itemref idref="chapter030" linear="yes"/>
+<itemref idref="chapter031" linear="yes"/>
+<itemref idref="chapter032" linear="yes"/>
+<itemref idref="part006" linear="yes"/>
+<itemref idref="chapter033" linear="yes"/>
+<itemref idref="chapter034" linear="yes"/>
+<itemref idref="chapter035" linear="yes"/>
+<itemref idref="chapter036" linear="yes"/>
+<itemref idref="chapter037" linear="yes"/>
+<itemref idref="chapter038" linear="yes"/>
+<itemref idref="chapter039" linear="yes"/>
+<itemref idref="chapter040" linear="yes"/>
+<itemref idref="part007" linear="yes"/>
+<itemref idref="chapter041" linear="yes"/>
+<itemref idref="chapter042" linear="yes"/>
+<itemref idref="chapter043" linear="yes"/>
+<itemref idref="chapter044" linear="yes"/>
+<itemref idref="chapter045" linear="yes"/>
+<itemref idref="chapter046" linear="yes"/>
+<itemref idref="chapter047" linear="yes"/>
+<itemref idref="chapter048" linear="yes"/>
+<itemref idref="part008" linear="yes"/>
+<itemref idref="chapter049" linear="yes"/>
+<itemref idref="chapter050" linear="yes"/>
+<itemref idref="chapter051" linear="yes"/>
+<itemref idref="chapter052" linear="yes"/>
+<itemref idref="chapter053" linear="yes"/>
+<itemref idref="chapter054" linear="yes"/>
+<itemref idref="chapter055" linear="yes"/>
+<itemref idref="chapter056" linear="yes"/>
+<itemref idref="chapter057" linear="yes"/>
+<itemref idref="chapter058" linear="yes"/>
+<itemref idref="chapter059" linear="yes"/>
+<itemref idref="chapter060" linear="yes"/>
+<itemref idref="chapter061" linear="yes"/>
+<itemref idref="chapter062" linear="yes"/>
+<itemref idref="chapter063" linear="yes"/>
+<itemref idref="chapter064" linear="yes"/>
+<itemref idref="chapter065" linear="yes"/>
+<itemref idref="chapter066" linear="yes"/>
+<itemref idref="chapter067" linear="yes"/>
+<itemref idref="chapter068" linear="yes"/>
+<itemref idref="part009" linear="yes"/>
+<itemref idref="chapter069" linear="yes"/>
+<itemref idref="acknowledgements" linear="yes"/>
+<itemref idref="discover-page" linear="yes"/>
+<itemref idref="appendix001" linear="yes"/>
+<itemref idref="personblurb" linear="yes"/>
+<itemref idref="teaser001" linear="yes"/>
+<itemref idref="teaser002" linear="yes"/>
+<itemref idref="ad-card" linear="yes"/>
+<itemref idref="praise" linear="yes"/>
+</spine>
+<guide>
+<reference href="copyright.xhtml" title="Copyright" type="copyright"/>
+<reference href="cover.xhtml" title="Begin Reading" type="start"/>
+<reference href="toc.xhtml" title="Table of Contents" type="toc"/>
+<reference href="cover.xhtml" title="Cover Image" type="cover"/>
+</guide>
+</package>

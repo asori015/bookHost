@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+<head>
+<meta name="dtb:uid" content="9780316452540"/>
+<meta name="dtb:depth" content="2"/>
+<meta name="dtb:totalPageCount" content="0"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle><text>Children Of Ruin</text></docTitle>
+<docAuthor><text>Adrian Tchaikovsky</text></docAuthor>
+<navMap>
+<navPoint playOrder="1" id="cover-1"><navLabel><text>COVER</text></navLabel><content src="cover.xhtml"/></navPoint>
+<navPoint playOrder="2" id="cover-2"><navLabel><text>TITLE PAGE</text></navLabel><content src="titlepage.xhtml"/></navPoint>
+<navPoint playOrder="3" id="cover-3"><navLabel><text>COPYRIGHT</text></navLabel><content src="copyright.xhtml"/></navPoint>
+<navPoint playOrder="4" id="cover-4"><navLabel><text>TABLE OF CONTENTS</text></navLabel><content src="toc.xhtml"/></navPoint>
+<navPoint playOrder="5" id="cover-5"><navLabel><text>DEDICATION</text></navLabel><content src="dedication.xhtml"/></navPoint>
+<navPoint playOrder="6" id="cover-6"><navLabel><text>EPIGRAPH</text></navLabel><content src="epigraph.xhtml"/></navPoint>
+<navPoint playOrder="7" id="cover-7"><navLabel><text>PAST 1: JUST ANOTHER GENESIS</text></navLabel><content src="part001.xhtml"/>
+<navPoint playOrder="8" id="cover-8"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter001.xhtml"/></navPoint>
+<navPoint playOrder="9" id="cover-9"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter002.xhtml"/></navPoint>
+<navPoint playOrder="10" id="cover-10"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter003.xhtml"/></navPoint>
+<navPoint playOrder="11" id="cover-11"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter004.xhtml"/></navPoint>
+<navPoint playOrder="12" id="cover-12"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter005.xhtml"/></navPoint>
+<navPoint playOrder="13" id="cover-13"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter006.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="14" id="cover-14"><navLabel><text>PRESENT 1: ROAD TO DAMASCUS</text></navLabel><content src="part002.xhtml"/>
+<navPoint playOrder="15" id="cover-15"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter007.xhtml"/></navPoint>
+<navPoint playOrder="16" id="cover-16"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter008.xhtml"/></navPoint>
+<navPoint playOrder="17" id="cover-17"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter009.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="18" id="cover-18"><navLabel><text>PAST 2: LAND OF MILK AND HONEY</text></navLabel><content src="part003.xhtml"/>
+<navPoint playOrder="19" id="cover-19"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter010.xhtml"/></navPoint>
+<navPoint playOrder="20" id="cover-20"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter011.xhtml"/></navPoint>
+<navPoint playOrder="21" id="cover-21"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter012.xhtml"/></navPoint>
+<navPoint playOrder="22" id="cover-22"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter013.xhtml"/></navPoint>
+<navPoint playOrder="23" id="cover-23"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter014.xhtml"/></navPoint>
+<navPoint playOrder="24" id="cover-24"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter015.xhtml"/></navPoint>
+<navPoint playOrder="25" id="cover-25"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter016.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="26" id="cover-26"><navLabel><text>PRESENT 2: INSIDE THE WHALE</text></navLabel><content src="part004.xhtml"/>
+<navPoint playOrder="27" id="cover-27"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter017.xhtml"/></navPoint>
+<navPoint playOrder="28" id="cover-28"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter018.xhtml"/></navPoint>
+<navPoint playOrder="29" id="cover-29"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter019.xhtml"/></navPoint>
+<navPoint playOrder="30" id="cover-30"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter020.xhtml"/></navPoint>
+<navPoint playOrder="31" id="cover-31"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter021.xhtml"/></navPoint>
+<navPoint playOrder="32" id="cover-32"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter022.xhtml"/></navPoint>
+<navPoint playOrder="33" id="cover-33"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter023.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="34" id="cover-34"><navLabel><text>PAST 3: FOR WE ARE MANY</text></navLabel><content src="part005.xhtml"/>
+<navPoint playOrder="35" id="cover-35"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter024.xhtml"/></navPoint>
+<navPoint playOrder="36" id="cover-36"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter025.xhtml"/></navPoint>
+<navPoint playOrder="37" id="cover-37"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter026.xhtml"/></navPoint>
+<navPoint playOrder="38" id="cover-38"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter027.xhtml"/></navPoint>
+<navPoint playOrder="39" id="cover-39"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter028.xhtml"/></navPoint>
+<navPoint playOrder="40" id="cover-40"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter029.xhtml"/></navPoint>
+<navPoint playOrder="41" id="cover-41"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter030.xhtml"/></navPoint>
+<navPoint playOrder="42" id="cover-42"><navLabel><text>CHAPTER 8.</text></navLabel><content src="chapter031.xhtml"/></navPoint>
+<navPoint playOrder="43" id="cover-43"><navLabel><text>CHAPTER 9.</text></navLabel><content src="chapter032.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="44" id="cover-44"><navLabel><text>PRESENT 3: ROLLING BACK THE STONE</text></navLabel><content src="part006.xhtml"/>
+<navPoint playOrder="45" id="cover-45"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter033.xhtml"/></navPoint>
+<navPoint playOrder="46" id="cover-46"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter034.xhtml"/></navPoint>
+<navPoint playOrder="47" id="cover-47"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter035.xhtml"/></navPoint>
+<navPoint playOrder="48" id="cover-48"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter036.xhtml"/></navPoint>
+<navPoint playOrder="49" id="cover-49"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter037.xhtml"/></navPoint>
+<navPoint playOrder="50" id="cover-50"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter038.xhtml"/></navPoint>
+<navPoint playOrder="51" id="cover-51"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter039.xhtml"/></navPoint>
+<navPoint playOrder="52" id="cover-52"><navLabel><text>CHAPTER 8.</text></navLabel><content src="chapter040.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="53" id="cover-53"><navLabel><text>PAST 4: PILLARS OF SALT</text></navLabel><content src="part007.xhtml"/>
+<navPoint playOrder="54" id="cover-54"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter041.xhtml"/></navPoint>
+<navPoint playOrder="55" id="cover-55"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter042.xhtml"/></navPoint>
+<navPoint playOrder="56" id="cover-56"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter043.xhtml"/></navPoint>
+<navPoint playOrder="57" id="cover-57"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter044.xhtml"/></navPoint>
+<navPoint playOrder="58" id="cover-58"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter045.xhtml"/></navPoint>
+<navPoint playOrder="59" id="cover-59"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter046.xhtml"/></navPoint>
+<navPoint playOrder="60" id="cover-60"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter047.xhtml"/></navPoint>
+<navPoint playOrder="61" id="cover-61"><navLabel><text>CHAPTER 8.</text></navLabel><content src="chapter048.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="62" id="cover-62"><navLabel><text>PRESENT 4: THE FACE OF THE WATERS</text></navLabel><content src="part008.xhtml"/>
+<navPoint playOrder="63" id="cover-63"><navLabel><text>CHAPTER 1.</text></navLabel><content src="chapter049.xhtml"/></navPoint>
+<navPoint playOrder="64" id="cover-64"><navLabel><text>CHAPTER 2.</text></navLabel><content src="chapter050.xhtml"/></navPoint>
+<navPoint playOrder="65" id="cover-65"><navLabel><text>CHAPTER 3.</text></navLabel><content src="chapter051.xhtml"/></navPoint>
+<navPoint playOrder="66" id="cover-66"><navLabel><text>CHAPTER 4.</text></navLabel><content src="chapter052.xhtml"/></navPoint>
+<navPoint playOrder="67" id="cover-67"><navLabel><text>CHAPTER 5.</text></navLabel><content src="chapter053.xhtml"/></navPoint>
+<navPoint playOrder="68" id="cover-68"><navLabel><text>CHAPTER 6.</text></navLabel><content src="chapter054.xhtml"/></navPoint>
+<navPoint playOrder="69" id="cover-69"><navLabel><text>CHAPTER 7.</text></navLabel><content src="chapter055.xhtml"/></navPoint>
+<navPoint playOrder="70" id="cover-70"><navLabel><text>CHAPTER 8.</text></navLabel><content src="chapter056.xhtml"/></navPoint>
+<navPoint playOrder="71" id="cover-71"><navLabel><text>CHAPTER 9.</text></navLabel><content src="chapter057.xhtml"/></navPoint>
+<navPoint playOrder="72" id="cover-72"><navLabel><text>CHAPTER 10.</text></navLabel><content src="chapter058.xhtml"/></navPoint>
+<navPoint playOrder="73" id="cover-73"><navLabel><text>CHAPTER 11.</text></navLabel><content src="chapter059.xhtml"/></navPoint>
+<navPoint playOrder="74" id="cover-74"><navLabel><text>CHAPTER 12.</text></navLabel><content src="chapter060.xhtml"/></navPoint>
+<navPoint playOrder="75" id="cover-75"><navLabel><text>CHAPTER 13.</text></navLabel><content src="chapter061.xhtml"/></navPoint>
+<navPoint playOrder="76" id="cover-76"><navLabel><text>CHAPTER 14.</text></navLabel><content src="chapter062.xhtml"/></navPoint>
+<navPoint playOrder="77" id="cover-77"><navLabel><text>CHAPTER 15.</text></navLabel><content src="chapter063.xhtml"/></navPoint>
+<navPoint playOrder="78" id="cover-78"><navLabel><text>CHAPTER 16.</text></navLabel><content src="chapter064.xhtml"/></navPoint>
+<navPoint playOrder="79" id="cover-79"><navLabel><text>CHAPTER 17.</text></navLabel><content src="chapter065.xhtml"/></navPoint>
+<navPoint playOrder="80" id="cover-80"><navLabel><text>CHAPTER 18.</text></navLabel><content src="chapter066.xhtml"/></navPoint>
+<navPoint playOrder="81" id="cover-81"><navLabel><text>CHAPTER 19.</text></navLabel><content src="chapter067.xhtml"/></navPoint>
+<navPoint playOrder="82" id="cover-82"><navLabel><text>CHAPTER 20.</text></navLabel><content src="chapter068.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="83" id="cover-83"><navLabel><text>FUTURE: WHERE TWO OR THREE SHALL GATHER</text></navLabel><content src="part009.xhtml"/>
+<navPoint playOrder="84" id="cover-84"><navLabel><text>EPILOGUE</text></navLabel><content src="chapter069.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="85" id="cover-85"><navLabel><text>ACKNOWLEDGEMENTS</text></navLabel><content src="acknowledgements.xhtml"/></navPoint>
+<navPoint playOrder="86" id="cover-86"><navLabel><text>DISCOVER MORE</text></navLabel><content src="discover-page.xhtml"/></navPoint>
+<navPoint playOrder="87" id="cover-87"><navLabel><text>EXTRAS</text></navLabel><content src="appendix001.xhtml"/>
+<navPoint playOrder="88" id="cover-88"><navLabel><text>MEET THE AUTHOR</text></navLabel><content src="personblurb.xhtml"/></navPoint>
+<navPoint playOrder="89" id="cover-89"><navLabel><text>A PREVIEW OF "RED MOON"</text></navLabel><content src="teaser001.xhtml"/></navPoint>
+<navPoint playOrder="90" id="cover-90"><navLabel><text>A PREVIEW OF "ROSEWATER"</text></navLabel><content src="teaser002.xhtml"/></navPoint></navPoint>
+<navPoint playOrder="91" id="cover-91"><navLabel><text>BY ADRIAN TCHAIKOVSKY</text></navLabel><content src="ad-card.xhtml"/></navPoint>
+<navPoint playOrder="92" id="cover-92"><navLabel><text>PRAISE FOR ADRIAN TCHAIKOVSKY</text></navLabel><content src="praise.xhtml"/></navPoint>
+</navMap>
+</ncx>
