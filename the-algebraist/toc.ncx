@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta content="03a0870b-03d4-4b07-8f71-81aefa196835" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="calibre (2.43.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>The Algebraist</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="num_1" playOrder="1">
+      <navLabel>
+        <text>About the Author</text>
+      </navLabel>
+      <content src="index_split_001.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_2" playOrder="2">
+      <navLabel>
+        <text>Title Page</text>
+      </navLabel>
+      <content src="index_split_004.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_3" playOrder="3">
+      <navLabel>
+        <text>Copyright Page</text>
+      </navLabel>
+      <content src="index_split_005.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_4" playOrder="4">
+      <navLabel>
+        <text>Dedication</text>
+      </navLabel>
+      <content src="index_split_006.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_5" playOrder="5">
+      <navLabel>
+        <text>ONE: - THE AUTUMN HOUSE</text>
+      </navLabel>
+      <content src="index_split_008.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_6" playOrder="6">
+      <navLabel>
+        <text>TWO: - DESTRUCTIVE RECALL</text>
+      </navLabel>
+      <content src="index_split_009.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_7" playOrder="7">
+      <navLabel>
+        <text>THREE : - NOWHERE LEFT TO FALL</text>
+      </navLabel>
+      <content src="index_split_010.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_8" playOrder="8">
+      <navLabel>
+        <text>FOUR: - EVENTS DURING WARTIME</text>
+      </navLabel>
+      <content src="index_split_012.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_9" playOrder="9">
+      <navLabel>
+        <text>FIVE: - CONDITIONS OF PASSAGE</text>
+      </navLabel>
+      <content src="index_split_014.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_10" playOrder="10">
+      <navLabel>
+        <text>SIX: - THE LAST TRANSFORM</text>
+      </navLabel>
+      <content src="index_split_015.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_11" playOrder="11">
+      <navLabel>
+        <text>EPILOGUE</text>
+      </navLabel>
+      <content src="index_split_017.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_12" playOrder="12">
+      <navLabel>
+        <text>CONSIDER PHLEBAS</text>
+      </navLabel>
+      <content src="index_split_018.html"/>
+    </navPoint>
+    <navPoint class="chapter" id="num_13" playOrder="13">
+      <navLabel>
+        <text>THE PLAYER OF GAMES</text>
+      </navLabel>
+      <content src="index_split_019.html"/>
+    </navPoint>
+  </navMap>
+</ncx>
