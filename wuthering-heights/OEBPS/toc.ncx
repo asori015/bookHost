@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+    <head>
+       <meta name="dtb:uid" content="http://www.hxa7241.org/articles/content/epup-guide_hxa7241_2007_1.epub"/>
+    </head>
+    <docTitle>
+       <text>Wuthering Heights (Barnes &amp; Noble Classics Series)</text>
+    </docTitle>
+    <navMap>
+            <navPoint id="fm1" playOrder="1">
+         <navLabel>
+            <text>From the Pages of Wuthering Heights</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_fm1_r1.html"/>
+      </navPoint>
+      <navPoint id="tp" playOrder="2">
+         <navLabel>
+            <text>Title Page</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_tp_r1.html"/>
+      </navPoint>
+      <navPoint id="cop" playOrder="3">
+         <navLabel>
+            <text>Copyright Page</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_cop_r1.html"/>
+      </navPoint>
+      <navPoint id="ata" playOrder="4">
+         <navLabel>
+            <text>Emily Bront&#235;</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_ata_r1.html"/>
+      </navPoint>
+      <navPoint id="fm2" playOrder="5">
+         <navLabel>
+            <text>The World of Emily Bront&#235; and Wuthering Heights</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_fm2_r1.html"/>
+      </navPoint>
+      <navPoint id="itr" playOrder="6">
+         <navLabel>
+            <text>Introduction</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_itr_r1.html"/>
+      </navPoint>
+      <navPoint id="fm3" playOrder="7">
+         <navLabel>
+            <text>A Note on the Text and Dialect</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_fm3_r1.html"/>
+      </navPoint>
+      <navPoint id="fm4" playOrder="8">
+         <navLabel>
+            <text>Genealogy</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_fm4_r1.html"/>
+      </navPoint>
+      <navPoint id="fm5" playOrder="9">
+         <navLabel>
+            <text>Biographical Notice of Ellis and Acton Bell</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_fm5_r1.html"/>
+      </navPoint>
+      <navPoint id="prf" playOrder="10">
+         <navLabel>
+            <text>EDITOR&#8217;S PREFACE to the new [1850] edition of &#8216;WUTHERING HEIGHTS&#8217;</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_prf_r1.html"/>
+      </navPoint>
+      <navPoint id="c01" playOrder="11">
+         <navLabel>
+            <text>Chapter I</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c01_r1.html"/>
+      </navPoint>
+      <navPoint id="c02" playOrder="12">
+         <navLabel>
+            <text>Chapter II</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c02_r1.html"/>
+      </navPoint>
+      <navPoint id="c03" playOrder="13">
+         <navLabel>
+            <text>Chapter III</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c03_r1.html"/>
+      </navPoint>
+      <navPoint id="c04" playOrder="14">
+         <navLabel>
+            <text>Chapter IV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c04_r1.html"/>
+      </navPoint>
+      <navPoint id="c05" playOrder="15">
+         <navLabel>
+            <text>Chapter V</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c05_r1.html"/>
+      </navPoint>
+      <navPoint id="c06" playOrder="16">
+         <navLabel>
+            <text>Chapter VI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c06_r1.html"/>
+      </navPoint>
+      <navPoint id="c07" playOrder="17">
+         <navLabel>
+            <text>Chapter VII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c07_r1.html"/>
+      </navPoint>
+      <navPoint id="c08" playOrder="18">
+         <navLabel>
+            <text>Chapter VIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c08_r1.html"/>
+      </navPoint>
+      <navPoint id="c09" playOrder="19">
+         <navLabel>
+            <text>Chapter IX</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c09_r1.html"/>
+      </navPoint>
+      <navPoint id="c10" playOrder="20">
+         <navLabel>
+            <text>Chapter X</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c10_r1.html"/>
+      </navPoint>
+      <navPoint id="c11" playOrder="21">
+         <navLabel>
+            <text>Chapter XI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c11_r1.html"/>
+      </navPoint>
+      <navPoint id="c12" playOrder="22">
+         <navLabel>
+            <text>Chapter XII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c12_r1.html"/>
+      </navPoint>
+      <navPoint id="c13" playOrder="23">
+         <navLabel>
+            <text>Chapter XIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c13_r1.html"/>
+      </navPoint>
+      <navPoint id="c14" playOrder="24">
+         <navLabel>
+            <text>Chapter XIV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c14_r1.html"/>
+      </navPoint>
+      <navPoint id="c15" playOrder="25">
+         <navLabel>
+            <text>Chapter XV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c15_r1.html"/>
+      </navPoint>
+      <navPoint id="c16" playOrder="26">
+         <navLabel>
+            <text>Chapter XVI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c16_r1.html"/>
+      </navPoint>
+      <navPoint id="c17" playOrder="27">
+         <navLabel>
+            <text>Chapter XVII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c17_r1.html"/>
+      </navPoint>
+      <navPoint id="c18" playOrder="28">
+         <navLabel>
+            <text>Chapter XVIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c18_r1.html"/>
+      </navPoint>
+      <navPoint id="c19" playOrder="29">
+         <navLabel>
+            <text>Chapter XIX</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c19_r1.html"/>
+      </navPoint>
+      <navPoint id="c20" playOrder="30">
+         <navLabel>
+            <text>Chapter XX</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c20_r1.html"/>
+      </navPoint>
+      <navPoint id="c21" playOrder="31">
+         <navLabel>
+            <text>Chapter XXI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c21_r1.html"/>
+      </navPoint>
+      <navPoint id="c22" playOrder="32">
+         <navLabel>
+            <text>Chapter XXII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c22_r1.html"/>
+      </navPoint>
+      <navPoint id="c23" playOrder="33">
+         <navLabel>
+            <text>Chapter XXIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c23_r1.html"/>
+      </navPoint>
+      <navPoint id="c24" playOrder="34">
+         <navLabel>
+            <text>Chapter XXIV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c24_r1.html"/>
+      </navPoint>
+      <navPoint id="c25" playOrder="35">
+         <navLabel>
+            <text>Chapter XXV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c25_r1.html"/>
+      </navPoint>
+      <navPoint id="c26" playOrder="36">
+         <navLabel>
+            <text>Chapter XXVI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c26_r1.html"/>
+      </navPoint>
+      <navPoint id="c27" playOrder="37">
+         <navLabel>
+            <text>Chapter XXVII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c27_r1.html"/>
+      </navPoint>
+      <navPoint id="c28" playOrder="38">
+         <navLabel>
+            <text>Chapter XXVIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c28_r1.html"/>
+      </navPoint>
+      <navPoint id="c29" playOrder="39">
+         <navLabel>
+            <text>Chapter XXIX</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c29_r1.html"/>
+      </navPoint>
+      <navPoint id="c30" playOrder="40">
+         <navLabel>
+            <text>Chapter XXX</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c30_r1.html"/>
+      </navPoint>
+      <navPoint id="c31" playOrder="41">
+         <navLabel>
+            <text>Chapter XXXI</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c31_r1.html"/>
+      </navPoint>
+      <navPoint id="c32" playOrder="42">
+         <navLabel>
+            <text>Chapter XXXII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c32_r1.html"/>
+      </navPoint>
+      <navPoint id="c33" playOrder="43">
+         <navLabel>
+            <text>Chapter XXXIII</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c33_r1.html"/>
+      </navPoint>
+      <navPoint id="c34" playOrder="44">
+         <navLabel>
+            <text>Chapter XXXIV</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_c34_r1.html"/>
+
+
+      </navPoint>
+      <navPoint id="nts" playOrder="45">
+         <navLabel>
+            <text>Endnotes</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_nts_r1.html"/>
+      </navPoint>
+      <navPoint id="bm1" playOrder="46">
+         <navLabel>
+            <text>Inspired by Wuthering Heights</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_bm1_r1.html"/>
+      </navPoint>
+      <navPoint id="bm2" playOrder="47">
+         <navLabel>
+            <text>Comments &amp; Questions</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_bm2_r1.html"/>
+      </navPoint>
+      <navPoint id="bm3" playOrder="48">
+         <navLabel>
+            <text>For Further Reading</text>
+         </navLabel>
+         <content src="bano_9781411433564_oeb_bm3_r1.html"/>
+      </navPoint>
+</navMap>
+</ncx>
